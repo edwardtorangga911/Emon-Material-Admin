@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="./manifest.json"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 - Halaman Tidak Ditemukan - Emon Material Admin</title>
+
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <script src="./assets/js/tailwind.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--primary)",
+            "primary-hover": "var(--primary-hover)",
+            "on-primary": "var(--on-primary)",
+            surface: "var(--surface)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "surface-container-low": "var(--surface-container-low)",
+            "on-surface": "var(--on-surface)",
+            background: "var(--background)",
+            outline: "var(--outline)"
+          },
+          borderRadius: { DEFAULT: "var(--radius-md)", lg: "var(--radius-md)", xl: "var(--radius-lg)", "2xl": "var(--radius-xl)" },
+          fontFamily: { display: ["var(--font-display)"], body: ["var(--font-body)"] }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex flex-col justify-between">
+
+  <header class="w-full p-4 flex items-center justify-between max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-2">
+      <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
+    </a>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="text-center max-w-md flex flex-col items-center">
+      <div class="w-24 h-24 rounded-3xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+        <span class="material-symbols-outlined text-[48px]">search_off</span>
+      </div>
+      <span class="font-mono text-xs uppercase tracking-widest text-outline font-bold">Error 404 &bull; Resource Not Found</span>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold text-on-surface tracking-tight mt-2">Halaman Tidak Ditemukan</h1>
+      <p class="text-xs text-outline mt-3 leading-relaxed">
+        Modul atau rute yang Anda tuju tidak tersedia atau telah dipindahkan dalam arsitektur dashboard offline ini.
+      </p>
+
+      <div class="flex items-center gap-3 mt-8">
+        <a href="index.html" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold text-xs shadow-md hover:bg-primary-hover transition-all flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">home</span>
+          <span>Kembali ke Dashboard</span>
+        </a>
+        <button onclick="window.history.back()" class="px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface font-semibold text-xs hover:bg-surface-container transition-all">
+          Halaman Sebelumnya
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="p-4 text-center text-xs text-outline">
+    &copy; 2026 Emon Material Admin
+  </footer>
+
+  <script src="./assets/js/emon-theme.js"></script>
+</body>
+</html>

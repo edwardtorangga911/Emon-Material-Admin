@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrasi Akun - Emon Material Admin</title>
+
+  <link rel="manifest" href="./manifest.json"/>
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <script src="./assets/js/tailwind.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--primary)",
+            "primary-hover": "var(--primary-hover)",
+            "on-primary": "var(--on-primary)",
+            secondary: "var(--secondary)",
+            surface: "var(--surface)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "surface-container-low": "var(--surface-container-low)",
+            "surface-container": "var(--surface-container)",
+            "on-surface": "var(--on-surface)",
+            "on-surface-variant": "var(--on-surface-variant)",
+            background: "var(--background)",
+            outline: "var(--outline)",
+            "outline-variant": "var(--outline-variant)"
+          },
+          borderRadius: { DEFAULT: "var(--radius-md)", lg: "var(--radius-md)", xl: "var(--radius-lg)", "2xl": "var(--radius-xl)", full: "var(--radius-full)" },
+          fontFamily: { display: ["var(--font-display)"], body: ["var(--font-body)"] }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex flex-col justify-between">
+
+  <header class="w-full p-4 flex items-center justify-between max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-2">
+      <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
+    </a>
+    <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors">
+      <span class="material-symbols-outlined text-[20px]">contrast</span>
+    </button>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-surface-container-lowest rounded-2xl shadow-xl border border-outline-variant/30 p-8 flex flex-col justify-center">
+      <div class="mb-6 text-center">
+        <h1 class="font-display text-2xl font-bold text-on-surface">Buat Akun Administrator</h1>
+        <p class="text-xs text-outline mt-1">Daftarkan profil pengelola konsol lokal</p>
+      </div>
+
+      <form class="flex flex-col gap-4" onsubmit="event.preventDefault(); window.EmonTheme.showToast('Akun berhasil dibuat! Silakan masuk.'); setTimeout(() => window.location.href='login.html', 800);">
+        <div>
+          <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Nama Lengkap</label>
+          <input required type="text" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="contoh: Edward Torangga"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Email Pengguna</label>
+          <input required type="email" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="admin@domain.id"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Kata Sandi Baru</label>
+          <input required type="password" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Minimal 8 karakter"/>
+        </div>
+
+        <button type="submit" class="w-full h-11 mt-2 rounded-xl bg-primary text-on-primary font-semibold text-sm shadow-md hover:bg-primary-hover transition-all">
+          Daftar Sekarang
+        </button>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-outline-variant/20 text-center text-xs text-outline">
+        Sudah memiliki akun? <a href="login.html" class="font-semibold text-primary hover:underline">Masuk</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="p-4 text-center text-xs text-outline">
+    &copy; 2026 Emon Material Admin
+  </footer>
+
+  <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+</body>
+</html>

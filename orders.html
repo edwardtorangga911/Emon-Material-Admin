@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="./manifest.json"/>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Emon Material Admin - Orders &amp; Sales</title>
@@ -188,7 +189,7 @@
               <span class="material-symbols-outlined text-outline text-[18px]">filter_list</span>
               <span>Filter Tanggal</span>
             </button>
-            <button onclick="window.EmonTheme.downloadJSON()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
+            <button onclick="window.EmonDataGrid.exportToCSV('table', 'emon-orders-export.csv')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
               <span class="material-symbols-outlined text-[18px]">download</span>
               <span>Export CSV</span>
             </button>
@@ -431,7 +432,10 @@
         </div>
       </div>
       <div class="p-4 border-t border-outline-variant/20 bg-surface-container-low flex items-center justify-end gap-2">
-        <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-surface-container-lowest text-on-surface text-xs font-semibold shadow-xs">Cetak Faktur</button>
+        <a href="invoice-print.html" class="px-3.5 py-2 rounded-xl bg-surface-container-lowest text-on-surface text-xs font-semibold shadow-xs flex items-center gap-1 hover:bg-surface-container transition-colors">
+          <span>Lihat Faktur Cetak</span>
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+        </a>
         <button onclick="document.getElementById('modal-order-detail').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-xs">Tutup</button>
       </div>
     </div>

@@ -4,6 +4,7 @@
   "description": "Offline-First Customizable Admin Dashboard Theme combining Google Material 3 and Microsoft Metro UI",
   "main": "index.html",
   "scripts": {
+    "build:css": "tailwindcss -i assets/css/input.css -o assets/css/emon-material.min.css --minify",
     "start": "python3 -m http.server 8080",
     "serve": "python3 -m http.server 8080",
     "dev": "python3 -m http.server 8080"
@@ -24,5 +25,9 @@
     "emon-material-admin"
   ],
   "author": "Edward Torangga",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
 }

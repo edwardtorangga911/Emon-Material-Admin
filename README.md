@@ -49,12 +49,22 @@ Dibuat untuk aplikasi enterprise, intranet pemerintahan/sekolah, sistem kasir/PO
 |---|---|
 | [**`index.html`**](file:///root/Emon-Material-Admin/index.html) | Dashboard Eksekutif utama (Live Tiles, Grafik Telemetri, Gauge NVMe & SLA, Ledger Transaksi, Modal Entri Cepat). |
 | [**`analytics.html`**](file:///root/Emon-Material-Admin/analytics.html) | Analitik telemetri data, grafik mingguan (WAS), dan corong konversi (funnel). |
-| [**`orders.html`**](file:///root/Emon-Material-Admin/orders.html) | Manajemen pesanan & penjualan dengan filter status, pencarian, dan modal rincian transaksi interaktif. |
+| [**`orders.html`**](file:///root/Emon-Material-Admin/orders.html) | Manajemen pesanan & penjualan dengan pengurutan kolom (sorting), filter status, dan modal rincian transaksi. |
 | [**`customers.html`**](file:///root/Emon-Material-Admin/customers.html) | Direktori pelanggan dan anggota, badge status keanggotaan, dan kontak teknis. |
 | [**`components.html`**](file:///root/Emon-Material-Admin/components.html) | Katalog komponen UI lengkap (Tombol, Chip, Badge, Form Input, Dropdown, Toggle, Notifikasi Toast). |
 | [**`settings.html`**](file:///root/Emon-Material-Admin/settings.html) | Pusat konfigurasi tema offline, salin CSS variables, dan pengaturan profil admin. |
+| [**`login.html`**](file:///root/Emon-Material-Admin/login.html) | Layar masuk administrator dengan desain dual-split Metro tile + form Material 3. |
+| [**`register.html`**](file:///root/Emon-Material-Admin/register.html) | Formulir pendaftaran akun administrator baru. |
+| [**`forgot-password.html`**](file:///root/Emon-Material-Admin/forgot-password.html) | Layar pemulihan kata sandi. |
+| [**`invoice-print.html`**](file:///root/Emon-Material-Admin/invoice-print.html) | Faktur penjualan siap cetak (A4 / PDF print-optimized) dengan CSS `@media print`. |
+| [**`404.html`**](file:///root/Emon-Material-Admin/404.html) | Halaman penanganan rute tidak ditemukan bergaya Metro Material. |
 
-### 5. ⚡ Fitur Interaktif Tambahan
+### 5. ⚡ Fitur Engine Baru (v3.2.0)
+- **PWA & Offline Service Worker (`sw.js`)**: Dapat diinstall sebagai aplikasi native desktop/mobile dan tersimpan di cache browser.
+- **Precompiled Production CSS (`emon-material.min.css`)**: File CSS statis terkompilasi hanya berukuran ~65KB untuk performa instan di server/perangkat terbatas.
+- **Client-Side Data Grid Engine**:
+  - Pengurutan tabel interaktif (klik header untuk sortir ASC / DESC).
+  - Ekspor instan tabel ke format CSV & JSON menggunakan native JavaScript `Blob` (tanpa backend).
 - **Command Palette (Ctrl + K / ⌘K)**: Modal pencarian cepat untuk navigasi instan antar menu.
 - **Drawer Kustomisasi Mengambang**: Tombol palet mengambang di pojok layar untuk mengubah tema kapan saja.
 - **Responsive Navigation**: Sidebar kolapsibel (Mini Sidebar mode) dan drawer ramah seluler (*mobile-friendly*).
