@@ -442,6 +442,70 @@
         svg.appendChild(lblText);
       }
     }
+
+    /**
+     * Renders a compact Sparkline into an SVG container
+     * @param {string|SVGElement} target
+     * @param {number[]} data - Array of numerical points
+     * @param {Object} options - { color, fill, strokeWidth, width, height }
+     */
+    static renderSparkline(target, data = [], options = {}) {
+      const svg = typeof target === 'string' ? document.querySelector(target) : target;
+      if (!svg || !data.length) return;
+
+      const width = options.width || 120;
+      const height = options.height || 32;
+      const strokeColor = options.color || 'var(--primary)';
+      const strokeWidth = options.strokeWidth || 2;
+      const filled = options.fill !== false;
+
+      const minVal = Math.min(...data);
+      const maxVal = Math.max(...data);
+      const range = maxVal - minVal || 1;
+      const padY = 4;
+      const padX = 2;
+      const chartW = width - padX * 2;
+      const chartH = height - padY * 2;
+
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.innerHTML = '';
+
+      const stepX = chartW / (data.length - 1);
+      const points = data.map((v, i) => ({
+        x: padX + i * stepX,
+        y: padY + chartH - ((v - minVal) / range) * chartH
+      }));
+
+      if (filled) {
+        const polyPoints = [
+          `${padX},${height}`,
+          ...points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`),
+          `${padX + chartW},${height}`
+        ].join(' ');
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        poly.setAttribute('points', polyPoints);
+        poly.setAttribute('fill', strokeColor);
+        poly.setAttribute('fill-opacity', '0.15');
+        svg.appendChild(poly);
+      }
+
+      const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      polyline.setAttribute('points', points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' '));
+      polyline.setAttribute('fill', 'none');
+      polyline.setAttribute('stroke', strokeColor);
+      polyline.setAttribute('stroke-width', strokeWidth);
+      polyline.setAttribute('stroke-linecap', 'round');
+      polyline.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(polyline);
+
+      const last = points[points.length - 1];
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('cx', last.x);
+      dot.setAttribute('cy', last.y);
+      dot.setAttribute('r', '2.5');
+      dot.setAttribute('fill', strokeColor);
+      svg.appendChild(dot);
+    }
   }
 
   window.EmonCharts = EmonCharts;

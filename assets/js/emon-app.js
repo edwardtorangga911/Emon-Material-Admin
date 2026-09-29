@@ -17,6 +17,10 @@
     initTableSorting();
     initDropdowns();
     initPagination();
+    initScrollToTop();
+    initKeyboardShortcuts();
+    initThemeURLSharing();
+    initA11y();
   });
 
   // 1. Service Worker Registration (PWA)
@@ -458,4 +462,212 @@
   };
 
   window.EmonToast = EmonToast;
+
+  // 12. Scroll-to-Top FAB
+  function initScrollToTop() {
+    const btn = document.createElement('button');
+    btn.id = 'emon-scroll-top';
+    btn.className = 'fixed bottom-20 right-5 z-50 w-10 h-10 rounded-full bg-primary text-on-primary shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 no-print';
+    btn.setAttribute('aria-label', 'Kembali ke atas');
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">arrow_upward</span>';
+    document.body.appendChild(btn);
+
+    const mainEl = document.getElementById('emon-main-content') || window;
+    const scrollTarget = document.getElementById('emon-main-content') || document.documentElement;
+
+    function onScroll() {
+      const top = scrollTarget.scrollTop || window.scrollY;
+      btn.style.opacity = top > 300 ? '1' : '0';
+      btn.style.pointerEvents = top > 300 ? 'auto' : 'none';
+    }
+
+    (document.getElementById('emon-main-content') || window).addEventListener('scroll', onScroll);
+    btn.addEventListener('click', () => {
+      (document.getElementById('emon-main-content') || window).scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // 13. Keyboard Shortcuts Modal (press ?)
+  function initKeyboardShortcuts() {
+    const shortcuts = [
+      { key: 'Ctrl + K', desc: 'Buka Command Palette' },
+      { key: '?', desc: 'Tampilkan shortcut keyboard' },
+      { key: 'Ctrl + D', desc: 'Toggle Dark/Light Mode' },
+      { key: 'Escape', desc: 'Tutup modal / panel aktif' },
+      { key: 'Ctrl + P', desc: 'Cetak halaman' },
+      { key: 'Ctrl + E', desc: 'Ekspor tabel ke CSV' },
+      { key: 'G → H', desc: 'Pergi ke Dashboard (Go Home)' },
+      { key: 'G → O', desc: 'Pergi ke Pesanan' },
+      { key: 'G → R', desc: 'Pergi ke Laporan' }
+    ];
+
+    // Build modal
+    const modal = document.createElement('div');
+    modal.id = 'shortcut-modal';
+    modal.className = 'fixed inset-0 z-[120] hidden items-center justify-center p-4';
+    modal.innerHTML = `
+      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="shortcut-backdrop"></div>
+      <div class="relative bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-md p-6 z-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-on-surface">Keyboard Shortcuts</h2>
+          <button id="shortcut-close" class="p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+        <div class="space-y-2">
+          ${shortcuts.map(s => `
+            <div class="flex items-center justify-between py-2 border-b border-outline-variant/10 last:border-0">
+              <span class="text-sm text-on-surface-variant">${s.desc}</span>
+              <kbd class="px-2 py-1 rounded-lg bg-surface-container text-xs font-mono font-semibold text-on-surface">${s.key}</kbd>
+            </div>
+          `).join('')}
+        </div>
+        <p class="text-xs text-outline mt-4 text-center">Tekan <kbd class="px-1.5 py-0.5 bg-surface-container rounded font-mono">Esc</kbd> untuk tutup</p>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    function openShortcuts() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeShortcuts() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('shortcut-close')?.addEventListener('click', closeShortcuts);
+    document.getElementById('shortcut-backdrop')?.addEventListener('click', closeShortcuts);
+
+    // Sequence tracker for "G → H", "G → O", "G → R"
+    let lastKey = null;
+    let seqTimer = null;
+
+    document.addEventListener('keydown', (e) => {
+      const tag = e.target.tagName;
+      const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(tag) || e.target.isContentEditable;
+
+      // Escape closes any open modal
+      if (e.key === 'Escape') { closeShortcuts(); return; }
+
+      // Ctrl+D → toggle dark
+      if (e.ctrlKey && e.key === 'd') {
+        e.preventDefault();
+        if (window.EmonTheme) EmonTheme.toggleDarkMode?.() || EmonTheme.setMode?.(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+        return;
+      }
+
+      // Ctrl+P → print
+      if (e.ctrlKey && e.key === 'p') { /* allow default */ return; }
+
+      // Ctrl+E → export first table
+      if (e.ctrlKey && e.key === 'e') {
+        e.preventDefault();
+        if (window.EmonDataGrid) EmonDataGrid.exportToCSV('table', 'export.csv');
+        return;
+      }
+
+      if (isInput) return;
+
+      // ? → show shortcuts
+      if (e.key === '?') { openShortcuts(); return; }
+
+      // Sequence navigation
+      if (e.key === 'g' || e.key === 'G') {
+        lastKey = 'g';
+        clearTimeout(seqTimer);
+        seqTimer = setTimeout(() => { lastKey = null; }, 1500);
+        return;
+      }
+      if (lastKey === 'g') {
+        clearTimeout(seqTimer);
+        lastKey = null;
+        if (e.key === 'h' || e.key === 'H') { window.location.href = 'index.html'; return; }
+        if (e.key === 'o' || e.key === 'O') { window.location.href = 'orders.html'; return; }
+        if (e.key === 'r' || e.key === 'R') { window.location.href = 'reports.html'; return; }
+      }
+    });
+  }
+
+  // 14. Theme URL Sharing (encode/decode from query string)
+  function initThemeURLSharing() {
+    // On load: if URL has ?primary= etc, apply them
+    const params = new URLSearchParams(window.location.search);
+    const primary = params.get('primary');
+    const secondary = params.get('secondary');
+    const tertiary = params.get('tertiary');
+    const mode = params.get('mode');
+    const radius = params.get('radius');
+
+    if ((primary || secondary || mode) && window.EmonTheme) {
+      const config = {};
+      if (primary) config.primary = decodeURIComponent(primary);
+      if (secondary) config.secondary = decodeURIComponent(secondary);
+      if (tertiary) config.tertiary = decodeURIComponent(tertiary);
+      if (mode) config.mode = mode;
+      if (radius) config.radius = radius;
+      EmonTheme.applyTheme(config);
+    }
+
+    // Expose shareTheme() globally
+    window.EmonShareTheme = function () {
+      if (!window.EmonTheme) return;
+      const cfg = EmonTheme.config;
+      const url = new URL(window.location.href);
+      url.searchParams.set('primary', cfg.primary);
+      url.searchParams.set('secondary', cfg.secondary);
+      url.searchParams.set('tertiary', cfg.tertiary || '#6833ea');
+      url.searchParams.set('mode', cfg.mode);
+      url.searchParams.set('radius', cfg.radius);
+      // Strip to just path + search
+      const shareURL = url.origin + url.pathname + url.search;
+      navigator.clipboard?.writeText(shareURL).then(() => {
+        if (window.EmonToast) EmonToast.success('Link tema disalin ke clipboard!');
+      }).catch(() => {
+        prompt('Salin link tema ini:', shareURL);
+      });
+      return shareURL;
+    };
+  }
+
+  // 15. Accessibility quick wins
+  function initA11y() {
+    // Add aria-label to icon-only buttons that lack it
+    document.querySelectorAll('button:not([aria-label])').forEach(btn => {
+      if (!btn.textContent.trim() && btn.querySelector('.material-symbols-outlined')) {
+        const icon = btn.querySelector('.material-symbols-outlined').textContent.trim();
+        btn.setAttribute('aria-label', icon.replace(/_/g, ' '));
+      }
+    });
+
+    // Add role="status" to toast container for screen readers
+    let toastCtr = document.getElementById('toast-container');
+    if (!toastCtr) {
+      toastCtr = document.createElement('div');
+      toastCtr.id = 'toast-container';
+      document.body.appendChild(toastCtr);
+    }
+    toastCtr.setAttribute('role', 'status');
+    toastCtr.setAttribute('aria-live', 'polite');
+    toastCtr.setAttribute('aria-atomic', 'false');
+
+    // Focus trap helper for modals
+    document.querySelectorAll('[role="dialog"]').forEach(modal => {
+      modal.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+    });
+  }
+
 })();

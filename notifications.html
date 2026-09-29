@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="id" class="light" data-theme="indigo" data-contrast="standard" data-density="comfortable">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4f46e5"/>
+  <title>Pusat Notifikasi - Emon Material Admin</title>
+
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
+
+  <script src="./assets/js/emon-theme.js"></script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- Mobile Backdrop -->
+  <div id="emon-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-[45] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-outline-variant/30">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+        </div>
+        <div>
+          <span class="font-bold text-sm text-on-surface tracking-tight block">Emon Material</span>
+          <span class="text-[10px] text-outline uppercase font-semibold tracking-wider">Enterprise v1.2</span>
+        </div>
+      </div>
+      <button id="emon-sidebar-close" class="lg:hidden p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">grid_view</span>
+            <span class="sidebar-label">Executive Hub</span>
+          </a>
+          <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">storefront</span>
+            <span class="sidebar-label">E-Commerce</span>
+          </a>
+          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">insights</span>
+            <span class="sidebar-label">Analytics</span>
+          </a>
+          <a href="reports.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">summarize</span>
+            <span class="sidebar-label">Laporan</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chat</span>
+            <span class="sidebar-label">Chat &amp; Pesan</span>
+          </a>
+          <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            <span class="sidebar-label">Kalender</span>
+          </a>
+          <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+            <span class="sidebar-label">Taskboard</span>
+          </a>
+<a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+  <span class="sidebar-label">Kasir / POS</span>
+</a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+            <span class="sidebar-label">Katalog Produk</span>
+          </a>
+          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            <span class="sidebar-label">Pesanan &amp; Sales</span>
+          </a>
+          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">group</span>
+            <span class="sidebar-label">Pelanggan</span>
+          </a>
+          <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">sell</span>
+            <span class="sidebar-label">Paket Harga</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">badge</span>
+            <span class="sidebar-label">Profil User</span>
+          </a>
+          <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">timeline</span>
+            <span class="sidebar-label">Timeline Aktivitas</span>
+          </a>
+          <a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">notifications</span>
+            <span class="sidebar-label">Notifikasi</span>
+          </a>
+<a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">upload_file</span>
+  <span class="sidebar-label">Import Data</span>
+</a>
+          <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">draft</span>
+            <span class="sidebar-label">Blank Page</span>
+          </a>
+          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+            <span class="sidebar-label">Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">widgets</span>
+            <span class="sidebar-label">Live Tiles &amp; Widgets</span>
+          </a>
+          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">category</span>
+            <span class="sidebar-label">Komponen UI</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
+
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-50 flex items-center justify-between px-4 lg:px-6">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Cari halaman, menu... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Toggle Mode">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+        <button id="emon-theme-toggle" class="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Customizer">
+          <span class="material-symbols-outlined text-[20px]">palette</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 mt-16 p-4 lg:p-6 space-y-6 max-w-4xl mx-auto w-full">
+
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <nav class="flex items-center gap-1.5 text-xs text-outline mb-1">
+            <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+            <span>/</span>
+            <span class="text-on-surface font-medium">Pusat Notifikasi</span>
+          </nav>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-xl lg:text-2xl font-bold tracking-tight text-on-surface">Pusat Notifikasi</h1>
+            <span id="unread-count" class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-primary text-on-primary text-[11px] font-bold">12</span>
+          </div>
+          <p class="text-xs text-outline mt-0.5">Kelola semua pemberitahuan sistem dan aktivitas akun Anda.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-mark-all-read" class="emon-ripple px-3.5 py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-xs font-semibold text-on-surface flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">done_all</span>
+            Tandai Semua Dibaca
+          </button>
+          <button id="btn-delete-all" class="emon-ripple px-3.5 py-2 rounded-lg bg-error/10 hover:bg-error/20 text-xs font-semibold text-error flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
+            Hapus Semua
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex items-center gap-1 p-1 bg-surface-container-low rounded-xl w-fit flex-wrap">
+        <button data-notif-filter="all" class="notif-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-primary text-on-primary shadow-sm">
+          Semua
+        </button>
+        <button data-notif-filter="unread" class="notif-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface">
+          Belum Dibaca
+        </button>
+        <button data-notif-filter="alert" class="notif-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface">
+          Alert
+        </button>
+        <button data-notif-filter="info" class="notif-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface">
+          Info
+        </button>
+        <button data-notif-filter="success" class="notif-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface">
+          Sukses
+        </button>
+        <button data-notif-filter="warning" class="notif-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface">
+          Peringatan
+        </button>
+      </div>
+
+      <!-- Notification List -->
+      <div class="bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden">
+        <div id="notif-list" class="divide-y divide-outline-variant/20 p-2 space-y-0.5">
+
+          <!-- 1. alert - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="alert" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-error/15 text-error">
+              <span class="material-symbols-outlined text-[18px]">inventory</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Stok Hampir Habis</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">5 menit lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Stok produk 'MacBook Pro M4' hampir habis (3 unit tersisa). Segera lakukan restock untuk menghindari kehabisan stok.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 2. success - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="success" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-tertiary/15 text-tertiary">
+              <span class="material-symbols-outlined text-[18px]">payments</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Pembayaran Dikonfirmasi</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">12 menit lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Pembayaran TRX-9281 Rp 24.750.000 berhasil dikonfirmasi. Dana telah masuk ke rekening merchant.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 3. info - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="info" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-secondary/15 text-secondary">
+              <span class="material-symbols-outlined text-[18px]">summarize</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Laporan Bulanan Tersedia</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">28 menit lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Laporan bulanan September 2026 siap diunduh. Klik untuk mengakses laporan lengkap performa bisnis bulan ini.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 4. warning - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="warning" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#f59e0b]/15 text-[#f59e0b]">
+              <span class="material-symbols-outlined text-[18px]">local_shipping</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">SLA Pengiriman Turun</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">45 menit lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">SLA pengiriman turun ke 91% - di bawah target 95%. Harap tindak lanjut dengan tim logistik segera.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 5. success - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="success" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-tertiary/15 text-tertiary">
+              <span class="material-symbols-outlined text-[18px]">person_add</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Pelanggan Baru Premium</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">1 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Pelanggan baru: Zulfa Amalia mendaftar sebagai member Premium. Profil telah aktif dan siap dikelola.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 6. alert - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="alert" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-error/15 text-error">
+              <span class="material-symbols-outlined text-[18px]">dns</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Downtime Server Terdeteksi</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">2 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Uptime server sempat turun 3 menit pukul 02:14 WIB. Sistem sudah kembali normal, investigasi sedang berlangsung.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 7. info - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="info" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-secondary/15 text-secondary">
+              <span class="material-symbols-outlined text-[18px]">backup</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Backup Database Selesai</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">3 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Backup database otomatis berhasil pukul 00:00 WIB. Ukuran file backup: 2,4 GB. Retensi 30 hari.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 8. success - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="success" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-tertiary/15 text-tertiary">
+              <span class="material-symbols-outlined text-[18px]">download</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Ekspor CSV Selesai</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">4 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Ekspor data CSV 'transaksi-september.csv' selesai. File siap diunduh selama 24 jam ke depan.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 9. warning - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="warning" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#f59e0b]/15 text-[#f59e0b]">
+              <span class="material-symbols-outlined text-[18px]">api</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Rate Limit API Mendekati Batas</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">5 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Rate limit API payment gateway mendekati batas (87%). Pertimbangkan upgrade paket atau optimasi frekuensi request.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 10. info - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="info" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-secondary/15 text-secondary">
+              <span class="material-symbols-outlined text-[18px]">system_update</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Pembaruan Sistem Berhasil</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">6 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Pembaruan sistem v3.4.0 berhasil diterapkan. Lihat changelog untuk daftar fitur baru dan perbaikan bug.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 11. alert - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="alert" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-error/15 text-error">
+              <span class="material-symbols-outlined text-[18px]">security</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Login IP Baru Terdeteksi</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">8 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Login dari IP baru terdeteksi: 103.xx.xx.xx (Jakarta). Jika ini bukan Anda, segera ubah password akun.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 12. success - unread -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-primary bg-primary/5" data-type="success" data-read="false">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-tertiary/15 text-tertiary">
+              <span class="material-symbols-outlined text-[18px]">currency_exchange</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-on-surface">Refund Berhasil Diproses</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">9 jam lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Refund TRX-9277 Rp 3.450.000 berhasil diproses. Dana akan kembali ke pelanggan dalam 3-5 hari kerja.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 13. info - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="info" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-secondary/10 text-secondary">
+              <span class="material-symbols-outlined text-[18px]">build</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Jadwal Maintenance Server</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">Kemarin</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Jadwal maintenance server Minggu, 4 Okt 2026 pukul 01:00 WIB. Sistem tidak dapat diakses selama ±2 jam.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 14. warning - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="warning" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#f59e0b]/10 text-[#f59e0b]">
+              <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Sertifikat SSL Hampir Kadaluarsa</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">Kemarin</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Sertifikat SSL akan kedaluwarsa dalam 14 hari. Segera perbarui sertifikat untuk menjaga keamanan website.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 15. success - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="success" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-tertiary/10 text-tertiary">
+              <span class="material-symbols-outlined text-[18px]">emoji_events</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Target Penjualan Tercapai</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">2 hari lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Target penjualan bulan September tercapai 122%. Selamat, tim sales berhasil melampaui target bulanan!</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 16. alert - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="alert" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-error/10 text-error">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Pesanan Belum Dibayar</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">2 hari lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Pesanan TRX-9280 belum dibayar selama 24 jam. Sistem akan otomatis membatalkan pesanan jika tidak segera dilunasi.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 17. info - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="info" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-secondary/10 text-secondary">
+              <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Verifikasi Akun Admin</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">3 hari lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">3 pengguna baru menunggu verifikasi akun admin. Kunjungi halaman manajemen pengguna untuk meninjau permintaan.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 18. success - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="success" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-tertiary/10 text-tertiary">
+              <span class="material-symbols-outlined text-[18px]">webhook</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Integrasi Webhook Shopee</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">4 hari lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Integrasi webhook Shopee berhasil terhubung. Sinkronisasi pesanan dan stok akan berjalan secara real-time.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 19. warning - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="warning" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#f59e0b]/10 text-[#f59e0b]">
+              <span class="material-symbols-outlined text-[18px]">hard_drive</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Kapasitas Disk 78%</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">5 hari lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Kapasitas disk server 78% - pertimbangkan upgrade storage atau hapus file log lama untuk membebaskan ruang.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- 20. info - read -->
+          <div class="notif-item flex items-start gap-3 p-4 rounded-xl hover:bg-surface-container/50 transition-colors cursor-pointer border-l-2 border-transparent" data-type="info" data-read="true">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-secondary/10 text-secondary">
+              <span class="material-symbols-outlined text-[18px]">analytics</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-on-surface-variant">Laporan Analitik Mingguan</p>
+                <span class="text-[11px] text-outline whitespace-nowrap">1 minggu lalu</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5 line-clamp-2">Laporan analitik mingguan tersedia di dashboard. Ringkasan performa: trafik naik 14%, konversi 3,2%.</p>
+            </div>
+            <button class="notif-delete shrink-0 p-1 rounded-lg text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="mt-auto py-4 px-6 border-t border-outline-variant/30 text-center text-xs text-outline">
+      &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
+    </footer>
+  </div>
+
+  <script src="./assets/js/emon-charts.js"></script>
+  <script src="./assets/js/emon-anim.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+  <script>
+    // Update unread count on init
+    function updateUnreadCount() {
+      const count = document.querySelectorAll('.notif-item[data-read="false"]').length;
+      const badge = document.getElementById('unread-count');
+      if (badge) badge.textContent = count;
+    }
+
+    // Filter tabs
+    document.querySelectorAll('[data-notif-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Activate tab styles
+        document.querySelectorAll('.notif-tab').forEach(t => {
+          t.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          t.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high', 'hover:text-on-surface');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        btn.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high', 'hover:text-on-surface');
+
+        const filter = btn.dataset.notifFilter;
+        document.querySelectorAll('.notif-item').forEach(item => {
+          if (filter === 'all') {
+            item.style.display = '';
+          } else if (filter === 'unread') {
+            item.style.display = item.dataset.read === 'false' ? '' : 'none';
+          } else {
+            item.style.display = item.dataset.type === filter ? '' : 'none';
+          }
+        });
+      });
+    });
+
+    // Mark all read
+    document.getElementById('btn-mark-all-read')?.addEventListener('click', () => {
+      document.querySelectorAll('.notif-item[data-read="false"]').forEach(item => {
+        item.dataset.read = 'true';
+        item.classList.remove('border-primary', 'bg-primary/5');
+        item.classList.add('border-transparent');
+        // Downgrade font-semibold to font-medium on title
+        const title = item.querySelector('p.font-semibold');
+        if (title) {
+          title.classList.remove('font-semibold', 'text-on-surface');
+          title.classList.add('font-medium', 'text-on-surface-variant');
+        }
+      });
+      updateUnreadCount();
+      if (window.EmonToast) EmonToast.success('Semua notifikasi ditandai sudah dibaca');
+    });
+
+    // Delete individual
+    document.getElementById('notif-list').addEventListener('click', e => {
+      const btn = e.target.closest('.notif-delete');
+      if (!btn) return;
+      e.stopPropagation();
+      const item = btn.closest('.notif-item');
+      if (item) {
+        item.remove();
+        updateUnreadCount();
+      }
+    });
+
+    // Delete all
+    document.getElementById('btn-delete-all')?.addEventListener('click', () => {
+      document.getElementById('notif-list').innerHTML = '<p class="text-center text-on-surface-variant py-12 text-sm">Tidak ada notifikasi</p>';
+      updateUnreadCount();
+    });
+
+    // Init
+    updateUnreadCount();
+  </script>
+</body>
+</html>

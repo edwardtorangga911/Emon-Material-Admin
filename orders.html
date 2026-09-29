@@ -130,6 +130,10 @@
               <span class="material-symbols-outlined text-[18px]">view_kanban</span>
               <span class="sidebar-label">Taskboard</span>
             </a>
+<a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+  <span class="sidebar-label">Kasir / POS</span>
+</a>
           </nav>
         </div>
 
@@ -166,6 +170,14 @@
               <span class="material-symbols-outlined text-[18px]">timeline</span>
               <span class="sidebar-label">Timeline Aktivitas</span>
             </a>
+<a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">notifications</span>
+  <span class="sidebar-label">Notifikasi</span>
+</a>
+<a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">upload_file</span>
+  <span class="sidebar-label">Import Data</span>
+</a>
             <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
               <span class="material-symbols-outlined text-[18px]">draft</span>
               <span class="sidebar-label">Blank Page</span>
@@ -302,7 +314,7 @@
         </div>
 
         <!-- Orders Table Card -->
-        <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 overflow-hidden flex flex-col">
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 overflow-hidden flex flex-col" data-paginate="5">
           
           <!-- Filter Tabs & Search -->
           <div class="p-4 border-b border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -442,23 +454,152 @@
                   </td>
                 </tr>
 
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88206', 'Quantum Dynamics', '$9,800.00', 'Serverless Compute Cluster', 'Completed')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88206</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-1.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Quantum Dynamics</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Serverless Compute Cluster</td>
+                  <td class="py-3 px-4 text-xs text-outline">Corporate Wire</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">Completed</span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$9,800.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88205', 'Polaris Retail Co', '$6,450.00', 'Omnichannel Sync Engine', 'Completed')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88205</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-2.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Polaris Retail Co</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Omnichannel Sync Engine</td>
+                  <td class="py-3 px-4 text-xs text-outline">Bank Transfer (Mandiri)</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">Completed</span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$6,450.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88204', 'Astra Fintech ID', '$22,100.00', 'Dedicated Key Vault S-4', 'Processing')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88204</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-3.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Astra Fintech ID</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Dedicated Key Vault S-4</td>
+                  <td class="py-3 px-4 text-xs text-outline">Virtual Account</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-[#b06000] text-xs font-semibold">Processing</span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$22,100.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88203', 'Zenika Systems', '$3,150.00', 'Hot Standby DB Replica', 'Completed')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88203</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-4.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Zenika Systems</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Hot Standby DB Replica</td>
+                  <td class="py-3 px-4 text-xs text-outline">Kartu Kredit</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">Completed</span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$3,150.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88202', 'Horizon Analytics', '$14,200.00', 'Telemetry Pipeline Scale', 'Completed')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88202</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-1.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Horizon Analytics</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Telemetry Pipeline Scale</td>
+                  <td class="py-3 px-4 text-xs text-outline">Bank Transfer (BCA)</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">Completed</span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$14,200.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88201', 'BitScale Corp', '$8,900.00', 'Container Grid Fleet', 'Cancelled')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88201</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-2.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">BitScale Corp</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Container Grid Fleet</td>
+                  <td class="py-3 px-4 text-xs text-outline">Corporate Wire</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container text-xs font-semibold">Cancelled</span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$8,900.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
               </tbody>
             </table>
-          </div>
-
-          <!-- Pagination -->
-          <div class="p-4 bg-surface-container-low flex items-center justify-between flex-wrap gap-2 text-xs">
-            <span class="text-on-surface-variant">Menampilkan 4 dari 1,482 pesanan</span>
-            <div class="flex items-center gap-1">
-              <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-outline hover:text-on-surface flex items-center justify-center">
-                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
-              </button>
-              <button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold">1</button>
-              <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant">2</button>
-              <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-outline hover:text-on-surface flex items-center justify-center">
-                <span class="material-symbols-outlined text-[18px]">chevron_right</span>
-              </button>
-            </div>
           </div>
         </div>
 

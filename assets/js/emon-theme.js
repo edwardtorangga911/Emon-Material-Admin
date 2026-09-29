@@ -501,14 +501,18 @@
 
         <!-- Customizer Footer Actions -->
         <div class="p-4 border-t border-outline/10 bg-surface-container-low flex flex-col gap-2">
-          <div class="grid grid-cols-2 gap-2">
-            <button type="button" id="btn-copy-css" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs font-semibold shadow-xs transition-colors">
-              <span class="material-symbols-outlined text-[16px] text-primary">content_copy</span>
-              <span>Salin CSS</span>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button type="button" id="btn-copy-css" class="flex items-center justify-center gap-1 py-2 px-2 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs font-semibold shadow-xs transition-colors">
+              <span class="material-symbols-outlined text-[15px] text-primary">content_copy</span>
+              <span>CSS</span>
             </button>
-            <button type="button" id="btn-export-json" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs font-semibold shadow-xs transition-colors">
-              <span class="material-symbols-outlined text-[16px] text-secondary">download</span>
-              <span>Unduh JSON</span>
+            <button type="button" id="btn-export-json" class="flex items-center justify-center gap-1 py-2 px-2 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs font-semibold shadow-xs transition-colors">
+              <span class="material-symbols-outlined text-[15px] text-secondary">download</span>
+              <span>JSON</span>
+            </button>
+            <button type="button" id="btn-share-url" class="flex items-center justify-center gap-1 py-2 px-2 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs font-semibold shadow-xs transition-colors">
+              <span class="material-symbols-outlined text-[15px] text-tertiary">share</span>
+              <span>Bagikan</span>
             </button>
           </div>
           <button type="button" id="btn-reset-theme" class="w-full py-2 px-3 rounded-xl text-outline hover:text-error text-xs font-medium transition-colors flex items-center justify-center gap-1">
@@ -587,6 +591,9 @@
 
       const exportBtn = document.getElementById('btn-export-json');
       if (exportBtn) exportBtn.onclick = () => this.downloadJSON();
+
+      const shareBtn = document.getElementById('btn-share-url');
+      if (shareBtn) shareBtn.onclick = () => window.EmonShareTheme && window.EmonShareTheme();
 
       const resetBtn = document.getElementById('btn-reset-theme');
       if (resetBtn) resetBtn.onclick = () => this.resetDefaults();

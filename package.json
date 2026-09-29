@@ -1,6 +1,6 @@
 {
   "name": "emon-material-admin",
-  "version": "3.2.0",
+  "version": "3.5.0",
   "description": "Offline-First Customizable Admin Dashboard Theme combining Google Material 3 and Microsoft Metro UI",
   "main": "index.html",
   "scripts": {

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id" class="light" data-theme="indigo" data-contrast="standard" data-density="comfortable">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4f46e5"/>
+  <title>Import Data - Emon Material Admin</title>
+
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
+
+  <script src="./assets/js/emon-theme.js"></script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- Mobile Backdrop -->
+  <div id="emon-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-[45] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-outline-variant/30">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+        </div>
+        <div>
+          <span class="font-bold text-sm text-on-surface tracking-tight block">Emon Material</span>
+          <span class="text-[10px] text-outline uppercase font-semibold tracking-wider">Enterprise v1.2</span>
+        </div>
+      </div>
+      <button id="emon-sidebar-close" class="lg:hidden p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">grid_view</span>
+            <span class="sidebar-label">Executive Hub</span>
+          </a>
+          <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">storefront</span>
+            <span class="sidebar-label">E-Commerce</span>
+          </a>
+          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">insights</span>
+            <span class="sidebar-label">Analytics</span>
+          </a>
+          <a href="reports.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">summarize</span>
+            <span class="sidebar-label">Laporan</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chat</span>
+            <span class="sidebar-label">Chat &amp; Pesan</span>
+          </a>
+          <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            <span class="sidebar-label">Kalender</span>
+          </a>
+          <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+            <span class="sidebar-label">Taskboard</span>
+          </a>
+<a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+  <span class="sidebar-label">Kasir / POS</span>
+</a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+            <span class="sidebar-label">Katalog Produk</span>
+          </a>
+          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            <span class="sidebar-label">Pesanan &amp; Sales</span>
+          </a>
+          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">group</span>
+            <span class="sidebar-label">Pelanggan</span>
+          </a>
+          <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">sell</span>
+            <span class="sidebar-label">Paket Harga</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">badge</span>
+            <span class="sidebar-label">Profil User</span>
+          </a>
+          <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">timeline</span>
+            <span class="sidebar-label">Timeline Aktivitas</span>
+          </a>
+<a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">notifications</span>
+  <span class="sidebar-label">Notifikasi</span>
+</a>
+          <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">draft</span>
+            <span class="sidebar-label">Blank Page</span>
+          </a>
+          <a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm transition-all">
+            <span class="material-symbols-outlined text-[18px]">upload_file</span>
+            <span class="sidebar-label">Import Data</span>
+          </a>
+          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+            <span class="sidebar-label">Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">widgets</span>
+            <span class="sidebar-label">Live Tiles &amp; Widgets</span>
+          </a>
+          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">category</span>
+            <span class="sidebar-label">Komponen UI</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
+
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-50 flex items-center justify-between px-4 lg:px-6">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Cari halaman, menu... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Toggle Mode">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+        <button id="emon-theme-toggle" class="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Customizer">
+          <span class="material-symbols-outlined text-[20px]">palette</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 mt-16 p-4 lg:p-6 space-y-6 max-w-7xl mx-auto w-full">
+
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <nav class="flex items-center gap-1.5 text-xs text-outline mb-1">
+            <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+            <span>/</span>
+            <span class="text-on-surface font-medium">Import Data</span>
+          </nav>
+          <h1 class="text-xl lg:text-2xl font-bold tracking-tight text-on-surface">Import Data</h1>
+          <p class="text-xs text-outline">Upload CSV untuk impor massal data produk, pesanan, atau pelanggan</p>
+        </div>
+      </div>
+
+      <!-- Upload Zone -->
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 shadow-xs">
+        <h2 class="text-sm font-bold text-on-surface mb-4 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-primary">cloud_upload</span>
+          Unggah File CSV
+        </h2>
+        <div id="drop-zone" class="border-2 border-dashed border-outline-variant rounded-2xl p-12 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all">
+          <span class="material-symbols-outlined text-[48px] text-outline mb-3 block">upload_file</span>
+          <p class="text-sm font-semibold text-on-surface">Drag &amp; drop file CSV di sini</p>
+          <p class="text-xs text-on-surface-variant mt-1">atau klik untuk pilih file</p>
+          <p class="text-[11px] text-outline mt-3">Maks. 10MB · Format: .csv · UTF-8 encoding</p>
+          <input type="file" id="file-input" accept=".csv" class="hidden">
+        </div>
+      </div>
+
+      <!-- Template Download -->
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 shadow-xs">
+        <h2 class="text-sm font-bold text-on-surface mb-1 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-primary">file_download</span>
+          Unduh Template CSV
+        </h2>
+        <p class="text-xs text-outline mb-4">Gunakan template resmi agar kolom sesuai dengan sistem impor.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Produk -->
+          <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/20 flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+              </span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">Template Produk</p>
+                <p class="text-[11px] text-outline">6 kolom · CSV</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-outline leading-relaxed">id, nama_produk, kategori, harga, stok, deskripsi</p>
+            <button onclick="downloadTemplate('produk')" class="emon-ripple w-full px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-primary-hover transition-colors">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              Unduh Template
+            </button>
+          </div>
+          <!-- Pesanan -->
+          <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/20 flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              </span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">Template Pesanan</p>
+                <p class="text-[11px] text-outline">5 kolom · CSV</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-outline leading-relaxed">id_pesanan, nama_pelanggan, tanggal, total, status</p>
+            <button onclick="downloadTemplate('pesanan')" class="emon-ripple w-full px-3 py-2 rounded-lg bg-secondary text-on-secondary text-xs font-semibold flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              Unduh Template
+            </button>
+          </div>
+          <!-- Pelanggan -->
+          <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/20 flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+                <span class="material-symbols-outlined text-[18px]">group</span>
+              </span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">Template Pelanggan</p>
+                <p class="text-[11px] text-outline">6 kolom · CSV</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-outline leading-relaxed">id, nama, email, telepon, kota, tanggal_daftar</p>
+            <button onclick="downloadTemplate('pelanggan')" class="emon-ripple w-full px-3 py-2 rounded-lg bg-tertiary text-on-tertiary text-xs font-semibold flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              Unduh Template
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Table (hidden initially) -->
+      <div id="preview-section" class="hidden bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 shadow-xs">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-sm font-bold text-on-surface flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">table_view</span>
+              Pratinjau Data
+            </h2>
+            <p class="text-[11px] text-outline mt-0.5">
+              File: <span id="preview-filename" class="font-semibold text-on-surface"></span>
+              · <span id="preview-rowcount" class="font-semibold text-primary"></span> baris terdeteksi
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-cancel" class="px-3.5 py-2 rounded-lg text-on-surface-variant text-xs font-semibold hover:bg-surface-container transition-colors flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+              Batal
+            </button>
+            <button id="btn-import" class="emon-ripple px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold flex items-center gap-1.5 hover:bg-primary-hover transition-colors shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check_circle</span>
+              Import Sekarang
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto rounded-xl border border-outline-variant/20">
+          <table class="w-full text-[11px]">
+            <thead>
+              <tr id="preview-thead" class="bg-surface-container border-b border-outline-variant/20"></tr>
+            </thead>
+            <tbody id="preview-tbody" class="divide-y divide-outline-variant/10"></tbody>
+          </table>
+        </div>
+        <div id="preview-error-note" class="hidden mt-3 flex items-center gap-2 text-[11px] text-error">
+          <span class="material-symbols-outlined text-[16px]">warning</span>
+          Baris dengan latar merah memiliki kolom wajib yang kosong. Periksa sebelum mengimpor.
+        </div>
+      </div>
+
+      <!-- Import History -->
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 shadow-xs">
+        <h2 class="text-sm font-bold text-on-surface mb-4 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-primary">history</span>
+          Riwayat Import
+        </h2>
+        <div class="overflow-x-auto rounded-xl border border-outline-variant/20">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="bg-surface-container border-b border-outline-variant/20 text-[11px] font-bold text-outline uppercase tracking-wider">
+                <th class="px-4 py-3 text-left">Nama File</th>
+                <th class="px-4 py-3 text-left">Tipe</th>
+                <th class="px-4 py-3 text-left">Jumlah Baris</th>
+                <th class="px-4 py-3 text-left">Status</th>
+                <th class="px-4 py-3 text-left">Tanggal</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/10">
+              <tr class="hover:bg-surface-container/50 transition-colors">
+                <td class="px-4 py-3 font-medium text-on-surface">produk_oktober.csv</td>
+                <td class="px-4 py-3 text-on-surface-variant">Produk</td>
+                <td class="px-4 py-3 text-on-surface-variant">248</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Berhasil</span></td>
+                <td class="px-4 py-3 text-on-surface-variant">28 Sep 2026</td>
+              </tr>
+              <tr class="hover:bg-surface-container/50 transition-colors">
+                <td class="px-4 py-3 font-medium text-on-surface">pesanan_q3.csv</td>
+                <td class="px-4 py-3 text-on-surface-variant">Pesanan</td>
+                <td class="px-4 py-3 text-on-surface-variant">1.042</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Berhasil</span></td>
+                <td class="px-4 py-3 text-on-surface-variant">25 Sep 2026</td>
+              </tr>
+              <tr class="hover:bg-surface-container/50 transition-colors">
+                <td class="px-4 py-3 font-medium text-on-surface">pelanggan_baru.csv</td>
+                <td class="px-4 py-3 text-on-surface-variant">Pelanggan</td>
+                <td class="px-4 py-3 text-on-surface-variant">375</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full bg-amber-100 text-[#b06000] text-[10px] font-bold">Sebagian</span></td>
+                <td class="px-4 py-3 text-on-surface-variant">20 Sep 2026</td>
+              </tr>
+              <tr class="hover:bg-surface-container/50 transition-colors">
+                <td class="px-4 py-3 font-medium text-on-surface">produk_salah_format.csv</td>
+                <td class="px-4 py-3 text-on-surface-variant">Produk</td>
+                <td class="px-4 py-3 text-on-surface-variant">0</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-bold">Gagal</span></td>
+                <td class="px-4 py-3 text-on-surface-variant">15 Sep 2026</td>
+              </tr>
+              <tr class="hover:bg-surface-container/50 transition-colors">
+                <td class="px-4 py-3 font-medium text-on-surface">pesanan_agustus.csv</td>
+                <td class="px-4 py-3 text-on-surface-variant">Pesanan</td>
+                <td class="px-4 py-3 text-on-surface-variant">589</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Berhasil</span></td>
+                <td class="px-4 py-3 text-on-surface-variant">01 Sep 2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="mt-auto py-4 px-6 border-t border-outline-variant/30 text-center text-xs text-outline">
+      &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
+    </footer>
+  </div>
+
+  <script src="./assets/js/emon-anim.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+
+  <script>
+  // ── Template downloads via Blob ──────────────────────────────────────────
+  const TEMPLATES = {
+    produk:    'id,nama_produk,kategori,harga,stok,deskripsi\n1,Contoh Produk,Elektronik,150000,50,Deskripsi produk\n',
+    pesanan:   'id_pesanan,nama_pelanggan,tanggal,total,status\nORD-001,Budi Santoso,2026-09-01,250000,Selesai\n',
+    pelanggan: 'id,nama,email,telepon,kota,tanggal_daftar\n1,Ani Rahayu,ani@email.com,0812345678,Jakarta,2026-01-15\n',
+  };
+
+  function downloadTemplate(type) {
+    const csv = TEMPLATES[type];
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'template_' + type + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    if (window.EmonTheme) EmonTheme.showToast('Template ' + type + ' diunduh');
+  }
+
+  // ── CSV parser ────────────────────────────────────────────────────────────
+  function parseCSV(text) {
+    const lines   = text.trim().split(/\r?\n/);
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    const rows    = lines.slice(1).map(line => line.split(',').map(c => c.trim().replace(/^"|"$/g, '')));
+    return { headers, rows };
+  }
+
+  // ── File handling ─────────────────────────────────────────────────────────
+  const dropZone  = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+
+  dropZone.addEventListener('click', () => fileInput.click());
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('border-primary', 'bg-primary/5');
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('border-primary', 'bg-primary/5');
+  });
+
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('border-primary', 'bg-primary/5');
+    handleFile(e.dataTransfer.files[0]);
+  });
+
+  fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+
+  function handleFile(file) {
+    if (!file || !file.name.endsWith('.csv')) {
+      if (window.EmonTheme) EmonTheme.showToast('Hanya file .csv yang diizinkan');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      if (window.EmonTheme) EmonTheme.showToast('File terlalu besar. Maks. 10MB');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => renderPreview(parseCSV(e.target.result), file.name);
+    reader.readAsText(file, 'UTF-8');
+  }
+
+  // ── Preview renderer ──────────────────────────────────────────────────────
+  // Required columns — at least one of each row cell must be non-empty to be valid.
+  // We flag a row as invalid if ALL required columns (first 2) are empty.
+  function renderPreview(data, filename) {
+    const section   = document.getElementById('preview-section');
+    const thead     = document.getElementById('preview-thead');
+    const tbody     = document.getElementById('preview-tbody');
+    const fnEl      = document.getElementById('preview-filename');
+    const rcEl      = document.getElementById('preview-rowcount');
+    const errorNote = document.getElementById('preview-error-note');
+
+    fnEl.textContent = filename;
+    rcEl.textContent = data.rows.length;
+
+    // Build header row
+    thead.innerHTML = data.headers
+      .map(h => `<th class="px-3 py-2.5 text-left font-bold text-outline uppercase tracking-wider">${h}</th>`)
+      .join('');
+
+    // Build up to 10 preview rows; highlight rows with empty required fields
+    const preview = data.rows.slice(0, 10);
+    let hasErrors = false;
+
+    tbody.innerHTML = preview.map(row => {
+      // A row is invalid if the first two cells are empty (required fields heuristic)
+      const invalid = row.slice(0, 2).some(cell => cell === '');
+      if (invalid) hasErrors = true;
+      const rowClass = invalid
+        ? 'bg-error-container/30 border-l-2 border-error'
+        : 'hover:bg-surface-container/50 transition-colors';
+      const cells = data.headers.map((_, i) => {
+        const val = row[i] ?? '';
+        const empty = val === '' && i < 2;
+        return `<td class="px-3 py-2 ${empty ? 'text-error font-semibold' : 'text-on-surface-variant'}">${val === '' ? '—' : val}</td>`;
+      }).join('');
+      return `<tr class="${rowClass}">${cells}</tr>`;
+    }).join('');
+
+    errorNote.classList.toggle('hidden', !hasErrors);
+    section.classList.remove('hidden');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Action buttons ────────────────────────────────────────────────────────
+  document.getElementById('btn-cancel').addEventListener('click', () => {
+    document.getElementById('preview-section').classList.add('hidden');
+    fileInput.value = '';
+  });
+
+  document.getElementById('btn-import').addEventListener('click', () => {
+    if (window.EmonTheme) EmonTheme.showToast('Data berhasil diimpor ke sistem!');
+    document.getElementById('preview-section').classList.add('hidden');
+    fileInput.value = '';
+  });
+  </script>
+
+</body>
+</html>

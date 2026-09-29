@@ -44,22 +44,26 @@ Dibuat untuk aplikasi enterprise, intranet pemerintahan/sekolah, sistem kasir/PO
 - Tidak membutuhkan library pihak ketiga (tanpa Chart.js, tanpa D3, tanpa ApexCharts).
 - Reaktif: Grafik otomatis menyesuaikan warnanya saat pengguna mengganti tema di Customizer.
 
-### 4. 📑 20+ Halaman Lengkap & Siap Pakai (Primer UI Inspired)
+### 4. 📑 24+ Halaman Lengkap & Siap Pakai (Primer UI Inspired)
 | Kategori | Halaman | Keterangan |
 |---|---|---|
 | **Dashboards** | [**`index.html`**](file:///root/Emon-Material-Admin/index.html) | Dashboard Eksekutif utama (Live Tiles, Grafik Telemetri, Gauge NVMe & SLA, Ledger Transaksi, Modal Entri Cepat). |
 | | [**`ecommerce.html`**](file:///root/Emon-Material-Admin/ecommerce.html) | Dashboard E-Commerce (Ringkasan Penjualan, Tren Wilayah, Produk Terlaris, Metrik ARR). |
 | | [**`analytics.html`**](file:///root/Emon-Material-Admin/analytics.html) | Analitik telemetri data, grafik mingguan (WAS), corong konversi, dan sebaran peramban. |
+| | [**`reports.html`**](file:///root/Emon-Material-Admin/reports.html) | Laporan performa bisnis komprehensif, multi-gauge, donut chart, funnel, regional sales, dan ekspor CSV/JSON. |
 | **Applications** | [**`chat.html`**](file:///root/Emon-Material-Admin/chat.html) | Aplikasi Chat & Pesan interaktif, daftar kontak aktif, status online, dan composer pesan. |
 | | [**`calendar.html`**](file:///root/Emon-Material-Admin/calendar.html) | Kalender jadwal kegiatan interaktif (Month/Week/Day), filter kategori, dan modal event. |
-| | [**`taskboard.html`**](file:///root/Emon-Material-Admin/taskboard.html) | Papan kerja Kanban 4-kolom (Backlog, In Progress, Review, Done) dengan kartu tugas dan modal task baru. |
+| | [**`taskboard.html`**](file:///root/Emon-Material-Admin/taskboard.html) | Papan kerja Kanban 4-kolom interaktif dengan HTML5 native Drag & Drop kartu tugas. |
+| | [**`pos.html`**](file:///root/Emon-Material-Admin/pos.html) | Kasir Point of Sale (POS) offline: keranjang belanja reaktif, kalkulasi PPN/kembalian, modal pembayaran, struk print. |
 | **E-Commerce** | [**`products.html`**](file:///root/Emon-Material-Admin/products.html) | Katalog produk grid view dengan rating bintang, filter kategori, badge stok, dan modal tambah produk. |
-| | [**`orders.html`**](file:///root/Emon-Material-Admin/orders.html) | Manajemen pesanan & penjualan dengan pengurutan kolom, filter status, dan modal rincian transaksi. |
+| | [**`orders.html`**](file:///root/Emon-Material-Admin/orders.html) | Manajemen pesanan & penjualan dengan client-side pagination interaktif, sortir kolom, filter status. |
 | | [**`customers.html`**](file:///root/Emon-Material-Admin/customers.html) | Direktori pelanggan dan anggota, badge status keanggotaan, dan kontak teknis. |
 | | [**`pricing.html`**](file:///root/Emon-Material-Admin/pricing.html) | Matriks perbandingan paket harga lisensi transparan (Starter, Pro Enterprise, Dedicated Cluster). |
 | | [**`invoice-print.html`**](file:///root/Emon-Material-Admin/invoice-print.html) | Faktur penjualan siap cetak (A4 / PDF print-optimized) dengan CSS `@media print`. |
 | **Halaman & Akun** | [**`profile.html`**](file:///root/Emon-Material-Admin/profile.html) | Profil pengguna profesional dengan hero avatar, bio, badge keahlian teknis, dan log aktivitas. |
 | | [**`timeline.html`**](file:///root/Emon-Material-Admin/timeline.html) | Timeline vertikal log aktivitas, deployment rilis v1.2, audit keamanan, dan backup snapshot. |
+| | [**`notifications.html`**](file:///root/Emon-Material-Admin/notifications.html) | Pusat Notifikasi lengkap dengan tab filter (Alert, Info, Sukses), badge unread, dan aksi hapus/tandai dibaca. |
+| | [**`data-import.html`**](file:///root/Emon-Material-Admin/data-import.html) | Impor data massal CSV dengan drag-and-drop FileReader, live table preview, validasi kolom, dan unduhan template. |
 | | [**`blank.html`**](file:///root/Emon-Material-Admin/blank.html) | Template halaman kosong (Starter Kit) siap pakai untuk membuat modul baru tanpa mengulang boilerplate. |
 | | [**`lockscreen.html`**](file:///root/Emon-Material-Admin/lockscreen.html) | Layar kunci sesi dengan jam digital aktif, avatar pengguna, input PIN/password, dan verifikasi biometrik. |
 | | [**`login.html`**](file:///root/Emon-Material-Admin/login.html) | Layar masuk administrator dengan desain dual-split Metro tile + form Material 3. |
@@ -71,16 +75,31 @@ Dibuat untuk aplikasi enterprise, intranet pemerintahan/sekolah, sistem kasir/PO
 | | [**`components.html`**](file:///root/Emon-Material-Admin/components.html) | Katalog komponen UI lengkap (Tombol, Chip, Badge, Form Input, Dropdown, Toggle, Notifikasi Toast). |
 | | [**`settings.html`**](file:///root/Emon-Material-Admin/settings.html) | Pusat konfigurasi tema offline, salin CSS variables, dan pengaturan profil admin. |
 
-### 5. ⚡ Fitur Engine Baru (v3.3.0)
-- **Emon Motion Engine (`emon-anim.js`)**: Animasi transisi 60fps native, ripple effect koordinat sentuh, counter angka naik (count-up KPI), dan 3D tile tilt.
-- **PWA & Offline Service Worker (`sw.js`)**: Dapat diinstall sebagai aplikasi native desktop/mobile dan tersimpan di cache browser.
-- **Precompiled Production CSS (`emon-material.min.css`)**: File CSS statis terkompilasi hanya berukuran ~68KB untuk performa instan di server/perangkat terbatas.
-- **Client-Side Data Grid Engine**:
+### 5. ⚡ Fitur Engine Baru (v3.5.0)
+- **Emon Charts Suite (`emon-charts.js`)**:
+  - Area Chart, Bar Chart, Sparkline, Donut/Pie Chart, dan Radial Gauge Chart SVG 100% native tanpa library pihak ketiga.
+- **Emon API Layer (`emon-api.js`)**:
+  - Wrapper fetch offline-first dengan auto mock data fallback saat jaringan tidak tersedia atau offline.
+- **Emon Form Validator (`emon-form.js`)**:
+  - Validasi formulir deklaratif berbasis atribut (`data-validate="required|email|min:6"`) dengan pesan error Material 3 instan.
+- **Emon i18n Engine (`emon-i18n.js`)**:
+  - Sistem multi-bahasa ringan (Bahasa Indonesia & English) dengan auto-render `data-i18n` dan persistensi lokal.
+- **Emon Motion Engine (`emon-anim.js`)**:
+  - Animasi transisi 60fps native, ripple effect koordinat sentuh, counter angka naik (count-up KPI), dan 3D tile tilt.
+- **Client-Side Data Grid & Pagination**:
+  - Client-side pagination otomatis via atribut `data-paginate="N"`.
   - Pengurutan tabel interaktif (klik header untuk sortir ASC / DESC).
   - Ekspor instan tabel ke format CSV & JSON menggunakan native JavaScript `Blob` (tanpa backend).
-- **Command Palette (Ctrl + K / ⌘K)**: Modal pencarian cepat untuk navigasi instan antar menu.
-- **Drawer Kustomisasi Mengambang**: Tombol palet mengambang di pojok layar untuk mengubah tema kapan saja.
-- **Responsive Navigation**: Sidebar kolapsibel (Mini Sidebar mode) dan drawer ramah seluler (*mobile-friendly*).
+- **HTML5 Drag & Drop Kanban**:
+  - Interaksi drag-and-drop antar kolom Kanban di `taskboard.html` tanpa library luar.
+- **Theme URL Sharing**:
+  - Berbagi tautan tema lengkap dengan parameter URL (`?primary=...&secondary=...&mode=...`).
+- **PWA & Offline Service Worker (`sw.js`)**:
+  - Dukungan cache offline v3.5 mencakup seluruh 24 halaman HTML dan pustaka JS pendukung.
+- **Keyboard Shortcuts Navigation**:
+  - Buka panduan tombol pintas dengan menekan tombol `?`, navigasi cepat `G → H` (Home), `G → O` (Orders), `G → R` (Reports), `Ctrl + D` (Dark mode toggle), `Ctrl + E` (Ekspor CSV).
+- **Scroll-to-Top FAB & Aksesibilitas**:
+  - Tombol aksi mengambang otomatis muncul saat scroll, focus trapping modal, dan ARIA attributes.
 
 ---
 

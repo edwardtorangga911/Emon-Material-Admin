@@ -3,7 +3,7 @@
  * Offline-first Cache-First Strategy
  */
 
-const CACHE_NAME = 'emon-material-admin-v3.4';
+const CACHE_NAME = 'emon-material-admin-v3.5';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -14,12 +14,15 @@ const ASSETS_TO_CACHE = [
   './chat.html',
   './calendar.html',
   './taskboard.html',
+  './pos.html',
   './products.html',
   './orders.html',
   './customers.html',
   './pricing.html',
   './profile.html',
   './timeline.html',
+  './notifications.html',
+  './data-import.html',
   './blank.html',
   './lockscreen.html',
   './widgets.html',
@@ -39,6 +42,9 @@ const ASSETS_TO_CACHE = [
   './assets/js/emon-charts.js',
   './assets/js/emon-app.js',
   './assets/js/emon-anim.js',
+  './assets/js/emon-api.js',
+  './assets/js/emon-form.js',
+  './assets/js/emon-i18n.js',
   './assets/images/emon-logo.svg',
   './assets/images/emon-icon.svg',
   './assets/images/avatars/user-admin.svg',

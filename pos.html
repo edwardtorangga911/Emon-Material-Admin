@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="id" class="light" data-theme="indigo" data-contrast="standard" data-density="comfortable">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4f46e5"/>
+  <title>Kasir / Point of Sale - Emon Material Admin</title>
+
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
+
+  <script src="./assets/js/emon-theme.js"></script>
+
+  <style>
+    /* ===== Print Styles - 58mm receipt ===== */
+    @media print {
+      body * { visibility: hidden; }
+      #print-area, #print-area * { visibility: visible; }
+      #print-area {
+        position: fixed;
+        top: 0; left: 0;
+        width: 58mm;
+        font-family: 'Courier New', monospace;
+        font-size: 9pt;
+        color: #000;
+        background: #fff;
+        padding: 4mm;
+        line-height: 1.4;
+      }
+      #print-area .print-divider {
+        border: none;
+        border-top: 1px dashed #000;
+        margin: 2mm 0;
+      }
+      #print-area .print-row {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    /* Category filter active state */
+    .cat-btn.active {
+      background: var(--md-sys-color-primary, #4f46e5);
+      color: var(--md-sys-color-on-primary, #fff);
+    }
+
+    /* Product card hover */
+    .product-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Cart item */
+    .cart-item { border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .cart-item:last-child { border-bottom: none; }
+
+    /* Scrollable cart list */
+    #cart-list { max-height: calc(100vh - 430px); overflow-y: auto; }
+
+    /* Payment modal overlay */
+    #payment-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+    #payment-modal.open { display: flex; }
+
+    /* Method tab active */
+    .method-tab.active {
+      background: var(--md-sys-color-primary, #4f46e5);
+      color: var(--md-sys-color-on-primary, #fff);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- Mobile Backdrop -->
+  <div id="emon-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-[45] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-outline-variant/30">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+        </div>
+        <div>
+          <span class="font-bold text-sm text-on-surface tracking-tight block">Emon Material</span>
+          <span class="text-[10px] text-outline uppercase font-semibold tracking-wider">Enterprise v1.2</span>
+        </div>
+      </div>
+      <button id="emon-sidebar-close" class="lg:hidden p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">grid_view</span>
+            <span class="sidebar-label">Executive Hub</span>
+          </a>
+          <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">storefront</span>
+            <span class="sidebar-label">E-Commerce</span>
+          </a>
+          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">insights</span>
+            <span class="sidebar-label">Analytics</span>
+          </a>
+          <a href="reports.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">summarize</span>
+            <span class="sidebar-label">Laporan</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+            <span class="sidebar-label">Kasir / POS</span>
+          </a>
+          <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chat</span>
+            <span class="sidebar-label">Chat &amp; Pesan</span>
+          </a>
+          <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            <span class="sidebar-label">Kalender</span>
+          </a>
+          <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+            <span class="sidebar-label">Taskboard</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+            <span class="sidebar-label">Katalog Produk</span>
+          </a>
+          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            <span class="sidebar-label">Pesanan &amp; Sales</span>
+          </a>
+          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">group</span>
+            <span class="sidebar-label">Pelanggan</span>
+          </a>
+          <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">sell</span>
+            <span class="sidebar-label">Paket Harga</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">badge</span>
+            <span class="sidebar-label">Profil User</span>
+          </a>
+          <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">timeline</span>
+            <span class="sidebar-label">Timeline Aktivitas</span>
+          </a>
+<a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">notifications</span>
+  <span class="sidebar-label">Notifikasi</span>
+</a>
+<a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">upload_file</span>
+  <span class="sidebar-label">Import Data</span>
+</a>
+          <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">draft</span>
+            <span class="sidebar-label">Blank Page</span>
+          </a>
+          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+            <span class="sidebar-label">Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">widgets</span>
+            <span class="sidebar-label">Live Tiles &amp; Widgets</span>
+          </a>
+          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">category</span>
+            <span class="sidebar-label">Komponen UI</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
+
+    <!-- Header -->
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-50 flex items-center justify-between px-4 lg:px-6 gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors shrink-0">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <!-- Page title in header -->
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[18px] text-primary">point_of_sale</span>
+          </div>
+          <div class="min-w-0">
+            <p class="text-sm font-bold text-on-surface truncate leading-tight">Kasir / Point of Sale</p>
+            <p class="text-[10px] text-outline truncate leading-tight hidden sm:block">Transaksi penjualan real-time</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- POS Header Controls -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Search produk -->
+        <div class="relative hidden sm:flex items-center">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[18px] pointer-events-none">search</span>
+          <input id="product-search" type="text" placeholder="Cari produk..." class="h-9 pl-9 pr-3 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 w-44"/>
+        </div>
+        <!-- Kasir selector -->
+        <select id="kasir-select" class="h-9 px-3 rounded-lg bg-surface-container-low border border-outline-variant/40 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30">
+          <option value="edward">Edward T. (Admin)</option>
+          <option value="rina">Rina S. (Kasir)</option>
+          <option value="budi">Budi H. (Kasir)</option>
+        </select>
+        <!-- Theme toggle -->
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Toggle Mode">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+        <button id="emon-theme-toggle" class="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Customizer">
+          <span class="material-symbols-outlined text-[20px]">palette</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- POS Body: two-column layout -->
+    <main class="flex-1 mt-16 flex overflow-hidden" style="height: calc(100vh - 64px);">
+
+      <!-- LEFT: Product Catalog -->
+      <div class="flex-1 flex flex-col overflow-hidden border-r border-outline-variant/30 p-4 gap-3">
+
+        <!-- Mobile search (shown below sm) -->
+        <div class="flex sm:hidden items-center relative">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[18px] pointer-events-none">search</span>
+          <input id="product-search-mobile" type="text" placeholder="Cari produk..." class="h-9 pl-9 pr-3 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-xs focus:outline-none w-full"/>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="cat-btn active emon-ripple px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-surface-container text-on-surface" data-cat="semua">Semua</button>
+          <button class="cat-btn emon-ripple px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-surface-container text-on-surface" data-cat="elektronik">
+            <span class="material-symbols-outlined text-[13px] align-middle">devices</span> Elektronik
+          </button>
+          <button class="cat-btn emon-ripple px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-surface-container text-on-surface" data-cat="makanan">
+            <span class="material-symbols-outlined text-[13px] align-middle">restaurant</span> Makanan
+          </button>
+          <button class="cat-btn emon-ripple px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-surface-container text-on-surface" data-cat="fashion">
+            <span class="material-symbols-outlined text-[13px] align-middle">style</span> Fashion
+          </button>
+          <!-- Item count badge -->
+          <span id="product-count" class="ml-auto text-[11px] text-outline font-medium">12 produk</span>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="product-grid" class="flex-1 overflow-y-auto">
+          <div id="product-grid-inner" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 pb-2">
+            <!-- Rendered by JS -->
+          </div>
+          <!-- Empty state -->
+          <div id="product-empty" class="hidden flex flex-col items-center justify-center py-16 text-center">
+            <span class="material-symbols-outlined text-[40px] text-outline mb-2">search_off</span>
+            <p class="text-sm font-semibold text-on-surface">Produk tidak ditemukan</p>
+            <p class="text-xs text-outline mt-1">Coba kata kunci atau kategori lain</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Cart -->
+      <div class="w-80 shrink-0 flex flex-col bg-surface-container-low border-l border-outline-variant/20">
+
+        <!-- Cart Header -->
+        <div class="px-4 py-3 border-b border-outline-variant/30 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-primary">shopping_cart</span>
+            <span class="text-sm font-bold text-on-surface">Keranjang</span>
+            <span id="cart-count" class="w-5 h-5 rounded-full bg-primary text-on-primary text-[10px] font-bold flex items-center justify-center">0</span>
+          </div>
+          <button id="clear-cart-btn" class="text-xs text-error hover:underline flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-[14px]">delete_sweep</span>Kosongkan
+          </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-list" class="flex-1 overflow-y-auto px-3 py-2">
+          <!-- Empty cart state -->
+          <div id="cart-empty" class="flex flex-col items-center justify-center py-10 text-center">
+            <span class="material-symbols-outlined text-[40px] text-outline mb-2">shopping_cart</span>
+            <p class="text-xs font-semibold text-on-surface">Keranjang kosong</p>
+            <p class="text-[11px] text-outline mt-1">Klik produk untuk menambahkan</p>
+          </div>
+        </div>
+
+        <!-- Totals & Controls -->
+        <div class="border-t border-outline-variant/30 px-4 py-3 space-y-2.5">
+          <!-- Diskon -->
+          <div class="flex items-center justify-between gap-2">
+            <label class="text-xs text-outline shrink-0">Diskon (%)</label>
+            <input id="discount-input" type="number" min="0" max="100" value="0" class="w-20 h-8 px-2 rounded-lg bg-surface-container border border-outline-variant/40 text-xs text-right text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30"/>
+          </div>
+          <!-- Subtotal -->
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-outline">Subtotal</span>
+            <span id="subtotal-val" class="font-semibold text-on-surface">Rp 0</span>
+          </div>
+          <!-- Diskon amount -->
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-outline">Diskon</span>
+            <span id="discount-val" class="font-semibold text-error">- Rp 0</span>
+          </div>
+          <!-- PPN -->
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-outline">PPN 11%</span>
+            <span id="ppn-val" class="font-semibold text-on-surface">Rp 0</span>
+          </div>
+          <!-- Total -->
+          <div class="flex items-center justify-between pt-1 border-t border-outline-variant/30">
+            <span class="text-sm font-bold text-on-surface">Total</span>
+            <span id="total-val" class="text-base font-extrabold text-primary">Rp 0</span>
+          </div>
+          <!-- Process Payment button -->
+          <button id="pay-btn" onclick="openPaymentModal()" class="emon-ripple w-full h-10 rounded-xl bg-primary hover:bg-primary-hover text-on-primary text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-colors mt-1 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            <span class="material-symbols-outlined text-[18px]">payments</span>
+            Proses Pembayaran
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="hidden lg:block py-3 px-6 border-t border-outline-variant/30 text-center text-xs text-outline">
+      &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
+    </footer>
+  </div>
+
+  <!-- ===================== PAYMENT MODAL ===================== -->
+  <div id="payment-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md mx-4 flex flex-col overflow-hidden" style="max-height: 90vh;">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-outline-variant/30">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px] text-primary">payments</span>
+          <h2 id="modal-title" class="text-sm font-bold text-on-surface">Proses Pembayaran</h2>
+        </div>
+        <button onclick="closePaymentModal()" class="p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="overflow-y-auto p-5 space-y-4">
+        <!-- Order summary in modal -->
+        <div class="bg-surface-container rounded-xl p-3 space-y-1.5">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-outline mb-2">Ringkasan Pesanan</p>
+          <div class="flex justify-between text-xs">
+            <span class="text-outline">Subtotal</span>
+            <span id="m-subtotal" class="font-semibold text-on-surface">Rp 0</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-outline">Diskon</span>
+            <span id="m-discount" class="font-semibold text-error">- Rp 0</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-outline">PPN 11%</span>
+            <span id="m-ppn" class="font-semibold text-on-surface">Rp 0</span>
+          </div>
+          <div class="flex justify-between pt-1.5 border-t border-outline-variant/30">
+            <span class="text-sm font-bold text-on-surface">Total</span>
+            <span id="m-total" class="text-sm font-extrabold text-primary">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- Payment method tabs -->
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-outline mb-2">Metode Pembayaran</p>
+          <div class="flex gap-2">
+            <button class="method-tab active flex-1 flex flex-col items-center gap-1 py-3 rounded-xl bg-surface-container text-on-surface text-xs font-semibold transition-colors" data-method="tunai">
+              <span class="material-symbols-outlined text-[22px]">payments</span>Tunai
+            </button>
+            <button class="method-tab flex-1 flex flex-col items-center gap-1 py-3 rounded-xl bg-surface-container text-on-surface text-xs font-semibold transition-colors" data-method="qris">
+              <span class="material-symbols-outlined text-[22px]">qr_code_scanner</span>QRIS
+            </button>
+            <button class="method-tab flex-1 flex flex-col items-center gap-1 py-3 rounded-xl bg-surface-container text-on-surface text-xs font-semibold transition-colors" data-method="debit">
+              <span class="material-symbols-outlined text-[22px]">credit_card</span>Debit
+            </button>
+          </div>
+        </div>
+
+        <!-- Tunai panel -->
+        <div id="panel-tunai" class="space-y-3">
+          <div>
+            <label class="text-xs text-outline block mb-1">Nominal Diterima (Rp)</label>
+            <input id="cash-input" type="number" min="0" placeholder="0" class="w-full h-10 px-3 rounded-xl bg-surface-container border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30"/>
+          </div>
+          <!-- Quick amount buttons -->
+          <div class="flex gap-2 flex-wrap">
+            <button class="quick-cash emon-ripple px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors" data-amount="50000">50rb</button>
+            <button class="quick-cash emon-ripple px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors" data-amount="100000">100rb</button>
+            <button class="quick-cash emon-ripple px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors" data-amount="200000">200rb</button>
+            <button class="quick-cash emon-ripple px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors" data-amount="500000">500rb</button>
+          </div>
+          <div class="bg-surface-container rounded-xl p-3 flex items-center justify-between">
+            <span class="text-xs font-semibold text-outline">Kembalian</span>
+            <span id="change-val" class="text-lg font-extrabold text-primary">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- QRIS panel -->
+        <div id="panel-qris" class="hidden flex flex-col items-center py-4 gap-3">
+          <div class="w-32 h-32 rounded-2xl bg-surface-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[64px] text-outline">qr_code_2</span>
+          </div>
+          <p class="text-xs text-outline text-center">Scan QR Code di atas menggunakan aplikasi dompet digital (GoPay, OVO, DANA, dll.)</p>
+          <p class="text-xs font-bold text-primary">Total: <span id="qris-total">Rp 0</span></p>
+        </div>
+
+        <!-- Debit panel -->
+        <div id="panel-debit" class="hidden space-y-3">
+          <div class="bg-surface-container rounded-xl p-3 flex items-center gap-3">
+            <span class="material-symbols-outlined text-[28px] text-outline">credit_card</span>
+            <div>
+              <p class="text-xs font-semibold text-on-surface">Tempelkan / Gesek Kartu</p>
+              <p class="text-[11px] text-outline">Arahkan kartu debit ke mesin EDC</p>
+            </div>
+          </div>
+          <p class="text-xs font-bold text-primary text-center">Total: <span id="debit-total">Rp 0</span></p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-4 border-t border-outline-variant/30 flex gap-2">
+        <button onclick="closePaymentModal()" class="emon-ripple flex-1 h-10 rounded-xl bg-surface-container hover:bg-surface-container-high text-xs font-semibold text-on-surface transition-colors">Batal</button>
+        <button id="confirm-pay-btn" onclick="confirmPayment()" class="emon-ripple flex-1 h-10 rounded-xl bg-primary hover:bg-primary-hover text-on-primary text-xs font-bold flex items-center justify-center gap-1.5 transition-colors">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>Konfirmasi
+        </button>
+        <button onclick="printReceipt()" class="emon-ripple h-10 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-xs font-semibold text-on-surface transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">print</span>Struk
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PRINT AREA (hidden, print-only) ===================== -->
+  <div id="print-area" style="display:none; font-family:'Courier New',monospace; font-size:9pt; width:58mm;">
+    <div style="text-align:center; margin-bottom:2mm;">
+      <strong>EMON MATERIAL ADMIN</strong><br/>
+      <span style="font-size:8pt;">Kasir / Point of Sale</span><br/>
+      <span id="pr-date" style="font-size:8pt;"></span>
+    </div>
+    <hr class="print-divider"/>
+    <div id="pr-items"></div>
+    <hr class="print-divider"/>
+    <div class="print-row"><span>Subtotal</span><span id="pr-subtotal"></span></div>
+    <div class="print-row"><span>Diskon</span><span id="pr-discount"></span></div>
+    <div class="print-row"><span>PPN 11%</span><span id="pr-ppn"></span></div>
+    <hr class="print-divider"/>
+    <div class="print-row" style="font-weight:bold;"><span>TOTAL</span><span id="pr-total"></span></div>
+    <div class="print-row"><span>Metode</span><span id="pr-method"></span></div>
+    <div id="pr-change-row" class="print-row"><span>Kembalian</span><span id="pr-change"></span></div>
+    <hr class="print-divider"/>
+    <div id="pr-kasir" style="font-size:8pt;"></div>
+    <div style="text-align:center; margin-top:2mm; font-size:8pt;">Terima kasih atas kunjungan Anda!<br/>*** Simpan Struk Ini ***</div>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script src="./assets/js/emon-charts.js"></script>
+  <script src="./assets/js/emon-anim.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+
+  <script>
+  // ============================================================
+  //  POS DATA & STATE
+  // ============================================================
+  var PRODUCTS = [
+    { id:1,  name:'Kopi Arabika Gayo',   price:95000,  category:'makanan',   icon:'coffee' },
+    { id:2,  name:'Batik Tulis Premium', price:450000, category:'fashion',   icon:'checkroom' },
+    { id:3,  name:'Headphone Sony WH',   price:850000, category:'elektronik',icon:'headphones' },
+    { id:4,  name:'Teh Hijau Organic',   price:45000,  category:'makanan',   icon:'local_cafe' },
+    { id:5,  name:'Kaos Polos Premium',  price:120000, category:'fashion',   icon:'shirt' },
+    { id:6,  name:'Mouse Wireless',      price:185000, category:'elektronik',icon:'mouse' },
+    { id:7,  name:'Minyak Zaitun',       price:89000,  category:'makanan',   icon:'oil_barrel' },
+    { id:8,  name:'Sepatu Kulit',        price:680000, category:'fashion',   icon:'footprint' },
+    { id:9,  name:'Keyboard Mekanikal',  price:650000, category:'elektronik',icon:'keyboard' },
+    { id:10, name:'Selai Kacang',        price:35000,  category:'makanan',   icon:'set_meal' },
+    { id:11, name:'Tas Kulit',           price:380000, category:'fashion',   icon:'shopping_bag' },
+    { id:12, name:'USB Hub 7-port',      price:145000, category:'elektronik',icon:'usb' }
+  ];
+
+  var cart = [];
+  var currentCategory = 'semua';
+  var currentSearch   = '';
+  var currentMethod   = 'tunai';
+
+  // ============================================================
+  //  HELPERS
+  // ============================================================
+  function formatRp(n) {
+    return 'Rp ' + n.toLocaleString('id-ID');
+  }
+
+  function calcTotals() {
+    var subtotal = cart.reduce(function(s, i){ return s + i.price * i.qty; }, 0);
+    var disc     = parseFloat(document.getElementById('discount-input').value) || 0;
+    disc         = Math.min(Math.max(disc, 0), 100);
+    var discAmt  = Math.round(subtotal * disc / 100);
+    var afterDisc= subtotal - discAmt;
+    var ppn      = Math.round(afterDisc * 0.11);
+    var total    = afterDisc + ppn;
+    return { subtotal: subtotal, discAmt: discAmt, ppn: ppn, total: total };
+  }
+
+  // ============================================================
+  //  PRODUCT RENDERING
+  // ============================================================
+  function renderProducts() {
+    var q    = currentSearch.trim().toLowerCase();
+    var cat  = currentCategory;
+    var list = PRODUCTS.filter(function(p){
+      var matchCat  = cat === 'semua' || p.category === cat;
+      var matchSearch = !q || p.name.toLowerCase().indexOf(q) !== -1;
+      return matchCat && matchSearch;
+    });
+
+    var grid  = document.getElementById('product-grid-inner');
+    var empty = document.getElementById('product-empty');
+    document.getElementById('product-count').textContent = list.length + ' produk';
+
+    if (list.length === 0) {
+      grid.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+
+    grid.innerHTML = list.map(function(p){
+      return '<div class="product-card bg-surface-container-lowest rounded-2xl p-3 cursor-pointer hover:bg-surface-container shadow-sm transition-all select-none" ' +
+        'data-id="' + p.id + '" data-name="' + p.name + '" data-price="' + p.price + '" data-category="' + p.category + '" ' +
+        'onclick="addToCart(' + p.id + ')">' +
+        '<div class="w-full h-20 rounded-xl bg-surface-container flex items-center justify-center mb-2">' +
+          '<span class="material-symbols-outlined text-[36px] text-outline">' + p.icon + '</span>' +
+        '</div>' +
+        '<p class="text-xs font-semibold text-on-surface truncate">' + p.name + '</p>' +
+        '<p class="text-xs font-bold text-primary mt-0.5">' + formatRp(p.price) + '</p>' +
+      '</div>';
+    }).join('');
+  }
+
+  // ============================================================
+  //  CART LOGIC
+  // ============================================================
+  function addToCart(id) {
+    var product = null;
+    for (var i = 0; i < PRODUCTS.length; i++) {
+      if (PRODUCTS[i].id === id) { product = PRODUCTS[i]; break; }
+    }
+    if (!product) return;
+
+    var found = false;
+    for (var j = 0; j < cart.length; j++) {
+      if (cart[j].id === id) { cart[j].qty++; found = true; break; }
+    }
+    if (!found) {
+      cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+    }
+    renderCart();
+
+    // Visual feedback: flash the product card
+    var card = document.querySelector('[data-id="' + id + '"].product-card');
+    if (card) {
+      card.style.transform = 'scale(0.95)';
+      setTimeout(function(){ card.style.transform = ''; }, 150);
+    }
+  }
+
+  function changeQty(id, delta) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        cart[i].qty += delta;
+        if (cart[i].qty <= 0) { cart.splice(i, 1); }
+        break;
+      }
+    }
+    renderCart();
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(function(c){ return c.id !== id; });
+    renderCart();
+  }
+
+  function renderCart() {
+    var list    = document.getElementById('cart-list');
+    var empty   = document.getElementById('cart-empty');
+    var countEl = document.getElementById('cart-count');
+    var payBtn  = document.getElementById('pay-btn');
+
+    var totalItems = cart.reduce(function(s, c){ return s + c.qty; }, 0);
+    countEl.textContent = totalItems;
+
+    if (cart.length === 0) {
+      list.innerHTML = '';
+      list.appendChild(empty);
+      empty.classList.remove('hidden');
+      payBtn.setAttribute('disabled', '');
+    } else {
+      empty.classList.add('hidden');
+      var html = cart.map(function(item){
+        return '<div class="cart-item flex items-center gap-2 py-2.5">' +
+          '<div class="flex-1 min-w-0">' +
+            '<p class="text-xs font-semibold text-on-surface truncate">' + item.name + '</p>' +
+            '<p class="text-xs text-primary font-bold">' + formatRp(item.price) + '</p>' +
+          '</div>' +
+          '<div class="flex items-center gap-1 shrink-0">' +
+            '<button onclick="changeQty(' + item.id + ',-1)" class="w-6 h-6 rounded-lg bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors text-sm font-bold">−</button>' +
+            '<span class="w-6 text-center text-xs font-bold text-on-surface">' + item.qty + '</span>' +
+            '<button onclick="changeQty(' + item.id + ',1)" class="w-6 h-6 rounded-lg bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors text-sm font-bold">+</button>' +
+            '<button onclick="removeFromCart(' + item.id + ')" class="w-6 h-6 rounded-lg text-error flex items-center justify-center hover:bg-error/10 transition-colors ml-1">' +
+              '<span class="material-symbols-outlined text-[14px]">delete</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      list.innerHTML = html;
+      payBtn.removeAttribute('disabled');
+    }
+
+    updateTotalsDisplay();
+  }
+
+  function updateTotalsDisplay() {
+    var t = calcTotals();
+    document.getElementById('subtotal-val').textContent = formatRp(t.subtotal);
+    document.getElementById('discount-val').textContent = '- ' + formatRp(t.discAmt);
+    document.getElementById('ppn-val').textContent      = formatRp(t.ppn);
+    document.getElementById('total-val').textContent    = formatRp(t.total);
+  }
+
+  // ============================================================
+  //  PAYMENT MODAL
+  // ============================================================
+  function openPaymentModal() {
+    if (cart.length === 0) return;
+    var t = calcTotals();
+    document.getElementById('m-subtotal').textContent = formatRp(t.subtotal);
+    document.getElementById('m-discount').textContent = '- ' + formatRp(t.discAmt);
+    document.getElementById('m-ppn').textContent      = formatRp(t.ppn);
+    document.getElementById('m-total').textContent    = formatRp(t.total);
+    document.getElementById('qris-total').textContent = formatRp(t.total);
+    document.getElementById('debit-total').textContent = formatRp(t.total);
+    document.getElementById('cash-input').value = '';
+    document.getElementById('change-val').textContent = 'Rp 0';
+    document.getElementById('payment-modal').classList.add('open');
+    switchMethod('tunai');
+  }
+
+  function closePaymentModal() {
+    document.getElementById('payment-modal').classList.remove('open');
+  }
+
+  function switchMethod(method) {
+    currentMethod = method;
+    document.querySelectorAll('.method-tab').forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.method === method);
+    });
+    document.getElementById('panel-tunai').classList.toggle('hidden', method !== 'tunai');
+    document.getElementById('panel-qris').classList.toggle('hidden', method !== 'qris');
+    document.getElementById('panel-debit').classList.toggle('hidden', method !== 'debit');
+  }
+
+  function calcChange() {
+    var t    = calcTotals();
+    var cash = parseFloat(document.getElementById('cash-input').value) || 0;
+    var change = cash - t.total;
+    var el = document.getElementById('change-val');
+    if (change < 0) {
+      el.textContent = '- ' + formatRp(Math.abs(change));
+      el.style.color = 'var(--md-sys-color-error, #b00020)';
+    } else {
+      el.textContent = formatRp(change);
+      el.style.color = '';
+    }
+  }
+
+  function confirmPayment() {
+    if (currentMethod === 'tunai') {
+      var t    = calcTotals();
+      var cash = parseFloat(document.getElementById('cash-input').value) || 0;
+      if (cash < t.total) {
+        document.getElementById('cash-input').focus();
+        document.getElementById('cash-input').classList.add('ring-2', 'ring-red-500');
+        return;
+      }
+    }
+    // Success — clear cart, close modal, show toast-like feedback
+    closePaymentModal();
+    cart = [];
+    renderCart();
+    document.getElementById('discount-input').value = 0;
+    updateTotalsDisplay();
+    showToast('Pembayaran berhasil! Transaksi selesai.');
+  }
+
+  function showToast(msg) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+      'background:var(--md-sys-color-primary,#4f46e5);color:var(--md-sys-color-on-primary,#fff);' +
+      'padding:10px 20px;border-radius:999px;font-size:12px;font-weight:700;z-index:9999;' +
+      'box-shadow:0 4px 16px rgba(0,0,0,0.15);transition:opacity 0.3s;';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); }, 300); }, 2500);
+  }
+
+  // ============================================================
+  //  PRINT RECEIPT
+  // ============================================================
+  function printReceipt() {
+    var t   = calcTotals();
+    var now = new Date();
+    var pad = function(n){ return String(n).padStart(2,'0'); };
+    var dateStr = pad(now.getDate()) + '/' + pad(now.getMonth()+1) + '/' + now.getFullYear() +
+                  ' ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+
+    document.getElementById('pr-date').textContent = dateStr;
+    document.getElementById('pr-items').innerHTML = cart.map(function(item){
+      return '<div>' + item.name + ' x' + item.qty + '</div>' +
+             '<div style="text-align:right;">' + formatRp(item.price * item.qty) + '</div>';
+    }).join('');
+    document.getElementById('pr-subtotal').textContent = formatRp(t.subtotal);
+    document.getElementById('pr-discount').textContent = '- ' + formatRp(t.discAmt);
+    document.getElementById('pr-ppn').textContent      = formatRp(t.ppn);
+    document.getElementById('pr-total').textContent    = formatRp(t.total);
+    document.getElementById('pr-method').textContent   = currentMethod.toUpperCase();
+    document.getElementById('pr-kasir').textContent    = 'Kasir: ' + document.getElementById('kasir-select').value;
+
+    var changeRow = document.getElementById('pr-change-row');
+    if (currentMethod === 'tunai') {
+      var cash   = parseFloat(document.getElementById('cash-input').value) || 0;
+      var change = cash - t.total;
+      document.getElementById('pr-change').textContent = formatRp(Math.max(change, 0));
+      changeRow.style.display = '';
+    } else {
+      changeRow.style.display = 'none';
+    }
+
+    document.getElementById('print-area').style.display = 'block';
+    window.print();
+    setTimeout(function(){ document.getElementById('print-area').style.display = 'none'; }, 500);
+  }
+
+  // ============================================================
+  //  EVENT LISTENERS
+  // ============================================================
+
+  // Category filter buttons
+  document.querySelectorAll('.cat-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      currentCategory = this.dataset.cat;
+      document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      renderProducts();
+    });
+  });
+
+  // Search (desktop)
+  document.getElementById('product-search').addEventListener('input', function(){
+    currentSearch = this.value;
+    var mob = document.getElementById('product-search-mobile');
+    if (mob) mob.value = this.value;
+    renderProducts();
+  });
+
+  // Search (mobile)
+  var mobSearch = document.getElementById('product-search-mobile');
+  if (mobSearch) {
+    mobSearch.addEventListener('input', function(){
+      currentSearch = this.value;
+      document.getElementById('product-search').value = this.value;
+      renderProducts();
+    });
+  }
+
+  // Discount input
+  document.getElementById('discount-input').addEventListener('input', updateTotalsDisplay);
+
+  // Clear cart
+  document.getElementById('clear-cart-btn').addEventListener('click', function(){
+    if (cart.length === 0) return;
+    if (confirm('Kosongkan semua item di keranjang?')) {
+      cart = [];
+      renderCart();
+    }
+  });
+
+  // Payment method tabs
+  document.querySelectorAll('.method-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){ switchMethod(this.dataset.method); });
+  });
+
+  // Cash input → real-time change
+  document.getElementById('cash-input').addEventListener('input', calcChange);
+
+  // Quick cash buttons
+  document.querySelectorAll('.quick-cash').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.getElementById('cash-input').value = this.dataset.amount;
+      calcChange();
+    });
+  });
+
+  // Close modal on backdrop click
+  document.getElementById('payment-modal').addEventListener('click', function(e){
+    if (e.target === this) closePaymentModal();
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closePaymentModal();
+  });
+
+  // ============================================================
+  //  INIT
+  // ============================================================
+  renderProducts();
+  renderCart();
+  </script>
+
+</body>
+</html>

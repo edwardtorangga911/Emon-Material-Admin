@@ -98,6 +98,10 @@
               <span class="material-symbols-outlined text-[18px]">view_kanban</span>
               <span class="sidebar-label">Taskboard</span>
             </a>
+<a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+  <span class="sidebar-label">Kasir / POS</span>
+</a>
           </nav>
         </div>
 
@@ -138,6 +142,14 @@
               <span class="material-symbols-outlined text-[18px]">timeline</span>
               <span class="sidebar-label">Timeline Aktivitas</span>
             </a>
+<a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">notifications</span>
+  <span class="sidebar-label">Notifikasi</span>
+</a>
+<a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+  <span class="material-symbols-outlined text-[18px]">upload_file</span>
+  <span class="sidebar-label">Import Data</span>
+</a>
             <a href="login.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
               <span class="material-symbols-outlined text-[18px]">login</span>
               <span class="sidebar-label">Layar Masuk</span>
@@ -234,8 +246,8 @@
             <span class="px-2 py-0.5 rounded-full bg-surface-container text-[11px] font-bold text-outline">3</span>
           </div>
 
-          <div class="space-y-3" id="col-backlog">
-            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2">
+          <div class="space-y-3" id="col-backlog" data-kanban-body>
+            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2" data-kanban-card>
               <div class="flex items-center justify-between">
                 <span class="px-2 py-0.5 rounded-full bg-surface-container text-[10px] font-bold text-outline">Refactoring</span>
                 <span class="material-symbols-outlined text-[16px] text-outline">more_horiz</span>
@@ -248,7 +260,7 @@
               </div>
             </div>
 
-            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2">
+            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2" data-kanban-card>
               <div class="flex items-center justify-between">
                 <span class="px-2 py-0.5 rounded-full bg-amber-100 text-[#b06000] text-[10px] font-bold">Feature</span>
                 <span class="material-symbols-outlined text-[16px] text-outline">more_horiz</span>
@@ -273,8 +285,8 @@
             <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary text-[11px] font-bold">2</span>
           </div>
 
-          <div class="space-y-3" id="col-progress">
-            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2">
+          <div class="space-y-3" id="col-progress" data-kanban-body>
+            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2" data-kanban-card>
               <div class="flex items-center justify-between">
                 <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-bold">High Priority</span>
                 <span class="material-symbols-outlined text-[16px] text-outline">more_horiz</span>
@@ -299,8 +311,8 @@
             <span class="px-2 py-0.5 rounded-full bg-amber-100 text-[#b06000] text-[11px] font-bold">1</span>
           </div>
 
-          <div class="space-y-3" id="col-review">
-            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2">
+          <div class="space-y-3" id="col-review" data-kanban-body>
+            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-2" data-kanban-card>
               <div class="flex items-center justify-between">
                 <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Audit</span>
                 <span class="material-symbols-outlined text-[16px] text-outline">more_horiz</span>
@@ -325,8 +337,8 @@
             <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[11px] font-bold">4</span>
           </div>
 
-          <div class="space-y-3" id="col-done">
-            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs flex flex-col gap-2 opacity-85">
+          <div class="space-y-3" id="col-done" data-kanban-body>
+            <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-xs flex flex-col gap-2 opacity-85" data-kanban-card>
               <div class="flex items-center justify-between">
                 <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-[10px] font-bold">Done</span>
                 <span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
@@ -386,5 +398,45 @@
   <script src="./assets/js/emon-theme.js"></script>
   <script src="./assets/js/emon-app.js"></script>
   <script src="./assets/js/emon-anim.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let draggedCard = null;
+
+    document.querySelectorAll('[data-kanban-card]').forEach(card => {
+      card.draggable = true;
+      card.addEventListener('dragstart', () => {
+        draggedCard = card;
+        setTimeout(() => card.classList.add('opacity-50'), 0);
+      });
+      card.addEventListener('dragend', () => {
+        card.classList.remove('opacity-50');
+        draggedCard = null;
+        document.querySelectorAll('[data-kanban-body]').forEach(col => {
+          col.classList.remove('ring-2', 'ring-primary/50', 'bg-primary/5');
+        });
+      });
+    });
+
+    document.querySelectorAll('[data-kanban-body]').forEach(colBody => {
+      colBody.addEventListener('dragover', e => {
+        e.preventDefault();
+        colBody.classList.add('ring-2', 'ring-primary/50', 'bg-primary/5');
+      });
+      colBody.addEventListener('dragleave', () => {
+        colBody.classList.remove('ring-2', 'ring-primary/50', 'bg-primary/5');
+      });
+      colBody.addEventListener('drop', e => {
+        e.preventDefault();
+        colBody.classList.remove('ring-2', 'ring-primary/50', 'bg-primary/5');
+        if (draggedCard) {
+          colBody.appendChild(draggedCard);
+          if (window.EmonToast) EmonToast.info('Tugas dipindahkan');
+          else if (window.EmonTheme) EmonTheme.showToast('Tugas dipindahkan');
+        }
+      });
+    });
+  });
+  </script>
 </body>
 </html>
