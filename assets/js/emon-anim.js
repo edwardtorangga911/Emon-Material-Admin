@@ -167,14 +167,13 @@
     }
 
     /**
-     * 4. Staggered Cascade Entrance
+     * 4. Smooth Page Entrance Animation (Anti-glitch)
      */
     initStaggerEntrance() {
-      const items = document.querySelectorAll('.grid > div, tbody tr, .stat-card');
-      items.forEach((item, index) => {
-        item.classList.add('emon-entrance');
-        item.style.animationDelay = `${Math.min(index * 35, 400)}ms`;
-      });
+      const main = document.querySelector('main') || document.getElementById('emon-main-content');
+      if (main && !main.classList.contains('emon-page-enter')) {
+        main.classList.add('emon-page-enter');
+      }
     }
 
     /**

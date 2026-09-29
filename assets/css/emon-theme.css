@@ -217,26 +217,68 @@ body {
   transition: padding-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 #emon-header {
-  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease;
+  border-bottom: 1px solid rgba(193, 198, 214, 0.45);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+}
+
+html.dark #emon-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Anti-glitch: No transitions during initial page boot */
+.no-transitions,
+.no-transitions *,
+.no-transitions *:before,
+.no-transitions *:after {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+/* Smooth page entrance without flickering individual elements */
+@keyframes emonPageEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.emon-page-enter {
+  animation: emonPageEntrance 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Mini Sidebar Mode */
-body.sidebar-mini #emon-sidebar {
+body.sidebar-mini #emon-sidebar,
+html.sidebar-mini-init #emon-sidebar {
   width: 5rem; /* 80px */
 }
-body.sidebar-mini #emon-main-content {
+body.sidebar-mini #emon-main-content,
+html.sidebar-mini-init #emon-main-content {
   padding-left: 5rem;
 }
-body.sidebar-mini #emon-header {
+body.sidebar-mini #emon-header,
+html.sidebar-mini-init #emon-header {
   left: 5rem;
 }
 body.sidebar-mini .sidebar-label,
+html.sidebar-mini-init .sidebar-label,
 body.sidebar-mini .sidebar-badge,
+html.sidebar-mini-init .sidebar-badge,
 body.sidebar-mini .sidebar-section-title,
-body.sidebar-mini .brand-text {
+html.sidebar-mini-init .sidebar-section-title,
+body.sidebar-mini .brand-text,
+html.sidebar-mini-init .brand-text {
   display: none;
 }
-body.sidebar-mini .sidebar-nav-item {
+body.sidebar-mini .sidebar-nav-item,
+html.sidebar-mini-init .sidebar-nav-item {
   justify-content: center;
   padding-left: 0.5rem;
   padding-right: 0.5rem;

@@ -8,6 +8,7 @@
   <link rel="manifest" href="./manifest.json"/>
   <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
   <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <script src="./assets/js/emon-theme-init.js"></script>
   <script src="./assets/js/tailwind.js"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -238,8 +239,9 @@
     </header>
 
     <!-- Chat App Main Layout -->
-    <main class="w-full pt-16 flex-1 flex flex-col p-4 sm:p-6 max-w-[1720px] mx-auto">
-      <div class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden flex flex-col md:flex-row h-[calc(100vh-7rem)]">
+    <main class="w-full pt-16 flex-1 flex flex-col">
+      <div class="p-4 sm:p-6 max-w-[1720px] mx-auto w-full flex-1 flex flex-col">
+        <div class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden flex flex-col md:flex-row h-[calc(100vh-7rem)]">
         
         <!-- Left: Conversations List -->
         <div class="w-full md:w-80 border-r border-outline-variant/20 flex flex-col bg-surface-container-low">
@@ -400,6 +402,7 @@
 
         </div>
 
+      </div>
       </div>
     </main>
   </div>

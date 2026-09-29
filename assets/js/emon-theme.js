@@ -224,6 +224,14 @@
           body.classList.remove('sidebar-mini');
         }
       }
+      root.classList.remove('sidebar-mini-init');
+
+      // Re-enable smooth interactive transitions after first paint
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          root.classList.remove('no-transitions');
+        });
+      });
 
       // Handle Density
       const densityMap = {
