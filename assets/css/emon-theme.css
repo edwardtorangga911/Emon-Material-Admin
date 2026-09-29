@@ -348,3 +348,75 @@ body.sidebar-mini .sidebar-nav-item {
     transform: translateY(0) scale(1);
   }
 }
+
+/* ==========================================================================
+   Motion & Animation Engine Styles (Emon Motion)
+   ========================================================================== */
+.material-ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  transform: scale(0);
+  animation: rippleExpand 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  z-index: 10;
+}
+
+@keyframes rippleExpand {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Cascade Stagger Entrance */
+.emon-entrance {
+  animation: emonFadeSlideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes emonFadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 3D Tile Tilt & Perspective */
+.tile-tilt-container {
+  perspective: 1000px;
+}
+.tile-tilt {
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Live Tile Glowing Metro Pulse */
+.metro-live-glow {
+  position: relative;
+  overflow: hidden;
+}
+.metro-live-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.75s;
+  pointer-events: none;
+}
+.metro-live-glow:hover::before {
+  left: 200%;
+}

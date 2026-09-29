@@ -24,6 +24,7 @@ const ASSETS_TO_CACHE = [
   './assets/js/emon-theme.js',
   './assets/js/emon-charts.js',
   './assets/js/emon-app.js',
+  './assets/js/emon-anim.js',
   './assets/images/emon-logo.svg',
   './assets/images/emon-icon.svg',
   './assets/images/avatars/user-admin.svg',
