@@ -262,18 +262,30 @@
           </div>
 
           <div class="flex items-center gap-2 flex-wrap">
-            <button onclick="window.EmonTheme.showToast('Menambahkan pengguna baru...')" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
+            <div class="relative w-full sm:w-64">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+              <input id="customer-search" class="w-full h-10 pl-9 pr-3 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Cari pelanggan, kota, paket..."/>
+            </div>
+            <button onclick="window.EmonTheme.showToast('Menambahkan pengguna baru...')" class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
               <span class="material-symbols-outlined text-[18px]">person_add</span>
               <span>Tambah Pelanggan</span>
             </button>
           </div>
         </div>
 
-        <!-- Customer Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+        <!-- Filter Chips -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="customer-filter-chips">
+          <button class="customer-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary" data-filter="all">Semua (6)</button>
+          <button class="customer-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-filter="active">Active (4)</button>
+          <button class="customer-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-filter="in-review">In Review (1)</button>
+          <button class="customer-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-filter="pending">Pending (1)</button>
+        </div>
+
+        <!-- Customer Grid (6 Enterprise Cards) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md" id="customer-cards-grid">
           
           <!-- Card 1 -->
-          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div class="customer-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow" data-status="active">
             <div>
               <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
@@ -295,15 +307,20 @@
                   <span>Enterprise Dedicated (12 Nodes)</span>
                 </div>
               </div>
+              <!-- Sparkline Spend Trend -->
+              <div class="mt-3 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+                <span class="text-[11px] text-outline">Tren 6 Bulan</span>
+                <svg id="spark-apex" class="w-24 h-6 shrink-0"></svg>
+              </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+            <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
               <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$18,450</strong></span>
               <button onclick="window.EmonTheme.showToast('Mengirim notifikasi ke Apex Cloud...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
             </div>
           </div>
 
           <!-- Card 2 -->
-          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div class="customer-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow" data-status="in-review">
             <div>
               <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
@@ -325,15 +342,19 @@
                   <span>API Pipeline Scale Tier 3</span>
                 </div>
               </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+                <span class="text-[11px] text-outline">Tren 6 Bulan</span>
+                <svg id="spark-nexus" class="w-24 h-6 shrink-0"></svg>
+              </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+            <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
               <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$4,200</strong></span>
               <button onclick="window.EmonTheme.showToast('Membuka detail Nexus Logistics...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
             </div>
           </div>
 
           <!-- Card 3 -->
-          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div class="customer-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow" data-status="active">
             <div>
               <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
@@ -355,10 +376,116 @@
                   <span>Data Warehouse Multi-Region</span>
                 </div>
               </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+                <span class="text-[11px] text-outline">Tren 6 Bulan</span>
+                <svg id="spark-vector" class="w-24 h-6 shrink-0"></svg>
+              </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+            <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
               <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$31,500</strong></span>
               <button onclick="window.EmonTheme.showToast('Membuka detail VectorTech...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="customer-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow" data-status="active">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="./assets/images/avatars/user-4.svg" class="w-12 h-12 rounded-xl"/>
+                  <div>
+                    <h3 class="font-bold text-sm text-on-surface">Quantum Analytics Labs</h3>
+                    <span class="text-xs text-outline">Tokyo, Japan</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-bold">Active</span>
+              </div>
+              <div class="mt-4 flex flex-col gap-1.5 text-xs text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">email</span>
+                  <span>eng@quantumlabs.jp</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">verified</span>
+                  <span>Serverless GPU Mesh Scale</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+                <span class="text-[11px] text-outline">Tren 6 Bulan</span>
+                <svg id="spark-quantum" class="w-24 h-6 shrink-0"></svg>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$24,900</strong></span>
+              <button onclick="window.EmonTheme.showToast('Membuka detail Quantum Labs...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="customer-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow" data-status="active">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="./assets/images/avatars/user-1.svg" class="w-12 h-12 rounded-xl"/>
+                  <div>
+                    <h3 class="font-bold text-sm text-on-surface">Polaris Retail Asia</h3>
+                    <span class="text-xs text-outline">Jakarta, ID</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-bold">Active</span>
+              </div>
+              <div class="mt-4 flex flex-col gap-1.5 text-xs text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">email</span>
+                  <span>tech@polarisretail.co.id</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">verified</span>
+                  <span>POS Edge Cloud Gateway</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+                <span class="text-[11px] text-outline">Tren 6 Bulan</span>
+                <svg id="spark-polaris" class="w-24 h-6 shrink-0"></svg>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$12,800</strong></span>
+              <button onclick="window.EmonTheme.showToast('Membuka detail Polaris Retail...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="customer-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow" data-status="pending">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="./assets/images/avatars/user-2.svg" class="w-12 h-12 rounded-xl"/>
+                  <div>
+                    <h3 class="font-bold text-sm text-on-surface">Astra Fintech Cluster</h3>
+                    <span class="text-xs text-outline">Surabaya, ID</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-outline text-xs font-bold">Pending</span>
+              </div>
+              <div class="mt-4 flex flex-col gap-1.5 text-xs text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">email</span>
+                  <span>secops@astrafintech.id</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">verified</span>
+                  <span>Hardware Security Module (HSM)</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+                <span class="text-[11px] text-outline">Tren 6 Bulan</span>
+                <svg id="spark-astra" class="w-24 h-6 shrink-0"></svg>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$7,400</strong></span>
+              <button onclick="window.EmonTheme.showToast('Membuka detail Astra Fintech...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
             </div>
           </div>
 
@@ -369,7 +496,52 @@
   </div>
 
   <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-charts.js"></script>
   <script src="./assets/js/emon-app.js"></script>
   <script src="./assets/js/emon-anim.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Render Sparklines
+    if (window.EmonCharts && EmonCharts.renderSparkline) {
+      EmonCharts.renderSparkline('#spark-apex', [12, 14, 13, 16, 17, 18.5], { color: 'var(--primary)', width: 90, height: 24 });
+      EmonCharts.renderSparkline('#spark-nexus', [6, 5, 4.5, 5.2, 4.8, 4.2], { color: 'var(--warning)', width: 90, height: 24 });
+      EmonCharts.renderSparkline('#spark-vector', [20, 22, 26, 25, 29, 31.5], { color: 'var(--secondary)', width: 90, height: 24 });
+      EmonCharts.renderSparkline('#spark-quantum', [15, 18, 20, 21, 23, 24.9], { color: 'var(--tertiary)', width: 90, height: 24 });
+      EmonCharts.renderSparkline('#spark-polaris', [8, 9.5, 11, 10.5, 12, 12.8], { color: 'var(--primary)', width: 90, height: 24 });
+      EmonCharts.renderSparkline('#spark-astra', [3, 4.5, 5, 6.2, 6.8, 7.4], { color: 'var(--outline)', width: 90, height: 24 });
+    }
+
+    // 2. Search Filter
+    const searchInput = document.getElementById('customer-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        document.querySelectorAll('.customer-card').forEach(card => {
+          card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+      });
+    }
+
+    // 3. Status Filter Buttons
+    const filterBtns = document.querySelectorAll('.customer-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.className = 'customer-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container';
+        });
+        btn.className = 'customer-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary';
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.customer-card').forEach(card => {
+          if (filter === 'all' || card.dataset.status === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+  </script>
 </body>
 </html>

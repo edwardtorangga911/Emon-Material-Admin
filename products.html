@@ -215,11 +215,11 @@
           <p class="text-xs text-outline mt-0.5">Kelola paket software enterprise, dedicated compute, dan lisensi offline</p>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button onclick="window.EmonTheme.showToast('Menampilkan filter kategori...');" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-container-lowest text-on-surface text-xs font-semibold shadow-xs border border-outline-variant/30 hover:bg-surface-container transition-all">
-            <span class="material-symbols-outlined text-[16px] text-outline">tune</span>
-            <span>Kategori</span>
-          </button>
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="relative w-full sm:w-60">
+            <span class="material-symbols-outlined absolute left-3 top-2 text-outline text-[18px]">search</span>
+            <input id="product-search" class="w-full h-9 pl-9 pr-3 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Cari modul atau spesifikasi..."/>
+          </div>
           <button onclick="document.getElementById('modal-product').classList.remove('hidden'); document.getElementById('modal-product').classList.add('flex');" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
             <span class="material-symbols-outlined text-[18px]">add</span>
             <span>Tambah Produk</span>
@@ -227,11 +227,20 @@
         </div>
       </div>
 
+      <!-- Category Filter Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="product-category-tabs">
+        <button class="product-cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary" data-cat="all">Semua (6)</button>
+        <button class="product-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-cat="Cloud Infra">Cloud Infra (2)</button>
+        <button class="product-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-cat="API Gateway">API Gateway (2)</button>
+        <button class="product-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-cat="Storage Array">Storage Array (1)</button>
+        <button class="product-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container" data-cat="Security & WAF">Security &amp; WAF (1)</button>
+      </div>
+
       <!-- Product Cards Grid (6 Products) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
         
         <!-- Card 1 -->
-        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group">
+        <div class="product-card bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group" data-category="Cloud Infra">
           <div class="h-44 bg-surface-container-low flex items-center justify-center p-6 relative overflow-hidden">
             <div class="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
               <span class="material-symbols-outlined text-[36px]">dns</span>
@@ -255,7 +264,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group">
+        <div class="product-card bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group" data-category="API Gateway">
           <div class="h-44 bg-surface-container-low flex items-center justify-center p-6 relative overflow-hidden">
             <div class="w-16 h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
               <span class="material-symbols-outlined text-[36px]">api</span>
@@ -279,7 +288,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group">
+        <div class="product-card bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group" data-category="Storage Array">
           <div class="h-44 bg-surface-container-low flex items-center justify-center p-6 relative overflow-hidden">
             <div class="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-950 flex items-center justify-center text-warning group-hover:scale-110 transition-transform">
               <span class="material-symbols-outlined text-[36px]">hard_drive</span>
@@ -298,6 +307,78 @@
                 <span class="font-display text-base font-bold text-primary tabular-nums">$31,500.00</span>
               </div>
               <button onclick="window.EmonTheme.showToast('Menambahkan Storage Cluster ke pesanan...');" class="px-3.5 py-1.5 rounded-xl bg-primary-fixed text-primary text-xs font-semibold hover:bg-primary hover:text-on-primary transition-all">Order</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="product-card bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group" data-category="Security & WAF">
+          <div class="h-44 bg-surface-container-low flex items-center justify-center p-6 relative overflow-hidden">
+            <div class="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-950 flex items-center justify-center text-error group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[36px]">security</span>
+            </div>
+            <span class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Active</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-outline">Security &amp; WAF</span>
+              <h3 class="font-display font-bold text-sm text-on-surface mt-1">Edge Cache Cluster Beta</h3>
+              <p class="text-xs text-outline mt-1.5 line-clamp-2">Global CDN shield, DDoS mitigation, dan rate limiter presisi.</p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-outline-variant/15 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-outline block">Langganan Bulanan</span>
+                <span class="font-display text-base font-bold text-primary tabular-nums">$1,250.00</span>
+              </div>
+              <button onclick="window.EmonTheme.showToast('Menambahkan Edge Cache ke pesanan...');" class="px-3.5 py-1.5 rounded-xl bg-primary-fixed text-primary text-xs font-semibold hover:bg-primary hover:text-on-primary transition-all">Order</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="product-card bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group" data-category="Cloud Infra">
+          <div class="h-44 bg-surface-container-low flex items-center justify-center p-6 relative overflow-hidden">
+            <div class="w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[36px]">database</span>
+            </div>
+            <span class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Ready</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-outline">Cloud Infra</span>
+              <h3 class="font-display font-bold text-sm text-on-surface mt-1">Quantum DB Hot Standby</h3>
+              <p class="text-xs text-outline mt-1.5 line-clamp-2">Active-passive clustering dengan sub-second failover recovery otomatis.</p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-outline-variant/15 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-outline block">Paket Replikasi</span>
+                <span class="font-display text-base font-bold text-primary tabular-nums">$7,800.00</span>
+              </div>
+              <button onclick="window.EmonTheme.showToast('Menambahkan Quantum DB ke pesanan...');" class="px-3.5 py-1.5 rounded-xl bg-primary-fixed text-primary text-xs font-semibold hover:bg-primary hover:text-on-primary transition-all">Order</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="product-card bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group" data-category="API Gateway">
+          <div class="h-44 bg-surface-container-low flex items-center justify-center p-6 relative overflow-hidden">
+            <div class="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-950 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[36px]">smart_toy</span>
+            </div>
+            <span class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold">Ready</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-outline">API Gateway</span>
+              <h3 class="font-display font-bold text-sm text-on-surface mt-1">AI Inference Mesh Grid</h3>
+              <p class="text-xs text-outline mt-1.5 line-clamp-2">Dynamic GPU load balancer untuk model LLM & vision inference lokal.</p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-outline-variant/15 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-outline block">Paket Mesh Grid</span>
+                <span class="font-display text-base font-bold text-primary tabular-nums">$12,400.00</span>
+              </div>
+              <button onclick="window.EmonTheme.showToast('Menambahkan AI Mesh ke pesanan...');" class="px-3.5 py-1.5 rounded-xl bg-primary-fixed text-primary text-xs font-semibold hover:bg-primary hover:text-on-primary transition-all">Order</button>
             </div>
           </div>
         </div>
@@ -343,7 +424,40 @@
   </div>
 
   <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-form.js"></script>
   <script src="./assets/js/emon-app.js"></script>
   <script src="./assets/js/emon-anim.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let currentCategory = 'all';
+
+    function filterProducts() {
+      const q = (document.getElementById('product-search')?.value || '').toLowerCase().trim();
+      document.querySelectorAll('.product-card').forEach(card => {
+        const cat = card.dataset.category || '';
+        const text = card.textContent.toLowerCase();
+        const matchesCat = (currentCategory === 'all' || cat.toLowerCase() === currentCategory.toLowerCase());
+        const matchesQuery = !q || text.includes(q);
+        card.style.display = (matchesCat && matchesQuery) ? '' : 'none';
+      });
+    }
+
+    // Search input
+    document.getElementById('product-search')?.addEventListener('input', filterProducts);
+
+    // Category tabs
+    document.querySelectorAll('.product-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.product-cat-btn').forEach(b => {
+          b.className = 'product-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:bg-surface-container';
+        });
+        btn.className = 'product-cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary';
+        currentCategory = btn.dataset.cat;
+        filterProducts();
+      });
+    });
+  });
+  </script>
 </body>
 </html>

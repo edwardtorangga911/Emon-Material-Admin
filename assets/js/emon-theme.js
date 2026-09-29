@@ -497,6 +497,19 @@
               <input type="checkbox" id="check-sidebar-mini" class="w-5 h-5 rounded cursor-pointer accent-primary" ${this.config.sidebarMini ? 'checked' : ''}>
             </div>
           </div>
+
+          <!-- 6. Language Selection -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-outline mb-2">Bahasa / Language</label>
+            <div class="grid grid-cols-2 gap-1.5 p-1 bg-surface-container rounded-xl text-center" id="lang-switch-group">
+              <button type="button" class="lang-btn py-1.5 px-2 rounded-lg text-xs font-semibold transition-all ${(!window.EmonI18n || window.EmonI18n.lang === 'id') ? 'bg-surface-container-lowest text-primary shadow-xs' : 'text-outline hover:text-on-surface'}" data-lang="id">
+                🇮🇩 Indonesia
+              </button>
+              <button type="button" class="lang-btn py-1.5 px-2 rounded-lg text-xs font-semibold transition-all ${(window.EmonI18n && window.EmonI18n.lang === 'en') ? 'bg-surface-container-lowest text-primary shadow-xs' : 'text-outline hover:text-on-surface'}" data-lang="en">
+                🇬🇧 English
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Customizer Footer Actions -->
@@ -597,6 +610,21 @@
 
       const resetBtn = document.getElementById('btn-reset-theme');
       if (resetBtn) resetBtn.onclick = () => this.resetDefaults();
+
+      // Language buttons
+      const langBtns = document.querySelectorAll('.lang-btn');
+      langBtns.forEach(btn => {
+        btn.onclick = () => {
+          if (window.EmonI18n) {
+            window.EmonI18n.setLang(btn.dataset.lang);
+            langBtns.forEach(b => {
+              b.className = (b.dataset.lang === btn.dataset.lang)
+                ? 'lang-btn py-1.5 px-2 rounded-lg text-xs font-semibold transition-all bg-surface-container-lowest text-primary shadow-xs'
+                : 'lang-btn py-1.5 px-2 rounded-lg text-xs font-semibold transition-all text-outline hover:text-on-surface';
+            });
+          }
+        };
+      });
     }
 
     syncCustomizerUI() {

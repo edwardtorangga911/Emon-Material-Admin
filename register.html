@@ -54,18 +54,18 @@
         <p class="text-xs text-outline mt-1">Daftarkan profil pengelola konsol lokal</p>
       </div>
 
-      <form class="flex flex-col gap-4" onsubmit="event.preventDefault(); window.EmonTheme.showToast('Akun berhasil dibuat! Silakan masuk.'); setTimeout(() => window.location.href='login.html', 800);">
+      <form id="register-form" class="flex flex-col gap-4" onsubmit="event.preventDefault(); if (window.EmonForm && !window.EmonForm.init('#register-form').validate()) return; window.EmonTheme.showToast('Akun berhasil dibuat! Silakan masuk.'); setTimeout(() => window.location.href='login.html', 800);">
         <div>
           <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Nama Lengkap</label>
-          <input required type="text" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="contoh: Edward Torangga"/>
+          <input required data-validate="required|min:3" type="text" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="contoh: Edward Torangga"/>
         </div>
         <div>
           <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Email Pengguna</label>
-          <input required type="email" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="admin@domain.id"/>
+          <input required data-validate="required|email" type="email" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="admin@domain.id"/>
         </div>
         <div>
           <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Kata Sandi Baru</label>
-          <input required type="password" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Minimal 8 karakter"/>
+          <input required data-validate="required|min:6" type="password" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Minimal 6 karakter"/>
         </div>
 
         <button type="submit" class="w-full h-11 mt-2 rounded-xl bg-primary text-on-primary font-semibold text-sm shadow-md hover:bg-primary-hover transition-all">
@@ -84,6 +84,7 @@
   </footer>
 
   <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-form.js"></script>
   <script src="./assets/js/emon-app.js"></script>
   <script src="./assets/js/emon-anim.js"></script>
 </body>
