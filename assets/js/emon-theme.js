@@ -17,6 +17,14 @@
       tertiary: '#6833ea',
       swatch: '#005bbf'
     },
+    indigo: {
+      name: 'Modern Indigo',
+      primary: '#4f46e5',
+      primaryContainer: '#6366f1',
+      secondary: '#06b6d4',
+      tertiary: '#8b5cf6',
+      swatch: '#4f46e5'
+    },
     emerald: {
       name: 'Emerald Teal',
       primary: '#00897b',
@@ -66,12 +74,21 @@
     primaryContainer: '#1a73e8',
     secondary: '#006b5f',
     tertiary: '#6833ea',
-    radius: 'default', // 'sharp' (0px) | 'default' (8px) | 'smooth' (12px) | 'pill' (16px)
+    radius: 'default', // 'sharp' (0px) | 'default' (8px) | 'smooth' (14px) | 'pill' (20px)
     density: 'normal',  // 'compact' | 'normal' | 'spacious'
     sidebarMini: false
   };
 
-  // Helper: Hex color manipulation
+  // Helper: Hex color manipulation & contrast
+  function getLuminance(hex) {
+    if (!hex || hex.length < 6) return 0;
+    const num = parseInt(hex.replace('#', ''), 16);
+    const r = (num >> 16) & 255;
+    const g = (num >> 8) & 255;
+    const b = num & 255;
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  }
+
   function adjustHex(hex, percent) {
     const num = parseInt(hex.replace('#', ''), 16);
     const amt = Math.round(2.55 * percent);
@@ -126,12 +143,32 @@
         });
       }
 
-      // 3. Render Customizer on DOM Ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => this.injectCustomizer());
-      } else {
+      // 3. Render Customizer & Event Delegation on DOM Ready
+      const onReady = () => {
         this.injectCustomizer();
+        this.bindGlobalTriggers();
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onReady);
+      } else {
+        onReady();
       }
+    }
+
+    bindGlobalTriggers() {
+      document.addEventListener('click', (e) => {
+        const customizerTrigger = e.target.closest('[data-action="toggle-customizer"], #emon-theme-toggle, .theme-customizer-trigger');
+        if (customizerTrigger) {
+          e.preventDefault();
+          this.toggleCustomizerDrawer(true);
+          return;
+        }
+        const modeTrigger = e.target.closest('[data-action="toggle-mode"], .mode-toggle-btn');
+        if (modeTrigger) {
+          e.preventDefault();
+          this.toggleMode();
+        }
+      });
     }
 
     applyTheme(cfg, shouldSave = true) {
@@ -147,33 +184,37 @@
         isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       }
 
-      if (isDark) {
-        root.classList.add('dark');
-        root.setAttribute('data-theme', 'dark');
-      } else {
-        root.classList.remove('dark');
-        root.setAttribute('data-theme', 'light');
-      }
+      root.classList.toggle('dark', isDark);
+      root.setAttribute('data-mode', isDark ? 'dark' : 'light');
+      root.setAttribute('data-theme', this.config.preset || 'classic');
 
       // Handle Colors
       root.style.setProperty('--primary', this.config.primary);
       root.style.setProperty('--primary-hover', adjustHex(this.config.primary, -15));
       root.style.setProperty('--primary-container', this.config.primaryContainer || this.config.primary);
       root.style.setProperty('--primary-fixed', hexToRgba(this.config.primary, 0.15));
+      
+      const onPrimary = getLuminance(this.config.primary) > 0.65 ? '#181c20' : '#ffffff';
+      root.style.setProperty('--on-primary', onPrimary);
+
       root.style.setProperty('--secondary', this.config.secondary);
       root.style.setProperty('--secondary-fixed', hexToRgba(this.config.secondary, 0.15));
       root.style.setProperty('--tertiary', this.config.tertiary);
       root.style.setProperty('--tertiary-fixed', hexToRgba(this.config.tertiary, 0.15));
 
-      // Handle Radii
-      const radiusMap = {
-        sharp: '0px',
-        default: '0.5rem',  // 8px
-        smooth: '0.875rem', // 14px
-        pill: '1.25rem'     // 20px
+      // Handle Full Radii Scales
+      const radiusScales = {
+        sharp: { xs: '0px', sm: '0px', md: '0px', lg: '0px', xl: '0px' },
+        default: { xs: '0.25rem', sm: '0.375rem', md: '0.5rem', lg: '0.75rem', xl: '1rem' },
+        smooth: { xs: '0.375rem', sm: '0.5rem', md: '0.875rem', lg: '1.125rem', xl: '1.5rem' },
+        pill: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem', lg: '1.75rem', xl: '2rem' }
       };
-      const rad = radiusMap[this.config.radius] || '0.5rem';
-      root.style.setProperty('--radius-md', rad);
+      const rads = radiusScales[this.config.radius] || radiusScales.default;
+      root.style.setProperty('--radius-xs', rads.xs);
+      root.style.setProperty('--radius-sm', rads.sm);
+      root.style.setProperty('--radius-md', rads.md);
+      root.style.setProperty('--radius-lg', rads.lg);
+      root.style.setProperty('--radius-xl', rads.xl);
 
       // Handle Sidebar Mini
       if (body) {
@@ -203,6 +244,11 @@
 
       // Trigger custom event for reactive charts
       window.dispatchEvent(new CustomEvent('emon-theme-changed', { detail: this.config }));
+    }
+
+    toggleMode() {
+      const isDark = document.documentElement.classList.contains('dark');
+      this.setMode(isDark ? 'light' : 'dark');
     }
 
     setPreset(name) {

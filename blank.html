@@ -18,7 +18,7 @@
   <div id="emon-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
 
   <!-- Sidebar -->
-  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
+  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-[45] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
     <div class="h-16 flex items-center justify-between px-4 border-b border-outline-variant/30">
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-sm">
@@ -134,7 +134,7 @@
   <!-- Main Content -->
   <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
     
-    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-4 lg:px-6">
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-50 flex items-center justify-between px-4 lg:px-6">
       <div class="flex items-center gap-3 max-w-md w-full">
         <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined text-[22px]">menu</span>
@@ -205,36 +205,6 @@
     <footer class="mt-auto py-4 px-6 border-t border-outline-variant/30 text-center text-xs text-outline">
       &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
     </footer>
-  </div>
-
-  <!-- Theme Customizer Drawer -->
-  <div id="emon-theme-drawer" class="fixed inset-y-0 right-0 w-80 bg-surface-container border-l border-outline-variant/30 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
-    <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary">palette</span>
-        <h3 class="font-bold text-sm text-on-surface">Customizer Offline</h3>
-      </div>
-      <button id="emon-theme-drawer-close" class="p-1 rounded-lg text-outline hover:bg-surface-container-high transition-colors">
-        <span class="material-symbols-outlined text-[20px]">close</span>
-      </button>
-    </div>
-    <div class="p-4 overflow-y-auto flex-1 space-y-6">
-      <div>
-        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Warna Primer</label>
-        <div class="grid grid-cols-4 gap-2" id="preset-colors"></div>
-      </div>
-      <div>
-        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Mode Tampilan</label>
-        <div class="grid grid-cols-2 gap-2">
-          <button data-mode="light" class="mode-btn p-2 rounded-lg border border-outline-variant/50 text-xs font-medium flex items-center justify-center gap-1.5 text-on-surface hover:bg-surface-container-high transition-colors">
-            <span class="material-symbols-outlined text-[16px]">light_mode</span> Terang
-          </button>
-          <button data-mode="dark" class="mode-btn p-2 rounded-lg border border-outline-variant/50 text-xs font-medium flex items-center justify-center gap-1.5 text-on-surface hover:bg-surface-container-high transition-colors">
-            <span class="material-symbols-outlined text-[16px]">dark_mode</span> Gelap
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <script src="./assets/js/emon-anim.js"></script>

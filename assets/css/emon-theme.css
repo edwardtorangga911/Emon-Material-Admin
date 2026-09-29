@@ -87,9 +87,55 @@
 }
 
 /* ==========================================================================
+   Color Presets (Data-theme & Class Support)
+   ========================================================================== */
+[data-theme="indigo"], .theme-indigo {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-container: #6366f1;
+  --secondary: #06b6d4;
+  --tertiary: #8b5cf6;
+}
+[data-theme="emerald"], .theme-emerald {
+  --primary: #00897b;
+  --primary-hover: #00796b;
+  --primary-container: #00a896;
+  --secondary: #2e7d32;
+  --tertiary: #0284c7;
+}
+[data-theme="purple"], .theme-purple {
+  --primary: #6833ea;
+  --primary-hover: #5824d6;
+  --primary-container: #8155ff;
+  --secondary: #00897b;
+  --tertiary: #d97706;
+}
+[data-theme="amber"], .theme-amber {
+  --primary: #d97706;
+  --primary-hover: #b45309;
+  --primary-container: #f59e0b;
+  --secondary: #00897b;
+  --tertiary: #7c3aed;
+}
+[data-theme="rose"], .theme-rose {
+  --primary: #dc2626;
+  --primary-hover: #b91c1c;
+  --primary-container: #ef4444;
+  --secondary: #006b5f;
+  --tertiary: #9333ea;
+}
+[data-theme="slate"], .theme-slate {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-container: #3b82f6;
+  --secondary: #059669;
+  --tertiary: #8b5cf6;
+}
+
+/* ==========================================================================
    Dark Mode Theme System
    ========================================================================== */
-html.dark, [data-theme="dark"] {
+html.dark, [data-mode="dark"] {
   --background: #0f1318;
   --on-background: #e1e2e8;
 
