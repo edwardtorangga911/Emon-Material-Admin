@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" fill="none">
+  <!-- Emon Geometric Icon -->
+  <defs>
+    <linearGradient id="emonGradPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a73e8"/>
+      <stop offset="100%" stop-color="#0052cc"/>
+    </linearGradient>
+    <linearGradient id="emonGradSecondary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00897b"/>
+      <stop offset="100%" stop-color="#004d40"/>
+    </linearGradient>
+    <filter id="emonDropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1a73e8" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <g transform="translate(4, 4)">
+    <!-- Base Layer Tile -->
+    <rect x="0" y="0" width="40" height="40" rx="10" fill="url(#emonGradPrimary)" filter="url(#emonDropShadow)"/>
+    <!-- Metro Material Overlapping Blocks representing 'E' and modularity -->
+    <rect x="8" y="9" width="24" height="5" rx="2.5" fill="#ffffff"/>
+    <rect x="8" y="17.5" width="17" height="5" rx="2.5" fill="#ffffff" fill-opacity="0.9"/>
+    <rect x="8" y="26" width="24" height="5" rx="2.5" fill="#ffffff"/>
+    <!-- Accent indicator dot -->
+    <circle cx="28" cy="20" r="3" fill="#8df5e4"/>
+  </g>
+
+  <!-- Typography: Emon Material Admin -->
+  <g transform="translate(56, 17)">
+    <text font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" font-size="20" letter-spacing="-0.03em" fill="currentColor">
+      <tspan class="brand-text-accent" fill="#1a73e8">Emon</tspan><tspan fill="#1e293b" class="brand-text-main">Material</tspan>
+    </text>
+    <text y="17" font-family="'Inter', system-ui, sans-serif" font-weight="600" font-size="10" letter-spacing="0.12em" fill="#64748b" text-transform="uppercase">
+      Admin Theme
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+{
+  "name": "emon-material-admin",
+  "version": "3.2.0",
+  "description": "Offline-First Customizable Admin Dashboard Theme combining Google Material 3 and Microsoft Metro UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "serve": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwardtorangga911/Emon-Material-Admin.git"
+  },
+  "keywords": [
+    "admin-dashboard",
+    "material-3",
+    "metro-ui",
+    "offline-first",
+    "theme",
+    "tailwind",
+    "dashboard-template",
+    "customizable-theme",
+    "emon-material-admin"
+  ],
+  "author": "Edward Torangga",
+  "license": "MIT"
+}

@@ -1,0 +1,350 @@
+/* ==========================================================================
+   Emon Material Admin - Core Theme Stylesheet
+   Offline-first, Material 3 + Metro Design System
+   ========================================================================== */
+
+:root {
+  /* Dynamic Theme Colors (Customizable via offline Theme Customizer) */
+  --primary: #005bbf;
+  --primary-hover: #004da3;
+  --primary-container: #1a73e8;
+  --on-primary: #ffffff;
+  --on-primary-container: #ffffff;
+  --primary-fixed: #d8e2ff;
+  --on-primary-fixed: #001a41;
+
+  --secondary: #006b5f;
+  --secondary-container: #8df5e4;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #007165;
+  --secondary-fixed: #8df5e4;
+  --on-secondary-fixed: #00201c;
+  --secondary-fixed-dim: #70d8c8;
+
+  --tertiary: #6833ea;
+  --tertiary-container: #8155ff;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #060021;
+  --tertiary-fixed: #e8deff;
+  --on-tertiary-fixed: #20005f;
+
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --on-error: #ffffff;
+  --on-error-container: #93000a;
+
+  --warning: #d97706;
+  --warning-container: #fef3c7;
+  --on-warning: #ffffff;
+  --on-warning-container: #78350f;
+
+  /* Surfaces & Canvas (Light Mode) */
+  --background: #f7f9ff;
+  --on-background: #181c20;
+
+  --surface: #f7f9ff;
+  --surface-dim: #d7dae0;
+  --surface-bright: #f7f9ff;
+  --surface-variant: #dfe3e8;
+  --on-surface: #181c20;
+  --on-surface-variant: #414754;
+
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f1f4fa;
+  --surface-container: #ebeef4;
+  --surface-container-high: #e5e8ee;
+  --surface-container-highest: #dfe3e8;
+
+  --outline: #727785;
+  --outline-variant: #c1c6d6;
+  --surface-tint: #005bc0;
+
+  --inverse-surface: #2d3135;
+  --inverse-on-surface: #eef1f7;
+  --inverse-primary: #adc7ff;
+
+  /* Geometric Radii (Customizable) */
+  --radius-xs: 0.25rem;   /* 4px */
+  --radius-sm: 0.375rem;  /* 6px */
+  --radius-md: 0.5rem;    /* 8px - default */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 3px rgba(24, 28, 32, 0.05), 0 1px 2px rgba(24, 28, 32, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(24, 28, 32, 0.08), 0 2px 6px -1px rgba(24, 28, 32, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(24, 28, 32, 0.12), 0 4px 10px -2px rgba(24, 28, 32, 0.06);
+  --shadow-xl: 0 20px 38px -6px rgba(24, 28, 32, 0.18), 0 8px 18px -4px rgba(24, 28, 32, 0.08);
+
+  /* Layout Density */
+  --density-padding: 1.5rem;
+  --density-table-py: 0.875rem;
+}
+
+/* ==========================================================================
+   Dark Mode Theme System
+   ========================================================================== */
+html.dark, [data-theme="dark"] {
+  --background: #0f1318;
+  --on-background: #e1e2e8;
+
+  --surface: #13171d;
+  --surface-dim: #0b0e12;
+  --surface-bright: #1f242c;
+  --surface-variant: #282f3a;
+  --on-surface: #e1e2e8;
+  --on-surface-variant: #a0a6b5;
+
+  --surface-container-lowest: #161b22;
+  --surface-container-low: #1b2029;
+  --surface-container: #202631;
+  --surface-container-high: #272e3a;
+  --surface-container-highest: #313a48;
+
+  --outline: #88909f;
+  --outline-variant: #3a4252;
+
+  --inverse-surface: #e1e2e8;
+  --inverse-on-surface: #181c20;
+  --inverse-primary: #005bbf;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.65);
+  --shadow-xl: 0 20px 38px -6px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================================
+   Base & Resets
+   ========================================================================== */
+html {
+  font-family: var(--font-body);
+  color: var(--on-surface);
+  background-color: var(--background);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Numeric tabular figures for stability */
+.tabular-nums {
+  font-feature-settings: "tnum" 1;
+}
+
+/* ==========================================================================
+   Smooth Custom Scrollbars
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}
+
+/* ==========================================================================
+   Sidebar Collapse Transitions
+   ========================================================================== */
+#emon-sidebar {
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s ease;
+}
+#emon-main-content {
+  transition: padding-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#emon-header {
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mini Sidebar Mode */
+body.sidebar-mini #emon-sidebar {
+  width: 5rem; /* 80px */
+}
+body.sidebar-mini #emon-main-content {
+  padding-left: 5rem;
+}
+body.sidebar-mini #emon-header {
+  left: 5rem;
+}
+body.sidebar-mini .sidebar-label,
+body.sidebar-mini .sidebar-badge,
+body.sidebar-mini .sidebar-section-title,
+body.sidebar-mini .brand-text {
+  display: none;
+}
+body.sidebar-mini .sidebar-nav-item {
+  justify-content: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* ==========================================================================
+   Offline Live Customizer Drawer
+   ========================================================================== */
+.customizer-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 380px;
+  max-width: 90vw;
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-xl);
+  z-index: 100;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.customizer-drawer.active {
+  transform: translateX(0);
+}
+
+.customizer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.customizer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Floating Settings Trigger Button */
+.customizer-toggle-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 2rem;
+  z-index: 90;
+  box-shadow: 0 4px 20px rgba(0, 91, 191, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.customizer-toggle-btn:hover {
+  transform: scale(1.08) rotate(30deg);
+}
+
+/* Palette Swatches */
+.palette-swatch {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, ring 0.15s ease;
+  position: relative;
+}
+.palette-swatch:hover {
+  transform: scale(1.1);
+}
+.palette-swatch.active {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.palette-swatch.active::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* ==========================================================================
+   Material 3 Ripple Effect & Tactile Clicks
+   ========================================================================== */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+.ripple:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* ==========================================================================
+   Interactive SVG Chart Tooltips
+   ========================================================================== */
+.chart-tooltip {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 30;
+}
+.chart-tooltip.show {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Modal Dialog & Toast Notification Container
+   ========================================================================== */
+#toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.toast-item {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 420px;
+  animation: toastSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes toastSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

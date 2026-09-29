@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emon Material Admin - Orders &amp; Sales</title>
+  <meta name="description" content="Emon Material Admin - Order Management System"/>
+
+  <!-- Local Offline Fonts -->
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <!-- Core Theme Variables -->
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <!-- Standalone Tailwind Bundle -->
+  <script src="./assets/js/tailwind.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--primary)",
+            "primary-hover": "var(--primary-hover)",
+            "primary-container": "var(--primary-container)",
+            "on-primary": "var(--on-primary)",
+            "primary-fixed": "var(--primary-fixed)",
+            secondary: "var(--secondary)",
+            "secondary-container": "var(--secondary-container)",
+            "on-secondary": "var(--on-secondary)",
+            "secondary-fixed": "var(--secondary-fixed)",
+            tertiary: "var(--tertiary)",
+            "tertiary-container": "var(--tertiary-container)",
+            "on-tertiary": "var(--on-tertiary)",
+            "tertiary-fixed": "var(--tertiary-fixed)",
+            surface: "var(--surface)",
+            "surface-dim": "var(--surface-dim)",
+            "surface-bright": "var(--surface-bright)",
+            "surface-variant": "var(--surface-variant)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "surface-container-low": "var(--surface-container-low)",
+            "surface-container": "var(--surface-container)",
+            "surface-container-high": "var(--surface-container-high)",
+            "surface-container-highest": "var(--surface-container-highest)",
+            "on-surface": "var(--on-surface)",
+            "on-surface-variant": "var(--on-surface-variant)",
+            background: "var(--background)",
+            "on-background": "var(--on-background)",
+            outline: "var(--outline)",
+            "outline-variant": "var(--outline-variant)",
+            error: "var(--error)",
+            "error-container": "var(--error-container)",
+            warning: "var(--warning)",
+            "warning-container": "var(--warning-container)"
+          },
+          borderRadius: {
+            DEFAULT: "var(--radius-md)",
+            sm: "var(--radius-xs)",
+            md: "var(--radius-sm)",
+            lg: "var(--radius-md)",
+            xl: "var(--radius-lg)",
+            "2xl": "var(--radius-xl)",
+            full: "var(--radius-full)"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            margin: "1.5rem"
+          },
+          fontFamily: {
+            display: ["var(--font-display)"],
+            body: ["var(--font-body)"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-sm border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0">
+    <div class="flex flex-col">
+      <div class="h-16 flex items-center justify-between px-space-lg bg-surface-container-low border-b border-outline-variant/20">
+        <a href="index.html" class="flex items-center gap-2 overflow-hidden">
+          <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
+        </a>
+        <button class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="window.EmonTheme.toggleSidebar()" title="Toggle Sidebar">
+          <span class="material-symbols-outlined text-[18px]">menu_open</span>
+        </button>
+      </div>
+
+      <div class="px-space-md py-space-sm overflow-y-auto">
+        <p class="sidebar-section-title px-space-sm py-space-xs text-[11px] font-bold uppercase tracking-wider text-outline">Navigasi Utama</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">grid_view</span>
+            <span class="sidebar-label">Executive Suite</span>
+          </a>
+          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">insights</span>
+            <span class="sidebar-label">Analytics &amp; Data</span>
+          </a>
+          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-on-primary font-semibold text-sm shadow-sm transition-all">
+            <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+            <span class="sidebar-label">Orders &amp; Sales</span>
+          </a>
+          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">group</span>
+            <span class="sidebar-label">Customers</span>
+          </a>
+          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">widgets</span>
+            <span class="sidebar-label">UI Components</span>
+          </a>
+        </nav>
+
+        <p class="sidebar-section-title px-space-sm pt-5 pb-space-xs text-[11px] font-bold uppercase tracking-wider text-outline">Konfigurasi</p>
+        <nav class="flex flex-col gap-1">
+          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">settings</span>
+            <span class="sidebar-label">Settings &amp; Theme</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="p-space-md bg-surface-container-low border-t border-outline-variant/20">
+      <div class="flex items-center justify-between px-space-sm py-2 bg-surface-container rounded-lg">
+        <div class="flex items-center gap-2 overflow-hidden">
+          <span class="h-2.5 w-2.5 rounded-full bg-secondary shrink-0"></span>
+          <span class="sidebar-label text-xs font-semibold text-on-surface truncate">Emon Ledger</span>
+        </div>
+        <button onclick="window.EmonTheme.toggleCustomizerDrawer(true)" class="text-outline hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[18px]">palette</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col min-h-screen">
+    
+    <!-- Header -->
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-space-md lg:px-margin">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Search orders, invoices... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="settings.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 flex-1 flex flex-col">
+      <div class="p-4 sm:p-margin flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+
+        <!-- Header Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+          <div>
+            <div class="flex items-center gap-1.5 text-outline text-xs">
+              <a href="index.html" class="hover:text-primary transition-colors">Emon Dashboard</a>
+              <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+              <span class="text-on-surface font-semibold">Orders &amp; Sales</span>
+            </div>
+            <h1 class="font-display text-2xl sm:text-3xl font-bold text-on-surface tracking-tight mt-1">Orders &amp; Transactions</h1>
+            <p class="text-sm text-on-surface-variant max-w-2xl mt-0.5">
+              Kelola daftar pesanan, status pembayaran, dan riwayat faktur transaksi lokal.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="window.EmonTheme.showToast('Menyaring status pesanan...')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-container-lowest text-on-surface text-xs font-semibold shadow-sm hover:bg-surface-container transition-all">
+              <span class="material-symbols-outlined text-outline text-[18px]">filter_list</span>
+              <span>Filter Tanggal</span>
+            </button>
+            <button onclick="window.EmonTheme.downloadJSON()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
+              <span class="material-symbols-outlined text-[18px]">download</span>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Order Summary Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-outline">Semua Pesanan</span>
+              <div class="font-display text-xl font-bold text-on-surface mt-0.5 tabular-nums">1,482</div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[24px]">receipt</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-outline">Selesai (Paid)</span>
+              <div class="font-display text-xl font-bold text-secondary mt-0.5 tabular-nums">1,340</div>
+            </div>
+            <span class="material-symbols-outlined text-secondary text-[24px]">check_circle</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-outline">Dalam Proses</span>
+              <div class="font-display text-xl font-bold text-warning mt-0.5 tabular-nums">98</div>
+            </div>
+            <span class="material-symbols-outlined text-warning text-[24px]">sync</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-outline">Dibatalkan</span>
+              <div class="font-display text-xl font-bold text-error mt-0.5 tabular-nums">44</div>
+            </div>
+            <span class="material-symbols-outlined text-error text-[24px]">cancel</span>
+          </div>
+        </div>
+
+        <!-- Orders Table Card -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 overflow-hidden flex flex-col">
+          
+          <!-- Filter Tabs & Search -->
+          <div class="p-4 border-b border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-1 overflow-x-auto w-full sm:w-auto" id="status-filter-tabs">
+              <button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary">Semua</button>
+              <button class="px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface">Completed</button>
+              <button class="px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface">Processing</button>
+              <button class="px-3 py-1.5 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface">Cancelled</button>
+            </div>
+
+            <div class="relative w-full sm:w-64">
+              <span class="material-symbols-outlined absolute left-3 top-2 text-outline text-[18px]">search</span>
+              <input id="table-search-input" class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low text-xs text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Cari ID pesanan, nama..."/>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low text-outline text-xs uppercase font-semibold tracking-wider border-b border-outline-variant/20">
+                  <th class="py-3 px-4 w-10">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </th>
+                  <th class="py-3 px-4">ID Pesanan</th>
+                  <th class="py-3 px-4">Nama Pelanggan</th>
+                  <th class="py-3 px-4">Paket Langganan</th>
+                  <th class="py-3 px-4">Metode Bayar</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Total Tagihan</th>
+                  <th class="py-3 px-4 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-variant/10 text-sm">
+                
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88210', 'Apex Cloud Solutions', '$18,450.00', 'Enterprise Dedicated (Z-12)', 'Completed')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88210</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-1.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Apex Cloud Solutions</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Enterprise Dedicated (Z-12)</td>
+                  <td class="py-3 px-4 text-xs text-outline">Bank Transfer (BCA)</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">
+                      Completed
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$18,450.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88209', 'Nexus Logistics', '$4,200.00', 'API Pipeline Scale Tier 3', 'Processing')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88209</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-2.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Nexus Logistics</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">API Pipeline Scale Tier 3</td>
+                  <td class="py-3 px-4 text-xs text-outline">Kartu Kredit</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-[#b06000] text-xs font-semibold">
+                      Processing
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$4,200.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88208', 'VectorTech Global', '$31,500.00', 'Multi-Region Storage Cluster', 'Completed')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88208</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-3.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">VectorTech Global</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Multi-Region Storage Cluster</td>
+                  <td class="py-3 px-4 text-xs text-outline">Corporate Wire</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">
+                      Completed
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$31,500.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="openOrderModal('ORD-88207', 'Helios Media Networks', '$1,250.00', 'Edge Cache Cluster Beta', 'Cancelled')">
+                  <td class="py-3 px-4" onclick="event.stopPropagation()">
+                    <input type="checkbox" class="w-4 h-4 rounded accent-primary"/>
+                  </td>
+                  <td class="py-3 px-4 font-semibold text-primary">#ORD-88207</td>
+                  <td class="py-3 px-4">
+                    <div class="flex items-center gap-2">
+                      <img src="./assets/images/avatars/user-4.svg" class="w-6 h-6 rounded-full"/>
+                      <span class="font-medium text-xs sm:text-sm">Helios Media Networks</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4 text-xs">Edge Cache Cluster Beta</td>
+                  <td class="py-3 px-4 text-xs text-outline">Manual Invoicing</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container text-xs font-semibold">
+                      Cancelled
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-right font-semibold tabular-nums">$1,250.00</td>
+                  <td class="py-3 px-4 text-center" onclick="event.stopPropagation()">
+                    <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="p-4 bg-surface-container-low flex items-center justify-between flex-wrap gap-2 text-xs">
+            <span class="text-on-surface-variant">Menampilkan 4 dari 1,482 pesanan</span>
+            <div class="flex items-center gap-1">
+              <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-outline hover:text-on-surface flex items-center justify-center">
+                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+              </button>
+              <button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold">1</button>
+              <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant">2</button>
+              <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-outline hover:text-on-surface flex items-center justify-center">
+                <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Order Details Modal -->
+  <div id="modal-order-detail" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
+      <div class="p-5 border-b border-outline-variant/20 flex items-center justify-between bg-surface-container-low">
+        <div>
+          <span class="text-xs text-outline block">Rincian Transaksi</span>
+          <h3 id="modal-order-id" class="font-display font-bold text-base text-on-surface">#ORD-88210</h3>
+        </div>
+        <button onclick="document.getElementById('modal-order-detail').classList.add('hidden')" class="p-1 rounded-lg text-outline hover:text-on-surface">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="p-5 flex flex-col gap-4 text-xs">
+        <div class="flex justify-between p-3 rounded-xl bg-surface-container-low">
+          <div>
+            <span class="text-outline block">Nama Klien</span>
+            <span id="modal-order-client" class="font-bold text-on-surface text-sm">Apex Cloud</span>
+          </div>
+          <div class="text-right">
+            <span class="text-outline block">Status Pembayaran</span>
+            <span id="modal-order-status" class="font-bold text-secondary text-sm">Completed</span>
+          </div>
+        </div>
+        <div>
+          <span class="text-outline uppercase font-bold tracking-wider mb-2 block">Item Pembelian</span>
+          <div class="p-3 rounded-xl border border-outline-variant/20 flex items-center justify-between">
+            <span id="modal-order-item" class="font-medium text-on-surface">Paket Layanan</span>
+            <span id="modal-order-amount" class="font-bold text-on-surface tabular-nums">$18,450.00</span>
+          </div>
+        </div>
+        <div class="flex justify-between pt-2 border-t border-outline-variant/20 text-sm">
+          <span class="font-bold text-on-surface">Total Akhir</span>
+          <span id="modal-order-total" class="font-bold text-primary tabular-nums">$18,450.00</span>
+        </div>
+      </div>
+      <div class="p-4 border-t border-outline-variant/20 bg-surface-container-low flex items-center justify-end gap-2">
+        <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-surface-container-lowest text-on-surface text-xs font-semibold shadow-xs">Cetak Faktur</button>
+        <button onclick="document.getElementById('modal-order-detail').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-xs">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+  <script>
+    function openOrderModal(id, client, amount, item, status) {
+      document.getElementById('modal-order-id').textContent = '#' + id;
+      document.getElementById('modal-order-client').textContent = client;
+      document.getElementById('modal-order-item').textContent = item;
+      document.getElementById('modal-order-amount').textContent = amount;
+      document.getElementById('modal-order-total').textContent = amount;
+      document.getElementById('modal-order-status').textContent = status;
+
+      const modal = document.getElementById('modal-order-detail');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  </script>
+</body>
+</html>

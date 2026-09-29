@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emon Material Admin - Customer Directory</title>
+  <meta name="description" content="Emon Material Admin - Customer and Member Management"/>
+
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <script src="./assets/js/tailwind.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--primary)",
+            "primary-hover": "var(--primary-hover)",
+            "primary-container": "var(--primary-container)",
+            "on-primary": "var(--on-primary)",
+            "primary-fixed": "var(--primary-fixed)",
+            secondary: "var(--secondary)",
+            "secondary-container": "var(--secondary-container)",
+            "on-secondary": "var(--on-secondary)",
+            "secondary-fixed": "var(--secondary-fixed)",
+            tertiary: "var(--tertiary)",
+            "tertiary-container": "var(--tertiary-container)",
+            "on-tertiary": "var(--on-tertiary)",
+            surface: "var(--surface)",
+            "surface-dim": "var(--surface-dim)",
+            "surface-bright": "var(--surface-bright)",
+            "surface-variant": "var(--surface-variant)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "surface-container-low": "var(--surface-container-low)",
+            "surface-container": "var(--surface-container)",
+            "surface-container-high": "var(--surface-container-high)",
+            "surface-container-highest": "var(--surface-container-highest)",
+            "on-surface": "var(--on-surface)",
+            "on-surface-variant": "var(--on-surface-variant)",
+            background: "var(--background)",
+            "on-background": "var(--on-background)",
+            outline: "var(--outline)",
+            "outline-variant": "var(--outline-variant)",
+            error: "var(--error)",
+            "error-container": "var(--error-container)",
+            warning: "var(--warning)",
+            "warning-container": "var(--warning-container)"
+          },
+          borderRadius: {
+            DEFAULT: "var(--radius-md)",
+            sm: "var(--radius-xs)",
+            md: "var(--radius-sm)",
+            lg: "var(--radius-md)",
+            xl: "var(--radius-lg)",
+            "2xl": "var(--radius-xl)",
+            full: "var(--radius-full)"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            margin: "1.5rem"
+          },
+          fontFamily: {
+            display: ["var(--font-display)"],
+            body: ["var(--font-body)"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-sm border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0">
+    <div class="flex flex-col">
+      <div class="h-16 flex items-center justify-between px-space-lg bg-surface-container-low border-b border-outline-variant/20">
+        <a href="index.html" class="flex items-center gap-2 overflow-hidden">
+          <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
+        </a>
+        <button class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="window.EmonTheme.toggleSidebar()" title="Toggle Sidebar">
+          <span class="material-symbols-outlined text-[18px]">menu_open</span>
+        </button>
+      </div>
+
+      <div class="px-space-md py-space-sm overflow-y-auto">
+        <p class="sidebar-section-title px-space-sm py-space-xs text-[11px] font-bold uppercase tracking-wider text-outline">Navigasi Utama</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">grid_view</span>
+            <span class="sidebar-label">Executive Suite</span>
+          </a>
+          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">insights</span>
+            <span class="sidebar-label">Analytics &amp; Data</span>
+          </a>
+          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+            <span class="sidebar-label">Orders &amp; Sales</span>
+          </a>
+          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-on-primary font-semibold text-sm shadow-sm transition-all">
+            <span class="material-symbols-outlined text-[20px]">group</span>
+            <span class="sidebar-label">Customers</span>
+          </a>
+          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">widgets</span>
+            <span class="sidebar-label">UI Components</span>
+          </a>
+        </nav>
+
+        <p class="sidebar-section-title px-space-sm pt-5 pb-space-xs text-[11px] font-bold uppercase tracking-wider text-outline">Konfigurasi</p>
+        <nav class="flex flex-col gap-1">
+          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-[20px]">settings</span>
+            <span class="sidebar-label">Settings &amp; Theme</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="p-space-md bg-surface-container-low border-t border-outline-variant/20">
+      <div class="flex items-center justify-between px-space-sm py-2 bg-surface-container rounded-lg">
+        <div class="flex items-center gap-2 overflow-hidden">
+          <span class="h-2.5 w-2.5 rounded-full bg-secondary shrink-0"></span>
+          <span class="sidebar-label text-xs font-semibold text-on-surface truncate">Emon Directory</span>
+        </div>
+        <button onclick="window.EmonTheme.toggleCustomizerDrawer(true)" class="text-outline hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[18px]">palette</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col min-h-screen">
+    
+    <!-- Header -->
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-space-md lg:px-margin">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Search customers, emails... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="settings.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 flex-1 flex flex-col">
+      <div class="p-4 sm:p-margin flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+          <div>
+            <div class="flex items-center gap-1.5 text-outline text-xs">
+              <a href="index.html" class="hover:text-primary transition-colors">Emon Dashboard</a>
+              <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+              <span class="text-on-surface font-semibold">Customers</span>
+            </div>
+            <h1 class="font-display text-2xl sm:text-3xl font-bold text-on-surface tracking-tight mt-1">Direktori Pelanggan</h1>
+            <p class="text-sm text-on-surface-variant max-w-2xl mt-0.5">
+              Kelola data entitas pelanggan enterprise, kontak teknis, dan alokasi lisensi aktif.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="window.EmonTheme.showToast('Menambahkan pengguna baru...')" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all">
+              <span class="material-symbols-outlined text-[18px]">person_add</span>
+              <span>Tambah Pelanggan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Customer Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+          
+          <!-- Card 1 -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="./assets/images/avatars/user-1.svg" class="w-12 h-12 rounded-xl"/>
+                  <div>
+                    <h3 class="font-bold text-sm text-on-surface">Apex Cloud Solutions</h3>
+                    <span class="text-xs text-outline">San Francisco, US</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-bold">Active</span>
+              </div>
+              <div class="mt-4 flex flex-col gap-1.5 text-xs text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">email</span>
+                  <span>billing@apexcloud.io</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">verified</span>
+                  <span>Enterprise Dedicated (12 Nodes)</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$18,450</strong></span>
+              <button onclick="window.EmonTheme.showToast('Mengirim notifikasi ke Apex Cloud...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="./assets/images/avatars/user-2.svg" class="w-12 h-12 rounded-xl"/>
+                  <div>
+                    <h3 class="font-bold text-sm text-on-surface">Nexus Logistics Europe</h3>
+                    <span class="text-xs text-outline">Berlin, Germany</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-[#b06000] text-xs font-bold">In Review</span>
+              </div>
+              <div class="mt-4 flex flex-col gap-1.5 text-xs text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">email</span>
+                  <span>ops@nexuslog.de</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">verified</span>
+                  <span>API Pipeline Scale Tier 3</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$4,200</strong></span>
+              <button onclick="window.EmonTheme.showToast('Membuka detail Nexus Logistics...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="./assets/images/avatars/user-3.svg" class="w-12 h-12 rounded-xl"/>
+                  <div>
+                    <h3 class="font-bold text-sm text-on-surface">VectorTech Global</h3>
+                    <span class="text-xs text-outline">Singapore, SG</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-bold">Active</span>
+              </div>
+              <div class="mt-4 flex flex-col gap-1.5 text-xs text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">email</span>
+                  <span>procure@vectortech.com</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-outline">verified</span>
+                  <span>Data Warehouse Multi-Region</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-outline">Spend: <strong class="text-on-surface">$31,500</strong></span>
+              <button onclick="window.EmonTheme.showToast('Membuka detail VectorTech...')" class="text-xs text-primary font-semibold hover:underline">Kelola Akun</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+</body>
+</html>

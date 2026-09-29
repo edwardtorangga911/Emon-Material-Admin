@@ -1,5 +1,5 @@
 ---
-name: Metro Material Admin
+name: Emon Material Admin
 colors:
   surface: '#f7f9ff'
   surface-dim: '#d7dae0'
