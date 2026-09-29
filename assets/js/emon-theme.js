@@ -443,6 +443,13 @@
                 <span id="label-secondary" class="text-xs font-mono font-semibold text-on-surface uppercase">${this.config.secondary}</span>
               </div>
             </div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-outline">Tertiary Accent</span>
+              <div class="flex items-center gap-2">
+                <input type="color" id="picker-tertiary" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0" value="${this.config.tertiary}">
+                <span id="label-tertiary" class="text-xs font-mono font-semibold text-on-surface uppercase">${this.config.tertiary}</span>
+              </div>
+            </div>
           </div>
 
           <!-- 3. Dark / Light Mode -->
@@ -545,6 +552,15 @@
         };
       }
 
+      const tertiaryInput = document.getElementById('picker-tertiary');
+      if (tertiaryInput) {
+        tertiaryInput.oninput = (e) => {
+          this.setCustomColor('tertiary', e.target.value);
+          const lbl = document.getElementById('label-tertiary');
+          if (lbl) lbl.textContent = e.target.value.toUpperCase();
+        };
+      }
+
       // Mode buttons
       const modeBtns = document.querySelectorAll('.mode-btn');
       modeBtns.forEach(btn => {
@@ -597,6 +613,11 @@
       if (sIn) sIn.value = this.config.secondary;
       const sLbl = document.getElementById('label-secondary');
       if (sLbl) sLbl.textContent = this.config.secondary.toUpperCase();
+
+      const tIn = document.getElementById('picker-tertiary');
+      if (tIn) tIn.value = this.config.tertiary;
+      const tLbl = document.getElementById('label-tertiary');
+      if (tLbl) tLbl.textContent = this.config.tertiary.toUpperCase();
 
       // Mode buttons
       const modeBtns = document.querySelectorAll('.mode-btn');

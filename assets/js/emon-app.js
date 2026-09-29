@@ -16,6 +16,7 @@
     initTableFilters();
     initTableSorting();
     initDropdowns();
+    initPagination();
   });
 
   // 1. Service Worker Registration (PWA)
@@ -336,4 +337,125 @@
       });
     });
   }
+
+  // 10. Client-Side Table Pagination
+  function initPagination() {
+    const containers = document.querySelectorAll('[data-paginate]');
+    containers.forEach(container => {
+      const pageSize = parseInt(container.getAttribute('data-paginate')) || 10;
+      const table = container.querySelector('table');
+      if (!table) return;
+
+      const tbody = table.querySelector('tbody');
+      if (!tbody) return;
+
+      let currentPage = 1;
+      const allRows = () => Array.from(tbody.querySelectorAll('tr'));
+
+      function render() {
+        const rows = allRows();
+        const total = rows.length;
+        const totalPages = Math.ceil(total / pageSize) || 1;
+        currentPage = Math.min(currentPage, totalPages);
+
+        const start = (currentPage - 1) * pageSize;
+        rows.forEach((r, i) => {
+          r.style.display = (i >= start && i < start + pageSize) ? '' : 'none';
+        });
+
+        renderPaginationControls(container, currentPage, totalPages, total, pageSize);
+      }
+
+      function renderPaginationControls(container, page, totalPages, total, pageSize) {
+        let ctrl = container.querySelector('.emon-pagination-bar');
+        if (!ctrl) {
+          ctrl = document.createElement('div');
+          ctrl.className = 'emon-pagination-bar flex items-center justify-between px-4 py-3 border-t border-outline/10 text-xs text-on-surface-variant';
+          container.appendChild(ctrl);
+        }
+
+        const from = Math.min((page - 1) * pageSize + 1, total);
+        const to = Math.min(page * pageSize, total);
+
+        ctrl.innerHTML = `
+          <span>Menampilkan <strong class="text-on-surface">${from}–${to}</strong> dari <strong class="text-on-surface">${total}</strong> data</span>
+          <div class="flex items-center gap-1">
+            <button class="pg-btn px-2 py-1 rounded-lg hover:bg-surface-container font-medium transition-colors ${page <= 1 ? 'opacity-30 pointer-events-none' : ''}" data-page="prev">
+              <span class="material-symbols-outlined text-[16px] leading-none align-middle">chevron_left</span>
+            </button>
+            ${Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+              const p = totalPages <= 5 ? i + 1 : (page <= 3 ? i + 1 : page - 2 + i);
+              if (p < 1 || p > totalPages) return '';
+              return `<button class="pg-btn w-7 h-7 rounded-lg text-xs font-semibold transition-colors ${p === page ? 'bg-primary text-on-primary' : 'hover:bg-surface-container text-on-surface-variant'}" data-page="${p}">${p}</button>`;
+            }).join('')}
+            <button class="pg-btn px-2 py-1 rounded-lg hover:bg-surface-container font-medium transition-colors ${page >= totalPages ? 'opacity-30 pointer-events-none' : ''}" data-page="next">
+              <span class="material-symbols-outlined text-[16px] leading-none align-middle">chevron_right</span>
+            </button>
+          </div>
+        `;
+
+        ctrl.querySelectorAll('.pg-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const p = btn.dataset.page;
+            if (p === 'prev') currentPage = Math.max(1, currentPage - 1);
+            else if (p === 'next') currentPage = Math.min(totalPages, currentPage + 1);
+            else currentPage = parseInt(p);
+            render();
+          });
+        });
+      }
+
+      render();
+
+      // Re-render when table search filters rows
+      const searchInput = document.getElementById('table-search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          currentPage = 1;
+          setTimeout(() => render(), 10);
+        });
+      }
+    });
+  }
+
+  // 11. Standalone Toast Notification System
+  const EmonToast = {
+    show(message, type = 'info', duration = 3500) {
+      let container = document.getElementById('toast-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+      }
+
+      const icons = { info: 'info', success: 'check_circle', warning: 'warning', error: 'error' };
+      const colors = {
+        info: 'bg-surface-container-highest text-on-surface',
+        success: 'bg-surface-container-highest text-on-surface',
+        warning: 'bg-surface-container-highest text-on-surface',
+        error: 'bg-surface-container-highest text-on-surface'
+      };
+      const iconColors = { info: 'text-primary', success: 'text-success', warning: 'text-warning', error: 'text-error' };
+
+      const toast = document.createElement('div');
+      toast.className = `toast-item flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg ${colors[type] || colors.info}`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-[18px] ${iconColors[type] || iconColors.info}">${icons[type] || icons.info}</span>
+        <span class="text-sm font-medium flex-1">${message}</span>
+        <button class="ml-1 text-outline hover:text-on-surface transition-colors" onclick="this.closest('.toast-item').remove()">
+          <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+      `;
+
+      container.appendChild(toast);
+      if (duration > 0) setTimeout(() => toast.remove(), duration);
+      return toast;
+    },
+    info: (msg, dur) => EmonToast.show(msg, 'info', dur),
+    success: (msg, dur) => EmonToast.show(msg, 'success', dur),
+    warning: (msg, dur) => EmonToast.show(msg, 'warning', dur),
+    error: (msg, dur) => EmonToast.show(msg, 'error', dur)
+  };
+
+  window.EmonToast = EmonToast;
 })();

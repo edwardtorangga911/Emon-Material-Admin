@@ -466,3 +466,122 @@ body.sidebar-mini .sidebar-nav-item {
 .metro-live-glow:hover::before {
   left: 200%;
 }
+
+/* ==========================================================================
+   Skeleton Loader Animation (v3.4)
+   ========================================================================== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-container) 25%,
+    var(--surface-container-high) 50%,
+    var(--surface-container) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+  height: 0.875rem;
+  border-radius: var(--radius-xs);
+}
+
+.skeleton-title {
+  height: 1.25rem;
+  border-radius: var(--radius-xs);
+}
+
+.skeleton-avatar {
+  border-radius: 9999px;
+}
+
+.skeleton-card {
+  height: 7rem;
+  border-radius: var(--radius-xl);
+}
+
+/* ==========================================================================
+   Pagination Bar (v3.4)
+   ========================================================================== */
+.emon-pagination-bar {
+  background: var(--surface-container-lowest);
+  border-bottom-left-radius: var(--radius-xl);
+  border-bottom-right-radius: var(--radius-xl);
+}
+
+/* ==========================================================================
+   Dark Mode Hard-coded Color Fixes (v3.4)
+   ========================================================================== */
+html.dark .customizer-drawer {
+  border-left: 1px solid var(--outline-variant);
+}
+
+html.dark .chart-tooltip {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Donut / Gauge Chart Container (v3.4)
+   ========================================================================== */
+.emon-donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.emon-donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+}
+
+.emon-donut-legend-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Notification Badge Pulse (v3.4)
+   ========================================================================== */
+.badge-pulse {
+  animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ==========================================================================
+   Reports Page — Print Styles (v3.4)
+   ========================================================================== */
+@media print {
+  #emon-sidebar,
+  #emon-header,
+  .customizer-toggle-btn,
+  #emon-customizer-drawer,
+  #emon-customizer-backdrop,
+  .no-print {
+    display: none !important;
+  }
+
+  #emon-main-content {
+    padding-left: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}

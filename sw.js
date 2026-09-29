@@ -3,13 +3,14 @@
  * Offline-first Cache-First Strategy
  */
 
-const CACHE_NAME = 'emon-material-admin-v3.3';
+const CACHE_NAME = 'emon-material-admin-v3.4';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './ecommerce.html',
   './analytics.html',
+  './reports.html',
   './chat.html',
   './calendar.html',
   './taskboard.html',
