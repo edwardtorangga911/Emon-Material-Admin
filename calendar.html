@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalender &amp; Agenda - Emon Material Admin</title>
+
+  <link rel="manifest" href="./manifest.json"/>
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <script src="./assets/js/tailwind.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--primary)",
+            "primary-hover": "var(--primary-hover)",
+            "primary-container": "var(--primary-container)",
+            "on-primary": "var(--on-primary)",
+            "primary-fixed": "var(--primary-fixed)",
+            secondary: "var(--secondary)",
+            "secondary-container": "var(--secondary-container)",
+            "on-secondary": "var(--on-secondary)",
+            "secondary-fixed": "var(--secondary-fixed)",
+            tertiary: "var(--tertiary)",
+            surface: "var(--surface)",
+            "surface-dim": "var(--surface-dim)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "surface-container-low": "var(--surface-container-low)",
+            "surface-container": "var(--surface-container)",
+            "surface-container-high": "var(--surface-container-high)",
+            "on-surface": "var(--on-surface)",
+            "on-surface-variant": "var(--on-surface-variant)",
+            background: "var(--background)",
+            outline: "var(--outline)",
+            "outline-variant": "var(--outline-variant)",
+            error: "var(--error)",
+            warning: "var(--warning)"
+          },
+          borderRadius: { DEFAULT: "var(--radius-md)", lg: "var(--radius-md)", xl: "var(--radius-lg)", "2xl": "var(--radius-xl)", full: "var(--radius-full)" },
+          fontFamily: { display: ["var(--font-display)"], body: ["var(--font-body)"] }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex flex-col">
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-sm border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0">
+    <div class="flex flex-col h-full overflow-hidden">
+      <div class="h-16 flex items-center justify-between px-6 bg-surface-container-low border-b border-outline-variant/20 shrink-0">
+        <a href="index.html" class="flex items-center gap-2 overflow-hidden">
+          <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
+        </a>
+        <button class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="window.EmonTheme.toggleSidebar()">
+          <span class="material-symbols-outlined text-[18px]">menu_open</span>
+        </button>
+      </div>
+
+      <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">grid_view</span>
+              <span class="sidebar-label">Executive Hub</span>
+            </a>
+            <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">storefront</span>
+              <span class="sidebar-label">E-Commerce</span>
+            </a>
+            <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">insights</span>
+              <span class="sidebar-label">Analytics</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">chat</span>
+              <span class="sidebar-label">Chat &amp; Pesan</span>
+            </a>
+            <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm transition-all">
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+              <span class="sidebar-label">Kalender</span>
+            </a>
+            <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+              <span class="sidebar-label">Taskboard</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+              <span class="sidebar-label">Katalog Produk</span>
+            </a>
+            <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              <span class="sidebar-label">Pesanan &amp; Sales</span>
+            </a>
+            <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">group</span>
+              <span class="sidebar-label">Pelanggan</span>
+            </a>
+            <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">sell</span>
+              <span class="sidebar-label">Paket Harga</span>
+            </a>
+            <a href="invoice-print.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">print</span>
+              <span class="sidebar-label">Faktur Cetak</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">badge</span>
+              <span class="sidebar-label">Profil User</span>
+            </a>
+            <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">timeline</span>
+              <span class="sidebar-label">Timeline Aktivitas</span>
+            </a>
+            <a href="login.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">login</span>
+              <span class="sidebar-label">Layar Masuk</span>
+            </a>
+            <a href="lockscreen.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">lock</span>
+              <span class="sidebar-label">Lockscreen</span>
+            </a>
+            <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">check_box_outline_blank</span>
+              <span class="sidebar-label">Blank Page</span>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">widgets</span>
+              <span class="sidebar-label">Live Tiles &amp; Widgets</span>
+            </a>
+            <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">category</span>
+              <span class="sidebar-label">Komponen UI</span>
+            </a>
+            <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">settings</span>
+              <span class="sidebar-label">Settings</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
+    
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-4 lg:px-6">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Search events, schedules... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 flex-1 flex flex-col p-4 sm:p-6 max-w-[1720px] mx-auto">
+      
+      <!-- Calendar Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-on-surface tracking-tight">Agenda &amp; Jadwal Kerja</h1>
+          <p class="text-xs text-outline mt-0.5">September 2026 &bull; Sinkronisasi Kalender Offline Lokal</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button class="p-2 rounded-xl bg-surface-container-lowest border border-outline-variant/30 text-on-surface hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+          </button>
+          <span class="px-4 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/30 text-xs font-bold text-on-surface">September 2026</span>
+          <button class="p-2 rounded-xl bg-surface-container-lowest border border-outline-variant/30 text-on-surface hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+          </button>
+          <button onclick="document.getElementById('modal-event').classList.remove('hidden'); document.getElementById('modal-event').classList.add('flex');" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-all ml-2">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            <span>Tambah Acara</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Calendar Main Layout (Grid + Sidebar) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Upcoming Events List -->
+        <div class="lg:col-span-4 flex flex-col gap-4">
+          <div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 p-5">
+            <h3 class="font-bold text-sm text-on-surface mb-3 flex items-center justify-between">
+              <span>Agenda Mendatang</span>
+              <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary text-[10px] font-bold">4 Acara</span>
+            </h3>
+
+            <div class="space-y-3">
+              <div class="p-3 rounded-xl bg-surface-container-low border-l-4 border-primary flex flex-col gap-1">
+                <span class="font-bold text-xs text-on-surface">Review Arsitektur Cluster Z-12</span>
+                <span class="text-[11px] text-outline flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  Hari ini, 10:00 - 11:30 WIB
+                </span>
+                <span class="text-[11px] text-primary font-semibold mt-1">Ruang Rapat Utama &bull; Tim DevOps</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-surface-container-low border-l-4 border-secondary flex flex-col gap-1">
+                <span class="font-bold text-xs text-on-surface">Audit Backup &amp; Storage NVMe</span>
+                <span class="text-[11px] text-outline flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  Besok, 13:00 - 14:00 WIB
+                </span>
+                <span class="text-[11px] text-secondary font-semibold mt-1">Data Center Internal</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-surface-container-low border-l-4 border-amber-500 flex flex-col gap-1">
+                <span class="font-bold text-xs text-on-surface">Settlement Faktur Nexus Logistics</span>
+                <span class="text-[11px] text-outline flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  1 Okt 2026, 09:00 WIB
+                </span>
+                <span class="text-[11px] text-amber-600 font-semibold mt-1">Finance &amp; Procurement</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Month Grid -->
+        <div class="lg:col-span-8 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 p-5 overflow-hidden">
+          
+          <!-- Days of Week Header -->
+          <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs text-outline uppercase tracking-wider pb-3 border-b border-outline-variant/20">
+            <div>Min</div>
+            <div>Sen</div>
+            <div>Sel</div>
+            <div>Rab</div>
+            <div>Kam</div>
+            <div>Jum</div>
+            <div>Sab</div>
+          </div>
+
+          <!-- Calendar Days Grid -->
+          <div class="grid grid-cols-7 gap-1.5 pt-2 text-xs">
+            <!-- Blank / Prev Month -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low/30 text-outline/40">30</div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low/30 text-outline/40">31</div>
+            
+            <!-- September Days -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">1</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">2</span>
+              <span class="px-1.5 py-0.5 rounded bg-primary-fixed text-primary text-[9px] font-bold truncate">Sprint Demo</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">3</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">4</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">5</span>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">6</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">7</span>
+              <span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-secondary text-[9px] font-bold truncate">Patch Security</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">8</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">9</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">10</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">11</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">12</span>
+            </div>
+
+            <!-- Row 3 & 4 ... -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">13</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">14</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">15</span>
+              <span class="px-1.5 py-0.5 rounded bg-amber-100 text-[#b06000] text-[9px] font-bold truncate">Q3 Audit</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">16</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">17</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">18</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">19</span>
+            </div>
+
+            <!-- Current Day 29 Highlighted -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">20</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">21</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">22</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">23</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">24</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">25</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">26</span>
+            </div>
+
+            <!-- Final Row with Today: 29 -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">27</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">28</span>
+            </div>
+            <!-- Today 29 -->
+            <div class="min-h-24 p-1.5 rounded-xl bg-primary-fixed border-2 border-primary transition-colors flex flex-col justify-between shadow-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-primary">29</span>
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded bg-primary text-on-primary text-[9px] font-bold truncate">Review Z-12</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col justify-between">
+              <span class="font-bold text-on-surface">30</span>
+              <span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-secondary text-[9px] font-bold truncate">Audit NVMe</span>
+            </div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low/30 text-outline/40">1</div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low/30 text-outline/40">2</div>
+            <div class="min-h-24 p-1.5 rounded-xl bg-surface-container-low/30 text-outline/40">3</div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Event Modal -->
+  <div id="modal-event" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center p-4">
+    <div class="w-full max-w-md bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
+      <div class="p-4 border-b border-outline-variant/20 flex items-center justify-between bg-surface-container-low">
+        <h3 class="font-display font-bold text-sm text-on-surface">Jadwalkan Acara Baru</h3>
+        <button onclick="document.getElementById('modal-event').classList.add('hidden')" class="p-1 rounded-lg text-outline hover:text-on-surface">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+      <form class="p-5 flex flex-col gap-3 text-xs" onsubmit="event.preventDefault(); window.EmonTheme.showToast('Acara berhasil disimpan ke kalender offline!'); document.getElementById('modal-event').classList.add('hidden');">
+        <div>
+          <label class="block font-semibold text-outline uppercase mb-1">Judul Agenda</label>
+          <input required class="w-full h-10 px-3 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface" placeholder="misal: Maintenance Server Cluster"/>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-outline uppercase mb-1">Tanggal</label>
+            <input required type="date" value="2026-09-29" class="w-full h-10 px-3 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface"/>
+          </div>
+          <div>
+            <label class="block font-semibold text-outline uppercase mb-1">Waktu</label>
+            <input required type="time" value="14:00" class="w-full h-10 px-3 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface"/>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="document.getElementById('modal-event').classList.add('hidden')" class="px-3.5 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container">Batal</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-semibold shadow-xs">Simpan Jadwal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+  <script src="./assets/js/emon-anim.js"></script>
+</body>
+</html>

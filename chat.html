@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat &amp; Pesan - Emon Material Admin</title>
+
+  <link rel="manifest" href="./manifest.json"/>
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <script src="./assets/js/tailwind.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--primary)",
+            "primary-hover": "var(--primary-hover)",
+            "primary-container": "var(--primary-container)",
+            "on-primary": "var(--on-primary)",
+            "primary-fixed": "var(--primary-fixed)",
+            secondary: "var(--secondary)",
+            "secondary-container": "var(--secondary-container)",
+            "on-secondary": "var(--on-secondary)",
+            "secondary-fixed": "var(--secondary-fixed)",
+            tertiary: "var(--tertiary)",
+            surface: "var(--surface)",
+            "surface-dim": "var(--surface-dim)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "surface-container-low": "var(--surface-container-low)",
+            "surface-container": "var(--surface-container)",
+            "surface-container-high": "var(--surface-container-high)",
+            "on-surface": "var(--on-surface)",
+            "on-surface-variant": "var(--on-surface-variant)",
+            background: "var(--background)",
+            outline: "var(--outline)",
+            "outline-variant": "var(--outline-variant)",
+            error: "var(--error)",
+            warning: "var(--warning)"
+          },
+          borderRadius: { DEFAULT: "var(--radius-md)", lg: "var(--radius-md)", xl: "var(--radius-lg)", "2xl": "var(--radius-xl)", full: "var(--radius-full)" },
+          fontFamily: { display: ["var(--font-display)"], body: ["var(--font-body)"] }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex flex-col">
+
+  <!-- Sidebar Navigation -->
+  <aside id="emon-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-sm border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0">
+    <div class="flex flex-col h-full overflow-hidden">
+      <!-- Logo Header -->
+      <div class="h-16 flex items-center justify-between px-6 bg-surface-container-low border-b border-outline-variant/20 shrink-0">
+        <a href="index.html" class="flex items-center gap-2 overflow-hidden">
+          <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
+        </a>
+        <button class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="window.EmonTheme.toggleSidebar()">
+          <span class="material-symbols-outlined text-[18px]">menu_open</span>
+        </button>
+      </div>
+
+      <!-- Navigation Menu with Primer-style Categories -->
+      <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
+        
+        <!-- DASHBOARDS -->
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">grid_view</span>
+              <span class="sidebar-label">Executive Hub</span>
+            </a>
+            <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">storefront</span>
+              <span class="sidebar-label">E-Commerce</span>
+            </a>
+            <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">insights</span>
+              <span class="sidebar-label">Analytics</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- APPLICATIONS -->
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="chat.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm transition-all">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+                <span class="sidebar-label">Chat &amp; Pesan</span>
+              </div>
+              <span class="sidebar-badge px-1.5 py-0.2 rounded-full bg-white text-primary text-[10px] font-bold">3</span>
+            </a>
+            <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+              <span class="sidebar-label">Kalender</span>
+            </a>
+            <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+              <span class="sidebar-label">Taskboard</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- E-COMMERCE -->
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+              <span class="sidebar-label">Katalog Produk</span>
+            </a>
+            <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              <span class="sidebar-label">Pesanan &amp; Sales</span>
+            </a>
+            <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">group</span>
+              <span class="sidebar-label">Pelanggan</span>
+            </a>
+            <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">sell</span>
+              <span class="sidebar-label">Paket Harga</span>
+            </a>
+            <a href="invoice-print.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">print</span>
+              <span class="sidebar-label">Faktur Cetak</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- PAGES -->
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">badge</span>
+              <span class="sidebar-label">Profil User</span>
+            </a>
+            <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">timeline</span>
+              <span class="sidebar-label">Timeline Aktivitas</span>
+            </a>
+            <a href="login.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">login</span>
+              <span class="sidebar-label">Layar Masuk</span>
+            </a>
+            <a href="lockscreen.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">lock</span>
+              <span class="sidebar-label">Lockscreen</span>
+            </a>
+            <a href="404.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">error</span>
+              <span class="sidebar-label">Error 404</span>
+            </a>
+            <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">check_box_outline_blank</span>
+              <span class="sidebar-label">Blank Page</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- UI & SETTINGS -->
+        <div>
+          <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Pengaturan</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">widgets</span>
+              <span class="sidebar-label">UI Components Kit</span>
+            </a>
+            <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">dashboard_customize</span>
+              <span class="sidebar-label">Widgets Koleksi</span>
+            </a>
+            <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[18px]">settings</span>
+              <span class="sidebar-label">Settings &amp; Theme</span>
+            </a>
+          </nav>
+        </div>
+
+      </div>
+
+      <!-- Bottom Status -->
+      <div class="p-3 bg-surface-container-low border-t border-outline-variant/20 shrink-0">
+        <div class="flex items-center justify-between px-2 py-1.5 bg-surface-container rounded-lg text-xs">
+          <span class="font-semibold text-on-surface">Emon v3.2</span>
+          <span class="w-2 h-2 rounded-full bg-secondary"></span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
+    
+    <!-- Top Header -->
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-4 lg:px-6">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Search chats, contacts... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Chat App Main Layout -->
+    <main class="w-full pt-16 flex-1 flex flex-col p-4 sm:p-6 max-w-[1720px] mx-auto">
+      <div class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden flex flex-col md:flex-row h-[calc(100vh-7rem)]">
+        
+        <!-- Left: Conversations List -->
+        <div class="w-full md:w-80 border-r border-outline-variant/20 flex flex-col bg-surface-container-low">
+          <!-- Chat Header -->
+          <div class="p-4 border-b border-outline-variant/20 flex items-center justify-between">
+            <h2 class="font-display font-bold text-base text-on-surface">Obrolan &amp; Pesan</h2>
+            <button class="p-1.5 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary transition-colors text-on-surface" title="Obrolan Baru">
+              <span class="material-symbols-outlined text-[18px]">edit_square</span>
+            </button>
+          </div>
+
+          <!-- Chat Search -->
+          <div class="p-3 border-b border-outline-variant/15">
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[16px]">search</span>
+              <input type="text" class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container text-xs text-on-surface placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Cari kontak atau obrolan..."/>
+            </div>
+          </div>
+
+          <!-- Chat List -->
+          <div class="flex-1 overflow-y-auto divide-y divide-outline-variant/10">
+            
+            <div class="p-3 bg-surface-container/60 hover:bg-surface-container transition-colors cursor-pointer flex items-center gap-3">
+              <div class="relative">
+                <img src="./assets/images/avatars/user-1.svg" class="w-10 h-10 rounded-full"/>
+                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-xs text-on-surface truncate">Apex Support Team</span>
+                  <span class="text-[10px] text-outline">14:20</span>
+                </div>
+                <p class="text-[11px] text-on-surface-variant truncate mt-0.5">Deployment Z-12 cluster sudah berhasil diverifikasi.</p>
+              </div>
+              <span class="w-4 h-4 rounded-full bg-primary text-on-primary text-[10px] font-bold flex items-center justify-center shrink-0">2</span>
+            </div>
+
+            <div class="p-3 hover:bg-surface-container transition-colors cursor-pointer flex items-center gap-3">
+              <div class="relative">
+                <img src="./assets/images/avatars/user-2.svg" class="w-10 h-10 rounded-full"/>
+                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-xs text-on-surface truncate">Nexus Logistics Ops</span>
+                  <span class="text-[10px] text-outline">11:05</span>
+                </div>
+                <p class="text-[11px] text-outline truncate mt-0.5">Bisa tolong cek webhook API endpoint kami?</p>
+              </div>
+            </div>
+
+            <div class="p-3 hover:bg-surface-container transition-colors cursor-pointer flex items-center gap-3">
+              <div class="relative">
+                <img src="./assets/images/avatars/user-3.svg" class="w-10 h-10 rounded-full"/>
+                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-outline ring-2 ring-surface"></span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-xs text-on-surface truncate">VectorTech Global</span>
+                  <span class="text-[10px] text-outline">Kemarin</span>
+                </div>
+                <p class="text-[11px] text-outline truncate mt-0.5">Terima kasih atas faktur penjualannya.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: Active Conversation Pane -->
+        <div class="flex-1 flex flex-col bg-surface-container-lowest">
+          
+          <!-- Conversation Header -->
+          <div class="p-4 border-b border-outline-variant/20 flex items-center justify-between bg-surface-container-low/40">
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="./assets/images/avatars/user-1.svg" class="w-10 h-10 rounded-full"/>
+                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm text-on-surface">Apex Support Team</h3>
+                <span class="text-[11px] text-secondary font-medium">Online &bull; Enterprise Dedicated</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1">
+              <button class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+                <span class="material-symbols-outlined text-[20px]">call</span>
+              </button>
+              <button class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+                <span class="material-symbols-outlined text-[20px]">videocam</span>
+              </button>
+              <button class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+                <span class="material-symbols-outlined text-[20px]">more_vert</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Message Thread -->
+          <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4">
+            
+            <div class="flex justify-center">
+              <span class="px-3 py-1 rounded-full bg-surface-container text-[11px] font-semibold text-outline">Hari ini, 29 September 2026</span>
+            </div>
+
+            <!-- Incoming message -->
+            <div class="flex items-end gap-2.5 max-w-lg">
+              <img src="./assets/images/avatars/user-1.svg" class="w-7 h-7 rounded-full mb-1 shrink-0"/>
+              <div>
+                <div class="p-3.5 rounded-2xl rounded-bl-sm bg-surface-container-low text-xs text-on-surface leading-relaxed shadow-sm">
+                  Halo Pak Edward, proses aktivasi 12 Node Dedicated Cluster (Z-12) sudah selesai dikonfigurasi pada sistem offline kami.
+                </div>
+                <span class="text-[10px] text-outline ml-2 mt-1 block">14:15</span>
+              </div>
+            </div>
+
+            <!-- Outgoing message -->
+            <div class="flex items-end gap-2.5 max-w-lg ml-auto flex-row-reverse">
+              <img src="./assets/images/avatars/user-admin.svg" class="w-7 h-7 rounded-full mb-1 shrink-0"/>
+              <div>
+                <div class="p-3.5 rounded-2xl rounded-br-sm bg-primary text-on-primary text-xs leading-relaxed shadow-sm">
+                  Sangat baik. Apakah telemetry throughput dan health check monitoring sudah berjalan stabil di port internal?
+                </div>
+                <div class="flex items-center justify-end gap-1 mr-2 mt-1 text-[10px] text-outline">
+                  <span>14:18</span>
+                  <span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Incoming message -->
+            <div class="flex items-end gap-2.5 max-w-lg">
+              <img src="./assets/images/avatars/user-1.svg" class="w-7 h-7 rounded-full mb-1 shrink-0"/>
+              <div>
+                <div class="p-3.5 rounded-2xl rounded-bl-sm bg-surface-container-low text-xs text-on-surface leading-relaxed shadow-sm">
+                  Sudah, SLA mencapai 99.98% dengan latensi 4ms. Laporan faktur juga sudah kami unduh dari portal.
+                </div>
+                <span class="text-[10px] text-outline ml-2 mt-1 block">14:20</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Message Composer Bar -->
+          <div class="p-3 border-t border-outline-variant/20 bg-surface-container-low/50">
+            <form id="chat-form" class="flex items-center gap-2" onsubmit="event.preventDefault(); sendMessage();">
+              <button type="button" class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                <span class="material-symbols-outlined text-[20px]">attach_file</span>
+              </button>
+              <button type="button" class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+                <span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+              </button>
+              <input id="chat-input" required type="text" class="flex-1 h-10 px-4 rounded-full bg-surface-container border border-outline-variant/30 text-xs text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ketik pesan Anda..."/>
+              <button type="submit" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-hover shadow-sm transition-all">
+                <span class="material-symbols-outlined text-[18px]">send</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+  <script src="./assets/js/emon-anim.js"></script>
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const thread = document.getElementById('chat-messages');
+      const msg = document.createElement('div');
+      msg.className = 'flex items-end gap-2.5 max-w-lg ml-auto flex-row-reverse emon-entrance';
+      msg.innerHTML = `
+        <img src="./assets/images/avatars/user-admin.svg" class="w-7 h-7 rounded-full mb-1 shrink-0"/>
+        <div>
+          <div class="p-3.5 rounded-2xl rounded-br-sm bg-primary text-on-primary text-xs leading-relaxed shadow-sm">
+            ${text.replace(/</g, '&lt;')}
+          </div>
+          <div class="flex items-center justify-end gap-1 mr-2 mt-1 text-[10px] text-outline">
+            <span>Baru saja</span>
+            <span class="material-symbols-outlined text-[14px] text-primary">done</span>
+          </div>
+        </div>
+      `;
+      thread.appendChild(msg);
+      input.value = '';
+      thread.scrollTop = thread.scrollHeight;
+
+      // Simulated offline response after 1s
+      setTimeout(() => {
+        const reply = document.createElement('div');
+        reply.className = 'flex items-end gap-2.5 max-w-lg emon-entrance';
+        reply.innerHTML = `
+          <img src="./assets/images/avatars/user-1.svg" class="w-7 h-7 rounded-full mb-1 shrink-0"/>
+          <div>
+            <div class="p-3.5 rounded-2xl rounded-bl-sm bg-surface-container-low text-xs text-on-surface leading-relaxed shadow-sm">
+              Pesan diterima oleh server internal.
+            </div>
+            <span class="text-[10px] text-outline ml-2 mt-1 block">Baru saja</span>
+          </div>
+        `;
+        thread.appendChild(reply);
+        thread.scrollTop = thread.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

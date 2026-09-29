@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id" class="light" data-theme="indigo" data-contrast="standard" data-density="comfortable">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4f46e5"/>
+  <title>Timeline Aktivitas - Emon Material Admin</title>
+  
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
+  
+  <script src="./assets/js/emon-theme.js"></script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-sans">
+  
+  <!-- Backdrop for mobile sidebar -->
+  <div id="emon-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
+
+  <!-- Sidebar -->
+  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-outline-variant/30">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+        </div>
+        <div>
+          <span class="font-bold text-sm text-on-surface tracking-tight block">Emon Material</span>
+          <span class="text-[10px] text-outline uppercase font-semibold tracking-wider">Enterprise v1.2</span>
+        </div>
+      </div>
+      <button id="emon-sidebar-close" class="lg:hidden p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">grid_view</span>
+            <span class="sidebar-label">Executive Hub</span>
+          </a>
+          <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">storefront</span>
+            <span class="sidebar-label">E-Commerce</span>
+          </a>
+          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">insights</span>
+            <span class="sidebar-label">Analytics</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chat</span>
+            <span class="sidebar-label">Chat &amp; Pesan</span>
+          </a>
+          <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            <span class="sidebar-label">Kalender</span>
+          </a>
+          <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+            <span class="sidebar-label">Taskboard</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+            <span class="sidebar-label">Katalog Produk</span>
+          </a>
+          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            <span class="sidebar-label">Pesanan &amp; Sales</span>
+          </a>
+          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">group</span>
+            <span class="sidebar-label">Pelanggan</span>
+          </a>
+          <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">sell</span>
+            <span class="sidebar-label">Paket Harga</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">badge</span>
+            <span class="sidebar-label">Profil User</span>
+          </a>
+          <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm transition-all">
+            <span class="material-symbols-outlined text-[18px]">timeline</span>
+            <span class="sidebar-label">Timeline Aktivitas</span>
+          </a>
+          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+            <span class="sidebar-label">Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
+        <nav class="flex flex-col gap-1 mt-1">
+          <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">widgets</span>
+            <span class="sidebar-label">Live Tiles &amp; Widgets</span>
+          </a>
+          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">category</span>
+            <span class="sidebar-label">Komponen UI</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
+    
+    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-4 lg:px-6">
+      <div class="flex items-center gap-3 max-w-md w-full">
+        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="search-trigger relative w-full flex items-center cursor-pointer">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none cursor-pointer" placeholder="Search timeline events... (Ctrl+K)" type="text" readonly/>
+          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono text-outline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Toggle Mode">
+          <span class="material-symbols-outlined text-[20px]">contrast</span>
+        </button>
+        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
+          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
+          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
+        </a>
+        <button id="emon-theme-toggle" class="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Customizer">
+          <span class="material-symbols-outlined text-[20px]">palette</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 mt-16 p-4 lg:p-6 space-y-6 max-w-5xl mx-auto w-full">
+      <!-- Breadcrumb & Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <nav class="flex items-center gap-1.5 text-xs text-outline mb-1">
+            <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+            <span>/</span>
+            <span class="text-on-surface font-medium">Timeline</span>
+          </nav>
+          <h1 class="text-xl lg:text-2xl font-bold tracking-tight text-on-surface">Timeline &amp; Audit Log</h1>
+          <p class="text-xs text-outline">Log aktivitas sistem, deployment rilis, dan jejak audit operasional.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="emon-ripple px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-xs font-semibold text-on-surface flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">file_download</span>
+            Export Log
+          </button>
+          <button class="emon-ripple px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-xs font-semibold text-on-primary flex items-center gap-1.5 shadow-sm transition-colors">
+            <span class="material-symbols-outlined text-[16px]">add_circle</span>
+            Catat Log
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Chips -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+        <button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-semibold shadow-xs">Semua (18)</button>
+        <button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium transition-colors">Deployment (4)</button>
+        <button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium transition-colors">Security &amp; Auth (5)</button>
+        <button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium transition-colors">E-Commerce (6)</button>
+        <button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium transition-colors">Database (3)</button>
+      </div>
+
+      <!-- Timeline Stream -->
+      <div class="relative pl-6 sm:pl-8 border-l-2 border-outline-variant/50 space-y-8 my-4">
+        
+        <!-- Item 1: Release v1.2 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center ring-4 ring-surface shadow-xs">
+            <span class="material-symbols-outlined text-[14px]">rocket_launch</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/30 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary">RELEASE v1.2.0</span>
+                <h3 class="text-sm font-semibold text-on-surface">Produksi Berhasil Dideploy ke Cluster Kubernetes</h3>
+              </div>
+              <span class="text-[11px] text-outline">10 menit yang lalu</span>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-3">
+              Rilis v1.2.0 menghadirkan fitur PWA offline cache, animasi transisi 60fps, dan 14 halaman Primer UI baru. Tidak ada downtime yang terdeteksi selama rolling deployment.
+            </p>
+            <div class="flex items-center gap-3 text-xs text-outline border-t border-outline-variant/20 pt-2.5">
+              <span class="font-mono text-[11px] bg-surface-container px-2 py-0.5 rounded text-on-surface">commit #bb1c8ef</span>
+              <span>Dijalankan oleh <strong class="text-on-surface">CI/CD Runner #419</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Security Auth -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-success text-on-success flex items-center justify-center ring-4 ring-surface shadow-xs">
+            <span class="material-symbols-outlined text-[14px]">verified_user</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/30 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success">SECURITY</span>
+                <h3 class="text-sm font-semibold text-on-surface">Rotasi Kunci API &amp; Pembaruan Sertifikat SSL Wildcard</h3>
+              </div>
+              <span class="text-[11px] text-outline">1 jam yang lalu</span>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-2">
+              Kunci akses produksi untuk gateway pembayaran Midtrans dan Cloudflare WAF TLS certificate otomatis diperbarui oleh cron bot.
+            </p>
+            <div class="flex items-center gap-2">
+              <img src="./assets/images/avatars/user-admin.svg" class="w-5 h-5 rounded-full" alt="Avatar"/>
+              <span class="text-xs text-on-surface">Disetujui oleh <strong>Edward Torangga</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Order Surge -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-warning text-on-warning flex items-center justify-center ring-4 ring-surface shadow-xs">
+            <span class="material-symbols-outlined text-[14px]">shopping_cart</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/30 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-warning/10 text-warning">E-COMMERCE</span>
+                <h3 class="text-sm font-semibold text-on-surface">Puncak Lonjakan Transaksi Flash Sale Payday</h3>
+              </div>
+              <span class="text-[11px] text-outline">3 jam yang lalu</span>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Volume order tembus 1.450 transaksi dalam 15 menit pertama. Latensi response server tetap stabil di 42ms berkat optimasi memory cache.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 4: Database Backup -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center ring-4 ring-surface shadow-xs">
+            <span class="material-symbols-outlined text-[14px]">database</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/30 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-secondary/10 text-secondary">BACKUP &amp; OPS</span>
+                <h3 class="text-sm font-semibold text-on-surface">Automated PostgreSQL Snapshot Dibuat</h3>
+              </div>
+              <span class="text-[11px] text-outline">04:00 WIB</span>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-2">
+              Snapshot snapshot-pg-20260929-daily (14.2 GB) terenkripsi AES-256 berhasil diunggah ke cold storage repository lokal.
+            </p>
+            <div class="flex items-center gap-2 text-[11px] text-outline">
+              <span class="material-symbols-outlined text-[14px] text-success">check_circle</span>
+              <span>Integritas checksum SHA-256 terverifikasi 100% valid</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: New Member -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center ring-4 ring-surface shadow-xs">
+            <span class="material-symbols-outlined text-[14px]">person_add</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/30 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-tertiary/10 text-tertiary">ORGANIZATION</span>
+                <h3 class="text-sm font-semibold text-on-surface">3 Anggota Tim Baru Diundang ke Workspace Dev</h3>
+              </div>
+              <span class="text-[11px] text-outline">Kemarin 16:30</span>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-3">
+              Sarah Jenkins (Lead UI/UX), Dimas Pratama (Fullstack), dan Linda Kusuma (QA Engineer) telah menerima akses role Developer.
+            </p>
+            <div class="flex items-center -space-x-1.5">
+              <div class="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-[10px] font-bold border-2 border-surface">SJ</div>
+              <div class="w-6 h-6 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-[10px] font-bold border-2 border-surface">DP</div>
+              <div class="w-6 h-6 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center text-[10px] font-bold border-2 border-surface">LK</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Load More -->
+      <div class="text-center pt-2">
+        <button class="emon-ripple px-4 py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-xs font-semibold text-on-surface transition-colors">
+          Muat Aktivitas Terdahulu
+        </button>
+      </div>
+    </main>
+
+    <footer class="mt-auto py-4 px-6 border-t border-outline-variant/30 text-center text-xs text-outline">
+      &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
+    </footer>
+  </div>
+
+  <!-- Theme Customizer Drawer -->
+  <div id="emon-theme-drawer" class="fixed inset-y-0 right-0 w-80 bg-surface-container border-l border-outline-variant/30 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">palette</span>
+        <h3 class="font-bold text-sm text-on-surface">Customizer Offline</h3>
+      </div>
+      <button id="emon-theme-drawer-close" class="p-1 rounded-lg text-outline hover:bg-surface-container-high transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <div class="p-4 overflow-y-auto flex-1 space-y-6">
+      <div>
+        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Warna Primer</label>
+        <div class="grid grid-cols-4 gap-2" id="preset-colors"></div>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Mode Tampilan</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button data-mode="light" class="mode-btn p-2 rounded-lg border border-outline-variant/50 text-xs font-medium flex items-center justify-center gap-1.5 text-on-surface hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[16px]">light_mode</span> Terang
+          </button>
+          <button data-mode="dark" class="mode-btn p-2 rounded-lg border border-outline-variant/50 text-xs font-medium flex items-center justify-center gap-1.5 text-on-surface hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[16px]">dark_mode</span> Gelap
+          </button>
+        </div>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Border Radius</label>
+        <div class="grid grid-cols-4 gap-1.5">
+          <button data-radius="sharp" class="radius-btn py-1.5 rounded-none border border-outline-variant/50 text-xs font-medium text-on-surface hover:bg-surface-container-high">Sharp</button>
+          <button data-radius="subtle" class="radius-btn py-1.5 rounded border border-outline-variant/50 text-xs font-medium text-on-surface hover:bg-surface-container-high">Subtle</button>
+          <button data-radius="rounded" class="radius-btn py-1.5 rounded-lg border border-outline-variant/50 text-xs font-medium text-on-surface hover:bg-surface-container-high">Round</button>
+          <button data-radius="full" class="radius-btn py-1.5 rounded-full border border-outline-variant/50 text-xs font-medium text-on-surface hover:bg-surface-container-high">Pill</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/emon-anim.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+</body>
+</html>

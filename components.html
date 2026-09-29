@@ -88,38 +88,104 @@
         </button>
       </div>
 
-      <div class="px-space-md py-space-sm overflow-y-auto">
-        <p class="sidebar-section-title px-space-sm py-space-xs text-[11px] font-bold uppercase tracking-wider text-outline">Navigasi Utama</p>
-        <nav class="flex flex-col gap-1 mt-1">
-          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
-            <span class="material-symbols-outlined text-[20px]">grid_view</span>
-            <span class="sidebar-label">Executive Suite</span>
-          </a>
-          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
-            <span class="material-symbols-outlined text-[20px]">insights</span>
-            <span class="sidebar-label">Analytics &amp; Data</span>
-          </a>
-          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
-            <span class="material-symbols-outlined text-[20px]">receipt_long</span>
-            <span class="sidebar-label">Orders &amp; Sales</span>
-          </a>
-          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
-            <span class="material-symbols-outlined text-[20px]">group</span>
-            <span class="sidebar-label">Customers</span>
-          </a>
-          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-on-primary font-semibold text-sm shadow-sm transition-all">
-            <span class="material-symbols-outlined text-[20px]">widgets</span>
-            <span class="sidebar-label">UI Components</span>
-          </a>
-        </nav>
+      <div class="px-space-md py-space-sm overflow-y-auto space-y-3">
+        <div>
+          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">grid_view</span>
+              <span class="sidebar-label">Executive Hub</span>
+            </a>
+            <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">storefront</span>
+              <span class="sidebar-label">E-Commerce</span>
+            </a>
+            <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">insights</span>
+              <span class="sidebar-label">Analytics &amp; Data</span>
+            </a>
+          </nav>
+        </div>
 
-        <p class="sidebar-section-title px-space-sm pt-5 pb-space-xs text-[11px] font-bold uppercase tracking-wider text-outline">Konfigurasi</p>
-        <nav class="flex flex-col gap-1">
-          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-sm transition-colors">
-            <span class="material-symbols-outlined text-[20px]">settings</span>
-            <span class="sidebar-label">Settings &amp; Theme</span>
-          </a>
-        </nav>
+        <div>
+          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">chat</span>
+              <span class="sidebar-label">Chat &amp; Pesan</span>
+            </a>
+            <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+              <span class="sidebar-label">Kalender</span>
+            </a>
+            <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+              <span class="sidebar-label">Taskboard</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+              <span class="sidebar-label">Katalog Produk</span>
+            </a>
+            <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              <span class="sidebar-label">Pesanan &amp; Sales</span>
+            </a>
+            <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">group</span>
+              <span class="sidebar-label">Pelanggan</span>
+            </a>
+            <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">sell</span>
+              <span class="sidebar-label">Paket Harga</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">badge</span>
+              <span class="sidebar-label">Profil User</span>
+            </a>
+            <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">timeline</span>
+              <span class="sidebar-label">Timeline Aktivitas</span>
+            </a>
+            <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">draft</span>
+              <span class="sidebar-label">Blank Page</span>
+            </a>
+            <a href="lockscreen.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">lock</span>
+              <span class="sidebar-label">Lockscreen</span>
+            </a>
+            <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">settings</span>
+              <span class="sidebar-label">Settings</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
+          <nav class="flex flex-col gap-1 mt-1">
+            <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
+              <span class="material-symbols-outlined text-[18px]">widgets</span>
+              <span class="sidebar-label">Live Tiles &amp; Widgets</span>
+            </a>
+            <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary font-semibold text-xs shadow-sm transition-all">
+              <span class="material-symbols-outlined text-[18px]">category</span>
+              <span class="sidebar-label">Komponen UI</span>
+            </a>
+          </nav>
+        </div>
       </div>
     </div>
 

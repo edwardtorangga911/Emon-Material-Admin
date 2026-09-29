@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="./manifest.json"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>500 - Kesalahan Server Internal - Emon Material Admin</title>
+
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
+  <script src="./assets/js/emon-theme.js"></script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased min-h-screen flex flex-col justify-between">
+
+  <header class="w-full p-4 flex items-center justify-between max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold shadow-xs">
+        <span class="material-symbols-outlined text-[18px]">grid_view</span>
+      </div>
+      <span class="font-bold text-sm tracking-tight text-on-surface">Emon Material Admin</span>
+    </a>
+    <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors" title="Toggle Theme">
+      <span class="material-symbols-outlined text-[20px]">contrast</span>
+    </button>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="text-center max-w-lg flex flex-col items-center">
+      <div class="w-24 h-24 rounded-3xl bg-error/10 text-error flex items-center justify-center mb-6">
+        <span class="material-symbols-outlined text-[48px]">warning</span>
+      </div>
+      <span class="font-mono text-xs uppercase tracking-widest text-error font-bold">Error 500 &bull; Internal Server Error</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-on-surface tracking-tight mt-2">Terjadi Kesalahan Server</h1>
+      <p class="text-xs text-outline mt-3 leading-relaxed max-w-md">
+        Server internal mengalami kendala saat memproses permintaan Anda. Layanan background otomatis memulihkan status.
+      </p>
+
+      <!-- Expandable diagnostic log -->
+      <div class="mt-4 w-full text-left">
+        <button onclick="document.getElementById('debug-stack').classList.toggle('hidden')" class="text-[11px] text-outline hover:text-primary transition-colors flex items-center gap-1 mx-auto font-mono">
+          <span class="material-symbols-outlined text-[14px]">terminal</span>
+          Lihat Log Diagnostik
+        </button>
+        <div id="debug-stack" class="hidden mt-2 p-3 rounded-xl bg-surface-container-high text-[11px] font-mono text-on-surface-variant overflow-x-auto border border-outline-variant/30 text-left">
+          <div class="text-error font-bold mb-1">Status: 500 InternalServerError</div>
+          <div class="text-outline">Trace ID: emon-trace-991204-bff09</div>
+          <div class="text-outline">Engine: Emon Static Offline Runtime</div>
+          <div class="mt-1 text-on-surface">at Dispatcher.renderRoute (emon-app.js:241)</div>
+          <div class="text-on-surface">at async ServiceWorker.fetchIntercept (sw.js:42)</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 mt-6">
+        <button onclick="window.location.reload()" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold text-xs shadow-md hover:bg-primary-hover transition-all flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">refresh</span>
+          <span>Muat Ulang Halaman</span>
+        </button>
+        <a href="index.html" class="px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface font-semibold text-xs hover:bg-surface-container transition-all flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">home</span>
+          Dashboard
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="p-4 text-center text-xs text-outline">
+    &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
+  </footer>
+
+  <script src="./assets/js/emon-anim.js"></script>
+</body>
+</html>

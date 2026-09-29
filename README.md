@@ -44,24 +44,37 @@ Dibuat untuk aplikasi enterprise, intranet pemerintahan/sekolah, sistem kasir/PO
 - Tidak membutuhkan library pihak ketiga (tanpa Chart.js, tanpa D3, tanpa ApexCharts).
 - Reaktif: Grafik otomatis menyesuaikan warnanya saat pengguna mengganti tema di Customizer.
 
-### 4. 📑 Halaman Lengkap & Siap Pakai
-| Halaman | Keterangan |
-|---|---|
-| [**`index.html`**](file:///root/Emon-Material-Admin/index.html) | Dashboard Eksekutif utama (Live Tiles, Grafik Telemetri, Gauge NVMe & SLA, Ledger Transaksi, Modal Entri Cepat). |
-| [**`analytics.html`**](file:///root/Emon-Material-Admin/analytics.html) | Analitik telemetri data, grafik mingguan (WAS), dan corong konversi (funnel). |
-| [**`orders.html`**](file:///root/Emon-Material-Admin/orders.html) | Manajemen pesanan & penjualan dengan pengurutan kolom (sorting), filter status, dan modal rincian transaksi. |
-| [**`customers.html`**](file:///root/Emon-Material-Admin/customers.html) | Direktori pelanggan dan anggota, badge status keanggotaan, dan kontak teknis. |
-| [**`components.html`**](file:///root/Emon-Material-Admin/components.html) | Katalog komponen UI lengkap (Tombol, Chip, Badge, Form Input, Dropdown, Toggle, Notifikasi Toast). |
-| [**`settings.html`**](file:///root/Emon-Material-Admin/settings.html) | Pusat konfigurasi tema offline, salin CSS variables, dan pengaturan profil admin. |
-| [**`login.html`**](file:///root/Emon-Material-Admin/login.html) | Layar masuk administrator dengan desain dual-split Metro tile + form Material 3. |
-| [**`register.html`**](file:///root/Emon-Material-Admin/register.html) | Formulir pendaftaran akun administrator baru. |
-| [**`forgot-password.html`**](file:///root/Emon-Material-Admin/forgot-password.html) | Layar pemulihan kata sandi. |
-| [**`invoice-print.html`**](file:///root/Emon-Material-Admin/invoice-print.html) | Faktur penjualan siap cetak (A4 / PDF print-optimized) dengan CSS `@media print`. |
-| [**`404.html`**](file:///root/Emon-Material-Admin/404.html) | Halaman penanganan rute tidak ditemukan bergaya Metro Material. |
+### 4. 📑 20+ Halaman Lengkap & Siap Pakai (Primer UI Inspired)
+| Kategori | Halaman | Keterangan |
+|---|---|---|
+| **Dashboards** | [**`index.html`**](file:///root/Emon-Material-Admin/index.html) | Dashboard Eksekutif utama (Live Tiles, Grafik Telemetri, Gauge NVMe & SLA, Ledger Transaksi, Modal Entri Cepat). |
+| | [**`ecommerce.html`**](file:///root/Emon-Material-Admin/ecommerce.html) | Dashboard E-Commerce (Ringkasan Penjualan, Tren Wilayah, Produk Terlaris, Metrik ARR). |
+| | [**`analytics.html`**](file:///root/Emon-Material-Admin/analytics.html) | Analitik telemetri data, grafik mingguan (WAS), corong konversi, dan sebaran peramban. |
+| **Applications** | [**`chat.html`**](file:///root/Emon-Material-Admin/chat.html) | Aplikasi Chat & Pesan interaktif, daftar kontak aktif, status online, dan composer pesan. |
+| | [**`calendar.html`**](file:///root/Emon-Material-Admin/calendar.html) | Kalender jadwal kegiatan interaktif (Month/Week/Day), filter kategori, dan modal event. |
+| | [**`taskboard.html`**](file:///root/Emon-Material-Admin/taskboard.html) | Papan kerja Kanban 4-kolom (Backlog, In Progress, Review, Done) dengan kartu tugas dan modal task baru. |
+| **E-Commerce** | [**`products.html`**](file:///root/Emon-Material-Admin/products.html) | Katalog produk grid view dengan rating bintang, filter kategori, badge stok, dan modal tambah produk. |
+| | [**`orders.html`**](file:///root/Emon-Material-Admin/orders.html) | Manajemen pesanan & penjualan dengan pengurutan kolom, filter status, dan modal rincian transaksi. |
+| | [**`customers.html`**](file:///root/Emon-Material-Admin/customers.html) | Direktori pelanggan dan anggota, badge status keanggotaan, dan kontak teknis. |
+| | [**`pricing.html`**](file:///root/Emon-Material-Admin/pricing.html) | Matriks perbandingan paket harga lisensi transparan (Starter, Pro Enterprise, Dedicated Cluster). |
+| | [**`invoice-print.html`**](file:///root/Emon-Material-Admin/invoice-print.html) | Faktur penjualan siap cetak (A4 / PDF print-optimized) dengan CSS `@media print`. |
+| **Halaman & Akun** | [**`profile.html`**](file:///root/Emon-Material-Admin/profile.html) | Profil pengguna profesional dengan hero avatar, bio, badge keahlian teknis, dan log aktivitas. |
+| | [**`timeline.html`**](file:///root/Emon-Material-Admin/timeline.html) | Timeline vertikal log aktivitas, deployment rilis v1.2, audit keamanan, dan backup snapshot. |
+| | [**`blank.html`**](file:///root/Emon-Material-Admin/blank.html) | Template halaman kosong (Starter Kit) siap pakai untuk membuat modul baru tanpa mengulang boilerplate. |
+| | [**`lockscreen.html`**](file:///root/Emon-Material-Admin/lockscreen.html) | Layar kunci sesi dengan jam digital aktif, avatar pengguna, input PIN/password, dan verifikasi biometrik. |
+| | [**`login.html`**](file:///root/Emon-Material-Admin/login.html) | Layar masuk administrator dengan desain dual-split Metro tile + form Material 3. |
+| | [**`register.html`**](file:///root/Emon-Material-Admin/register.html) | Formulir pendaftaran akun administrator baru. |
+| | [**`forgot-password.html`**](file:///root/Emon-Material-Admin/forgot-password.html) | Layar pemulihan kata sandi. |
+| | [**`404.html`**](file:///root/Emon-Material-Admin/404.html) | Halaman penanganan rute tidak ditemukan bergaya Metro Material. |
+| | [**`500.html`**](file:///root/Emon-Material-Admin/500.html) | Halaman penanganan kesalahan server internal dengan toggle log diagnostik. |
+| **UI & Widgets** | [**`widgets.html`**](file:///root/Emon-Material-Admin/widgets.html) | Koleksi lengkap Live Tiles bergaya Windows Metro (Cuaca, NVMe I/O, Checklist Tugas, Metrik Sosial). |
+| | [**`components.html`**](file:///root/Emon-Material-Admin/components.html) | Katalog komponen UI lengkap (Tombol, Chip, Badge, Form Input, Dropdown, Toggle, Notifikasi Toast). |
+| | [**`settings.html`**](file:///root/Emon-Material-Admin/settings.html) | Pusat konfigurasi tema offline, salin CSS variables, dan pengaturan profil admin. |
 
-### 5. ⚡ Fitur Engine Baru (v3.2.0)
+### 5. ⚡ Fitur Engine Baru (v3.3.0)
+- **Emon Motion Engine (`emon-anim.js`)**: Animasi transisi 60fps native, ripple effect koordinat sentuh, counter angka naik (count-up KPI), dan 3D tile tilt.
 - **PWA & Offline Service Worker (`sw.js`)**: Dapat diinstall sebagai aplikasi native desktop/mobile dan tersimpan di cache browser.
-- **Precompiled Production CSS (`emon-material.min.css`)**: File CSS statis terkompilasi hanya berukuran ~65KB untuk performa instan di server/perangkat terbatas.
+- **Precompiled Production CSS (`emon-material.min.css`)**: File CSS statis terkompilasi hanya berukuran ~68KB untuk performa instan di server/perangkat terbatas.
 - **Client-Side Data Grid Engine**:
   - Pengurutan tabel interaktif (klik header untuk sortir ASC / DESC).
   - Ekspor instan tabel ke format CSV & JSON menggunakan native JavaScript `Blob` (tanpa backend).

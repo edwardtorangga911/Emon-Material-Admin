@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id" class="light" data-theme="indigo" data-contrast="standard" data-density="comfortable">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4f46e5"/>
+  <title>Kunci Sesi (Lockscreen) - Emon Material Admin</title>
+  
+  <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-theme.css"/>
+  <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
+  
+  <script src="./assets/js/emon-theme.js"></script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col justify-between font-sans selection:bg-primary selection:text-on-primary">
+
+  <!-- Top bar controls -->
+  <header class="w-full p-4 lg:p-6 flex items-center justify-between max-w-6xl mx-auto">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold shadow-xs">
+        <span class="material-symbols-outlined text-[18px]">lock</span>
+      </div>
+      <span class="font-bold text-sm tracking-tight">Emon Material Admin</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors" title="Toggle Mode">
+        <span class="material-symbols-outlined text-[20px]">contrast</span>
+      </button>
+      <button id="emon-theme-toggle" class="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Customizer">
+        <span class="material-symbols-outlined text-[20px]">palette</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Lockscreen Card -->
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-surface-container-low/90 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-outline-variant/40 shadow-xl text-center flex flex-col items-center">
+      
+      <!-- Big Digital Clock -->
+      <div class="mb-6">
+        <div id="lockscreen-clock" class="text-4xl font-extrabold tracking-tight text-on-surface font-mono">10:45</div>
+        <div id="lockscreen-date" class="text-xs text-outline font-medium mt-1">Selasa, 29 September 2026</div>
+      </div>
+
+      <!-- Avatar & User Info -->
+      <div class="relative mb-4">
+        <img src="./assets/images/avatars/user-admin.svg" alt="Edward Torangga" class="w-20 h-20 rounded-full border-4 border-primary/20 shadow-md"/>
+        <div class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-warning border-2 border-surface flex items-center justify-center text-[11px] text-on-warning" title="Sesi Terkunci">
+          <span class="material-symbols-outlined text-[13px]">lock</span>
+        </div>
+      </div>
+
+      <h2 class="text-base font-bold text-on-surface">Edward Torangga</h2>
+      <p class="text-xs text-outline mb-6">edward.torangga@emon.internal</p>
+
+      <!-- Unlock Form -->
+      <form id="lockscreen-form" class="w-full space-y-4" onsubmit="event.preventDefault(); unlock();">
+        <div class="relative">
+          <input id="unlock-pass" type="password" placeholder="Masukkan PIN atau Password (coba: 123456)" required
+            class="w-full px-4 py-2.5 rounded-xl bg-surface-container border border-outline-variant/60 text-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"/>
+          <button type="button" onclick="togglePassVisibility()" class="absolute right-3 top-2.5 text-outline hover:text-on-surface transition-colors">
+            <span id="pass-icon" class="material-symbols-outlined text-[18px]">visibility</span>
+          </button>
+        </div>
+
+        <div id="unlock-alert" class="hidden text-xs py-1.5 px-3 rounded-lg bg-error/10 text-error font-medium text-left">
+          Password/PIN tidak valid. Coba: 123456
+        </div>
+
+        <button type="submit" class="emon-ripple w-full py-2.5 px-4 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-semibold text-xs shadow-sm flex items-center justify-center gap-2 transition-all">
+          <span class="material-symbols-outlined text-[18px]">lock_open</span>
+          Buka Dashboard
+        </button>
+      </form>
+
+      <!-- Switch Account or Biometric -->
+      <div class="mt-6 pt-4 border-t border-outline-variant/30 w-full flex items-center justify-between text-xs">
+        <a href="login.html" class="text-outline hover:text-primary transition-colors flex items-center gap-1 font-medium">
+          <span class="material-symbols-outlined text-[14px]">logout</span>
+          Ganti Akun
+        </a>
+        <button onclick="simulateBiometric()" class="text-primary hover:underline font-semibold flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">fingerprint</span>
+          Biometrik
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="py-4 text-center text-xs text-outline">
+    &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
+  </footer>
+
+  <!-- Theme Customizer Drawer -->
+  <div id="emon-theme-drawer" class="fixed inset-y-0 right-0 w-80 bg-surface-container border-l border-outline-variant/30 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">palette</span>
+        <h3 class="font-bold text-sm text-on-surface">Customizer Offline</h3>
+      </div>
+      <button id="emon-theme-drawer-close" class="p-1 rounded-lg text-outline hover:bg-surface-container-high transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <div class="p-4 overflow-y-auto flex-1 space-y-6">
+      <div>
+        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Warna Primer</label>
+        <div class="grid grid-cols-4 gap-2" id="preset-colors"></div>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase text-outline tracking-wider block mb-2">Mode Tampilan</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button data-mode="light" class="mode-btn p-2 rounded-lg border border-outline-variant/50 text-xs font-medium flex items-center justify-center gap-1.5 text-on-surface hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[16px]">light_mode</span> Terang
+          </button>
+          <button data-mode="dark" class="mode-btn p-2 rounded-lg border border-outline-variant/50 text-xs font-medium flex items-center justify-center gap-1.5 text-on-surface hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[16px]">dark_mode</span> Gelap
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/emon-anim.js"></script>
+  <script src="./assets/js/emon-app.js"></script>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('lockscreen-clock');
+      if (clockEl) clockEl.textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function togglePassVisibility() {
+      const input = document.getElementById('unlock-pass');
+      const icon = document.getElementById('pass-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    function unlock() {
+      const pass = document.getElementById('unlock-pass').value.trim();
+      const alert = document.getElementById('unlock-alert');
+      if (pass === '123456' || pass.length >= 4) {
+        window.location.href = 'index.html';
+      } else {
+        alert.classList.remove('hidden');
+      }
+    }
+
+    function simulateBiometric() {
+      if (confirm('Verifikasi sidik jari WebAuthn simulasi offline? Klik OK untuk autentikasi.')) {
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
+</body>
+</html>
