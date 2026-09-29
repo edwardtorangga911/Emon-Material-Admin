@@ -4,6 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Offline Capable](https://img.shields.io/badge/Offline-100%25%20Ready-success.svg)](OFFLINE_GUIDE.md)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success?logo=github)](https://edwardtorangga911.github.io/Emon-Material-Admin/)
+
+🌐 **Live Demo:** [https://edwardtorangga911.github.io/Emon-Material-Admin/](https://edwardtorangga911.github.io/Emon-Material-Admin/)
 
 ---
 
