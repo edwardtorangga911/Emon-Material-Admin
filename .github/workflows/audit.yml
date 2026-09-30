@@ -1,0 +1,42 @@
+name: Audit
+
+on: # YAML 1.1 parsers read a bare `on` as a boolean key; quote it for safety.
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No install step: the audit suite is dependency-free by design, so it
+      # runs against a clean checkout without pulling the Tailwind toolchain.
+      - name: Syntax-check every source file
+        run: |
+          for f in assets/js/*.js sw.js; do
+            node --check "$f" || { echo "syntax error in $f"; exit 1; }
+          done
+          echo "all JS parses"
+
+      - name: Run audit suite
+        run: npm test
+
+      - name: Assert the service worker cache was bumped when sources changed
+        run: |
+          # A stale CACHE_NAME silently pins returning visitors to an old build,
+          # so the cache version must move whenever sw-referenced assets change.
+          CACHE=$(grep -o "emon-material-admin-v[0-9.]*" sw.js | head -1)
+          echo "current cache: $CACHE"
+          git log -1 --format=%H -- sw.js
+          if git diff HEAD~1 --name-only HEAD | grep -qE '^(assets/|sw\.js)' \
+             && [ "$(git diff HEAD~1 sw.js | grep -c 'CACHE_NAME =')" -eq 0 ]; then
+            echo "::error::assets changed but sw.js CACHE_NAME was not bumped"
+            exit 1
+          fi
