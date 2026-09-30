@@ -15,6 +15,32 @@
   border-radius: var(--radius-xs);
 }
 
+/* Accent-coloured TEXT must not reuse the fill colour.
+   --primary is tuned to carry white text on top of it (filled buttons, 176
+   uses), which leaves it near 2.4:1 against the dark surface ramp — well under
+   WCAG AA 4.5:1. The same applies to --error. Both are re-pointed at
+   on-surface variants here rather than at 145 individual call sites.
+   Filled usage is unaffected: it pairs with text-on-primary / text-on-error. */
+.text-primary {
+  color: var(--primary-on-surface) !important;
+}
+.text-error {
+  color: var(--error-on-surface) !important;
+}
+.text-warning {
+  color: var(--warning-on-surface) !important;
+}
+/* Undo the override where the accent sits on a filled accent surface, where the
+   fill colour is the correct foreground (e.g. active sidebar item, active tab). */
+.bg-primary .text-primary,
+.text-primary.bg-primary {
+  color: var(--on-primary) !important;
+}
+.bg-error .text-error,
+.text-error.bg-error {
+  color: var(--on-error) !important;
+}
+
 /* Skip link — visually hidden until keyboard focus */
 .skip-link {
   position: fixed;
