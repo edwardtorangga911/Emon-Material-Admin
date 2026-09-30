@@ -5,7 +5,7 @@
 
 // Bump this on every release. The fetch handler is cache-first, so a stale name
 // means returning visitors keep running the previous build indefinitely.
-const CACHE_NAME = 'emon-material-admin-v3.8';
+const CACHE_NAME = 'emon-material-admin-v3.9';
 
 const ASSETS_TO_CACHE = [
   './',
