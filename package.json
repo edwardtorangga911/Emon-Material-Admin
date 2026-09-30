@@ -7,7 +7,10 @@
     "build:css": "tailwindcss -i assets/css/input.css -o assets/css/emon-material.min.css --minify",
     "start": "python3 -m http.server 8080",
     "serve": "python3 -m http.server 8080",
-    "dev": "python3 -m http.server 8080"
+    "dev": "python3 -m http.server 8080",
+    "test": "node tests/run.mjs",
+    "test:pages": "node tests/audit-pages.mjs",
+    "test:contrast": "node tests/audit-contrast.mjs"
   },
   "repository": {
     "type": "git",

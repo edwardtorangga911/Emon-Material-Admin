@@ -5,7 +5,7 @@
 
 // Bump this on every release. The fetch handler is cache-first, so a stale name
 // means returning visitors keep running the previous build indefinitely.
-const CACHE_NAME = 'emon-material-admin-v3.9';
+const CACHE_NAME = 'emon-material-admin-v3.10';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -41,6 +41,48 @@ const ASSETS_TO_CACHE = [
   './assets/css/emon-components.css',
   './assets/css/emon-material.min.css',
   './assets/fonts/fonts.css',
+  // The 37 woff2 files are what make the offline claim true. fonts.css and the
+  // compiled stylesheet both reference them, but without these entries the
+  // service worker cached the CSS that points at them while the font files
+  // themselves were never stored — so an offline visitor got the correct
+  // layout in the browser's fallback typeface.
+  './assets/fonts/material-symbols-outlined-100700-1.woff2',
+  './assets/fonts/inter-400-1.woff2',
+  './assets/fonts/inter-400-2.woff2',
+  './assets/fonts/inter-400-3.woff2',
+  './assets/fonts/inter-400-4.woff2',
+  './assets/fonts/inter-400-5.woff2',
+  './assets/fonts/inter-400-6.woff2',
+  './assets/fonts/inter-400-7.woff2',
+  './assets/fonts/inter-500-8.woff2',
+  './assets/fonts/inter-500-9.woff2',
+  './assets/fonts/inter-500-10.woff2',
+  './assets/fonts/inter-500-11.woff2',
+  './assets/fonts/inter-500-12.woff2',
+  './assets/fonts/inter-500-13.woff2',
+  './assets/fonts/inter-500-14.woff2',
+  './assets/fonts/inter-600-15.woff2',
+  './assets/fonts/inter-600-16.woff2',
+  './assets/fonts/inter-600-17.woff2',
+  './assets/fonts/inter-600-18.woff2',
+  './assets/fonts/inter-600-19.woff2',
+  './assets/fonts/inter-600-20.woff2',
+  './assets/fonts/inter-600-21.woff2',
+  './assets/fonts/inter-700-22.woff2',
+  './assets/fonts/inter-700-23.woff2',
+  './assets/fonts/inter-700-24.woff2',
+  './assets/fonts/inter-700-25.woff2',
+  './assets/fonts/inter-700-26.woff2',
+  './assets/fonts/inter-700-27.woff2',
+  './assets/fonts/inter-700-28.woff2',
+  './assets/fonts/plus-jakarta-sans-600-29.woff2',
+  './assets/fonts/plus-jakarta-sans-600-30.woff2',
+  './assets/fonts/plus-jakarta-sans-600-31.woff2',
+  './assets/fonts/plus-jakarta-sans-600-32.woff2',
+  './assets/fonts/plus-jakarta-sans-700-33.woff2',
+  './assets/fonts/plus-jakarta-sans-700-34.woff2',
+  './assets/fonts/plus-jakarta-sans-700-35.woff2',
+  './assets/fonts/plus-jakarta-sans-700-36.woff2',
   './assets/js/tailwind.js',
   // Runs in <head> before paint — without it the page flashes the wrong theme.
   './assets/js/emon-theme-init.js',
