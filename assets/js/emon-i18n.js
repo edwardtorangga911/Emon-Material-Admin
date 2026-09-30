@@ -237,7 +237,9 @@
       this.lang = lang;
       localStorage.setItem(STORAGE_KEY, lang);
       this.render();
-      document.documentElement.setAttribute('lang', lang);
+      // The shell renders its own labels from its own table, so it has to be
+      // told to re-render. Without this the switcher changed nothing visible.
+      window.dispatchEvent(new CustomEvent('emon-lang-changed', { detail: { lang } }));
       if (window.EmonToast) EmonToast.info(`Bahasa diubah ke ${lang.toUpperCase()}`);
     },
 
@@ -275,7 +277,9 @@
   window.EmonI18n = EmonI18n;
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.documentElement.setAttribute('lang', EmonI18n.lang);
+    // <html lang> is left as authored: page bodies are authored in Indonesian,
+    // so claiming another language there would misdescribe them. The shell
+    // stamps lang onto its own containers instead.
     EmonI18n.render();
   });
 })();

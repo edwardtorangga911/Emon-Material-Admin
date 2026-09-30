@@ -7,6 +7,11 @@
 (function () {
   'use strict';
 
+  // See initCommandPalette — guards the one window-level listener that would
+  // otherwise be registered again on every shell re-render.
+  let paletteKeysBound = false;
+  let notifDocBound = false;
+
   document.addEventListener('DOMContentLoaded', () => {
     initServiceWorker();
     initSidebarMobile();
@@ -23,6 +28,14 @@
     initKeyboardShortcuts();
     initThemeURLSharing();
     initA11y();
+
+    // A language switch rebuilds the shell chrome, discarding the nodes these
+    // handlers were attached to. Re-attach to the new ones.
+    window.addEventListener('emon-shell-rerendered', () => {
+      initCommandPalette();
+      initNotifications();
+      initQuickActions();
+    });
   });
 
   // 1. Service Worker Registration (PWA)
@@ -88,17 +101,36 @@
       if (e.target === modal) closePalette();
     });
 
+    // Bound to window, so it outlives the chrome nodes this function attaches
+    // to. A language switch re-runs this init; without the guard the duplicate
+    // listener would toggle the palette twice per Ctrl+K and cancel itself out.
+    if (paletteKeysBound) return;
+    paletteKeysBound = true;
+
     window.addEventListener('keydown', (e) => {
+      const m = document.getElementById('command-palette-modal');
+      if (!m) return;
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        if (modal.classList.contains('hidden')) {
-          openPalette();
+        if (m.classList.contains('hidden')) {
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+          const mi = m.querySelector('input');
+          if (mi) setTimeout(() => mi.focus(), 50);
         } else {
-          closePalette();
+          m.classList.add('hidden');
+          m.classList.remove('flex');
+          const mi = m.querySelector('input');
+          if (mi) mi.value = '';
+          if (window.EmonShell) window.EmonShell.resetPaletteFilter();
         }
       }
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closePalette();
+      if (e.key === 'Escape' && !m.classList.contains('hidden')) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+        const mi = m.querySelector('input');
+        if (mi) mi.value = '';
+        if (window.EmonShell) window.EmonShell.resetPaletteFilter();
       }
     });
   }
@@ -114,9 +146,17 @@
       dropdown.classList.toggle('hidden');
     });
 
+    // Document-level, so it must not be re-registered on shell re-render; it
+    // resolves the dropdown by id each time so it keeps working on new nodes.
+    if (notifDocBound) return;
+    notifDocBound = true;
+
     document.addEventListener('click', (e) => {
-      if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
-        dropdown.classList.add('hidden');
+      const d = document.getElementById('dropdown-notifications');
+      const b = document.getElementById('btn-notifications');
+      if (!d || !b) return;
+      if (!d.contains(e.target) && !b.contains(e.target)) {
+        d.classList.add('hidden');
       }
     });
   }

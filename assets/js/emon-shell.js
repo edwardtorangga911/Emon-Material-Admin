@@ -311,16 +311,26 @@
     `;
   }
 
+  let scrollProgressBound = false;
+
   function initScrollProgress() {
     const bar = document.getElementById('emon-scroll-progress-bar');
     if (!bar) return;
+    // The bar element is replaced on re-render, but the scroll listeners are
+    // bound to the scroll target, which is not — so bind them only once and
+    // have the handler look the bar up each time.
+    if (scrollProgressBound) return;
+    scrollProgressBound = true;
     const target = document.getElementById('emon-main-content') || document.documentElement;
     const onScroll = () => {
+      // Look the bar up per call — a language switch replaces the node.
+      const el0 = document.getElementById('emon-scroll-progress-bar');
+      if (!el0) return;
       const scrollTop = (target.scrollTop != null && target.scrollTop > 0) ? target.scrollTop : (window.scrollY || 0);
       const el = target.scrollHeight ? target : document.documentElement;
       const max = el.scrollHeight - window.innerHeight || 1;
       const pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
-      bar.style.width = pct + '%';
+      el0.style.width = pct + '%';
     };
     target.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -418,6 +428,9 @@
     if (run !== 'csv' && run !== 'json' && run !== 'quick') close();
   }
 
+  // Stable hosts for the shell chrome. Their innerHTML is re-rendered on a
+  // language switch, so the host elements themselves must keep their identity
+  // across renders.
   function inject() {
     const active = activeKey();
     const root = document.getElementById('emon-shell-root');
@@ -426,12 +439,13 @@
     const frag = document.createElement('div');
     frag.innerHTML = `
       <a href="#emon-main-content" class="skip-link">Skip to main content</a>
-      ${renderSidebar(active)}
-      ${renderHeader()}
-      ${renderCommandPalette(active)}
-      ${renderQuickActionModal()}
+      <div id="emon-shell-nav"></div>
+      <div id="emon-shell-top"></div>
+      <div id="emon-shell-overlays"></div>
     `;
     while (frag.firstChild) document.body.insertBefore(frag.firstChild, document.body.firstChild);
+
+    renderChrome(active);
 
     // Footer goes at the end of the app main column (if present)
     const main = document.getElementById('emon-main-content');
@@ -441,18 +455,52 @@
       main.appendChild(f.firstChild);
     }
 
-    // Notifications "mark all read"
+    bindShellBehaviour();
+  }
+
+  // Re-renders only the translated chrome, leaving the host nodes in place.
+  function renderChrome(active) {
+    const nav = document.getElementById('emon-shell-nav');
+    const top = document.getElementById('emon-shell-top');
+    const overlays = document.getElementById('emon-shell-overlays');
+
+    // The chrome carries the selected language, but <html lang> must keep
+    // describing the page body, which stays in its authored language.
+    const lang = detectLang();
+    [nav, top, overlays].forEach(el => { if (el) el.setAttribute('lang', lang); });
+
+    if (nav) nav.innerHTML = renderSidebar(active);
+    if (top) top.innerHTML = renderHeader();
+    if (overlays) {
+      overlays.innerHTML = renderCommandPalette(active) + renderQuickActionModal();
+    }
+  }
+
+  // Attaches handlers to chrome that currently exists. Split from renderChrome
+  // because a language switch replaces those nodes and the handlers must be
+  // re-bound to the new ones.
+  function bindShellBehaviour() {
     const markBtn = document.getElementById('notif-mark-read');
     if (markBtn) {
       markBtn.addEventListener('click', () => {
         const dot = document.getElementById('notif-dot');
         if (dot) dot.classList.add('hidden');
-        if (window.EmonTheme) window.EmonTheme.showToast('Semua notifikasi ditandai dibaca.');
+        if (window.EmonTheme) window.EmonTheme.showToast(tr({ id: 'Semua notifikasi ditandai dibaca.', en: 'All notifications marked as read.' }));
       });
     }
 
     initScrollProgress();
     if (modalExists('command-palette-modal')) initPalette();
+  }
+
+  // Re-render the chrome in the current language. Consumers that bound to the
+  // previous nodes (emon-app's palette/notifications/quick-action handlers)
+  // listen for `emon-shell-rerendered` to re-attach.
+  function rerender() {
+    if (!document.getElementById('emon-shell-root')) return;
+    renderChrome(activeKey());
+    bindShellBehaviour();
+    window.dispatchEvent(new CustomEvent('emon-shell-rerendered'));
   }
 
   function modalExists(id) {
@@ -466,15 +514,17 @@
     inject();
   }
 
-  // Re-render sidebar labels on language switch
-  window.addEventListener('emon-lang-changed', () => { /* labels are static per load; fine to re-render */
-  });
+  // Re-render the chrome when the language changes. emon-i18n's setLang()
+  // fires this; without it the sidebar, header, palette and notification
+  // labels stayed in the language chosen at page load.
+  window.addEventListener('emon-lang-changed', rerender);
 
   window.EmonShell = {
     NAV,
     QUICK_ACTIONS,
     activeKey,
     resetPaletteFilter,
+    rerender,
     version: '3.5'
   };
 })();
