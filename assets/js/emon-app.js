@@ -78,6 +78,7 @@
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       if (modalInput) modalInput.value = '';
+      if (window.EmonShell) window.EmonShell.resetPaletteFilter();
     }
 
     searchInputs.forEach(el => el.addEventListener('click', openPalette));
@@ -928,7 +929,7 @@
       // Ctrl+D → toggle dark
       if (e.ctrlKey && e.key === 'd') {
         e.preventDefault();
-        if (window.EmonTheme) EmonTheme.toggleDarkMode?.() || EmonTheme.setMode?.(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+        if (window.EmonTheme) window.EmonTheme.toggleMode();
         return;
       }
 

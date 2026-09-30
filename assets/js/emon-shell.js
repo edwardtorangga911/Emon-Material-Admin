@@ -84,6 +84,9 @@
 
   const STORAGE_LANG_KEY = 'emon_lang';
 
+  // Assigned by initPalette(); no-op until the palette exists.
+  let resetPaletteFilter = () => {};
+
   function detectLang() {
     try { return localStorage.getItem(STORAGE_LANG_KEY) || DEFAULT_LANG; } catch (e) { return DEFAULT_LANG; }
   }
@@ -372,6 +375,14 @@
       else if (e.key === 'Enter') { e.preventDefault(); goActive(); }
     });
 
+    // emon-app's closePalette() clears the input programmatically, which fires
+    // no `input` event — so the hidden rows would survive the next open. The
+    // shell owns the filter state, so it exposes the reset for app to call.
+    resetPaletteFilter = () => {
+      if (input.value) input.value = '';
+      filterResults();
+    };
+
     // Initial active state
     setActive(0);
   }
@@ -417,7 +428,7 @@
       <a href="#emon-main-content" class="skip-link">Skip to main content</a>
       ${renderSidebar(active)}
       ${renderHeader()}
-      ${renderCommandPalette()}
+      ${renderCommandPalette(active)}
       ${renderQuickActionModal()}
     `;
     while (frag.firstChild) document.body.insertBefore(frag.firstChild, document.body.firstChild);
@@ -463,6 +474,7 @@
     NAV,
     QUICK_ACTIONS,
     activeKey,
+    resetPaletteFilter,
     version: '3.5'
   };
 })();
