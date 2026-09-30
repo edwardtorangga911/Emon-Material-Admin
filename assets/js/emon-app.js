@@ -59,16 +59,58 @@
     const sidebar = document.getElementById('emon-sidebar');
     if (!mobileBtn || !sidebar) return;
 
-    mobileBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-    });
+    const CLOSED = '-translate-x-full';
+    const isOpen = () => !sidebar.classList.contains(CLOSED);
+
+    // The drawer covered the page with no scrim, so there was no visual cue
+    // that the page behind it was inert, and no target to tap to dismiss.
+    let scrim = document.getElementById('sidebar-scrim');
+    if (!scrim) {
+      scrim = document.createElement('div');
+      scrim.id = 'sidebar-scrim';
+      scrim.className = 'sidebar-scrim';
+      document.body.appendChild(scrim);
+    }
+
+    function setOpen(open) {
+      if (open) {
+        sidebar.classList.remove(CLOSED);
+        sidebar.removeAttribute('inert');
+        // Stop the page behind the drawer from scrolling away underneath it.
+        document.body.classList.add('overflow-hidden');
+      } else {
+        sidebar.classList.add(CLOSED);
+        document.body.classList.remove('overflow-hidden');
+      }
+      mobileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      scrim.classList.toggle('sidebar-scrim-visible', open);
+    }
+
+    mobileBtn.setAttribute('aria-expanded', 'false');
+    mobileBtn.setAttribute('aria-controls', 'emon-sidebar');
+
+    mobileBtn.addEventListener('click', () => setOpen(!isOpen()));
+    scrim.addEventListener('click', () => { setOpen(false); mobileBtn.focus(); });
 
     document.addEventListener('click', (e) => {
       if (window.innerWidth < 1024) {
-        if (!sidebar.contains(e.target) && !mobileBtn.contains(e.target) && !sidebar.classList.contains('-translate-x-full')) {
-          sidebar.classList.add('-translate-x-full');
+        if (!sidebar.contains(e.target) && !mobileBtn.contains(e.target) && isOpen()) {
+          setOpen(false);
         }
       }
+    });
+
+    // Escape closes the drawer and returns focus to the control that opened it.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        setOpen(false);
+        mobileBtn.focus();
+      }
+    });
+
+    // Crossing into desktop must not leave the page scroll-locked.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) document.body.classList.remove('overflow-hidden');
     });
   }
 

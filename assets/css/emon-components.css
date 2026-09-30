@@ -15,6 +15,85 @@
   border-radius: var(--radius-xs);
 }
 
+/* --------------------------------------------------------------------------
+   1a. Mobile drawer — scrim + scroll lock
+   -------------------------------------------------------------------------- */
+
+/* Below lg the sidebar is an overlay drawer. It previously covered the page
+   with no scrim: nothing signalled the page was inert, there was no tap target
+   to dismiss, and the page behind could scroll out from under it. */
+.sidebar-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.sidebar-scrim-visible {
+  opacity: 1;
+  visibility: visible;
+}
+/* On desktop the sidebar is a permanent column, so the scrim must never
+   intercept clicks. */
+@media (min-width: 64rem) {
+  .sidebar-scrim {
+    display: none;
+  }
+}
+
+/* Keep the drawer's own scroll contained rather than letting it chain to the
+   page behind. */
+@media (max-width: 63.999rem) {
+  #emon-sidebar {
+    box-shadow: var(--shadow-xl);
+  }
+  #emon-sidebar .sidebar-scroll {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   1b. Spacing utilities — parity between the two delivery paths
+   --------------------------------------------------------------------------
+
+   18 pages build utilities at runtime from an inline tailwind.config, while 9
+   are served from the prebuilt emon-material.min.css, which was generated
+   before these custom names existed. The injected shell uses the custom spacing
+   names on every page, so on the prebuilt pages they resolved to nothing and
+   the sidebar fell back to browser defaults — different padding, different
+   metrics, depending on which page was open.
+
+   These definitions restore parity. They resolve against the same --space-*
+   tokens the runtime config uses, so both paths now produce identical values.
+   Harmless on runtime pages: identical declarations, later in cascade order. */
+.p-space-md { padding: var(--space-md); }
+.px-space-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+.px-space-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+.px-space-lg { padding-left: var(--space-lg); padding-right: var(--space-lg); }
+.py-space-sm { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
+.py-space-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+.py-space-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+.gap-space-sm { gap: var(--space-sm); }
+.gap-space-md { gap: var(--space-md); }
+.gap-space-lg { gap: var(--space-lg); }
+.mt-space-sm { margin-top: var(--space-sm); }
+.mt-space-md { margin-top: var(--space-md); }
+.mt-space-lg { margin-top: var(--space-lg); }
+.mb-space-sm { margin-bottom: var(--space-sm); }
+.mb-space-md { margin-bottom: var(--space-md); }
+.mb-space-lg { margin-bottom: var(--space-lg); }
+.ml-space-md { margin-left: var(--space-md); }
+.mr-space-md { margin-right: var(--space-md); }
+.pt-space-md { padding-top: var(--space-md); }
+.pb-space-md { padding-bottom: var(--space-md); }
+.pl-space-lg { padding-left: var(--space-lg); }
+.pr-space-lg { padding-right: var(--space-lg); }
+
 /* Accent-coloured TEXT must not reuse the fill colour.
    --primary is tuned to carry white text on top of it (filled buttons, 176
    uses), which leaves it near 2.4:1 against the dark surface ramp — well under

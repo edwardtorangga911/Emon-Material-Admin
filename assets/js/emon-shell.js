@@ -84,6 +84,10 @@
 
   const STORAGE_LANG_KEY = 'emon_lang';
 
+  // Single source of truth for the version string, so the sidebar badge, the
+  // exported API and package.json cannot drift apart.
+  const VERSION = '3.5';
+
   // Assigned by initPalette(); no-op until the palette exists.
   let resetPaletteFilter = () => {};
 
@@ -142,10 +146,10 @@
           <div class="flex items-center justify-between px-space-sm py-2 bg-surface-container rounded-lg">
             <div class="flex items-center gap-2 overflow-hidden">
               <span class="h-2.5 w-2.5 rounded-full bg-secondary shrink-0 animate-pulse"></span>
-              <span class="sidebar-label text-xs font-semibold text-on-surface truncate">Emon v3.5 Offline</span>
+              <span class="sidebar-label text-xs font-semibold text-on-surface truncate">Emon <span class="sidebar-version">v${VERSION}</span> Offline</span>
             </div>
-            <button data-action="toggle-customizer" class="text-outline hover:text-primary transition-colors" title="Kustomisasi Tema" aria-label="Customize theme">
-              <span class="material-symbols-outlined text-[18px]">palette</span>
+            <button data-action="toggle-customizer" class="text-outline hover:text-primary transition-colors shrink-0" title="Kustomisasi Tema" aria-label="Customize theme">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">palette</span>
             </button>
           </div>
         </div>
@@ -523,6 +527,6 @@
     activeKey,
     resetPaletteFilter,
     rerender,
-    version: '3.5'
+    version: VERSION
   };
 })();

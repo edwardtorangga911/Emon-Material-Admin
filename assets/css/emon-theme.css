@@ -75,6 +75,18 @@
   --outline-variant: #c1c6d6;
   --surface-tint: #005bc0;
 
+  /* Spacing scale.
+     These were only ever declared in the inline tailwind.config of the 18
+     runtime-built pages, so the 9 pages served from emon-material.min.css had
+     no --space-* tokens at all. The shell's markup (px-space-lg, py-space-sm,
+     gap-space-md) then fell back to browser defaults, which is why the sidebar
+     rendered at a different width and type size depending on the page.
+     Declaring them here gives both delivery paths one identical scale. */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+
   --inverse-surface: #2d3135;
   --inverse-on-surface: #eef1f7;
   --inverse-primary: #adc7ff;
@@ -339,6 +351,27 @@ html.sidebar-mini-init .sidebar-collapse-btn {
    below surfaces it on hover/focus, in either toggle state. */
 .sidebar-nav-item {
   position: relative;
+}
+/* Active item reads as active from the background alone in the expanded rail.
+   A left accent bar keeps the cue once the rail collapses, where the filled
+   pill is reduced to a small square of colour. */
+.sidebar-nav-item[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  border-radius: 0 3px 3px 0;
+  background: currentColor;
+  opacity: 0.9;
+}
+body.sidebar-mini .sidebar-nav-item[aria-current="page"]::before,
+html.sidebar-mini-init .sidebar-nav-item[aria-current="page"]::before {
+  height: 80%;
+  width: 3px;
+  left: 0.25rem;
 }
 .sidebar-nav-item::after {
   content: attr(data-label);
