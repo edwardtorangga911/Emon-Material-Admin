@@ -285,6 +285,77 @@ html.sidebar-mini-init .sidebar-nav-item {
   padding-right: 0.5rem;
 }
 
+/* Brand row: the expanded rail puts the logo left and the collapse button
+   right. At 5rem there is no width for both, so they stack vertically and
+   centre. The collapse button must stay reachable — hiding it would trap the
+   user in the collapsed rail with no way back. */
+.sidebar-brand-row {
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+body.sidebar-mini .sidebar-brand-row,
+html.sidebar-mini-init .sidebar-brand-row {
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.125rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+body.sidebar-mini .sidebar-brand-row img,
+html.sidebar-mini-init .sidebar-brand-row img {
+  height: 1.25rem;
+}
+body.sidebar-mini .sidebar-collapse-btn,
+html.sidebar-mini-init .sidebar-collapse-btn {
+  padding: 0.25rem;
+}
+
+/* Collapsed rail: the text label is display:none, so the item needs another
+   accessible name. data-label carries the label at all times and the tooltip
+   below surfaces it on hover/focus, in either toggle state. */
+.sidebar-nav-item {
+  position: relative;
+}
+.sidebar-nav-item::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  box-shadow: var(--shadow-md);
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+
+/* Tooltip belongs to the collapsed rail only — in the full sidebar the label is
+   already visible and a tooltip would just duplicate it. */
+body.sidebar-mini .sidebar-nav-item:hover::after,
+body.sidebar-mini .sidebar-nav-item:focus-visible::after,
+html.sidebar-mini-init .sidebar-nav-item:hover::after,
+html.sidebar-mini-init .sidebar-nav-item:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Keyboard users must be able to see where they are; the mini rail otherwise
+   gives no visible focus ring because the label is hidden. */
+.sidebar-nav-item:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
 /* ==========================================================================
    Offline Live Customizer Drawer
    ========================================================================== */

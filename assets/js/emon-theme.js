@@ -226,6 +226,17 @@
       }
       root.classList.remove('sidebar-mini-init');
 
+      // The collapse control can also be driven from the customizer checkbox,
+      // so its state is synced here rather than only in toggleSidebar().
+      const collapseBtn = document.getElementById('sidebar-collapse-btn');
+      if (collapseBtn) {
+        collapseBtn.setAttribute('aria-expanded', this.config.sidebarMini ? 'false' : 'true');
+        const icon = collapseBtn.querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = this.config.sidebarMini ? 'menu' : 'menu_open';
+        collapseBtn.title = this.config.sidebarMini ? 'Perluas Sidebar' : 'Ciutkan Sidebar';
+        collapseBtn.setAttribute('aria-label', collapseBtn.title);
+      }
+
       // Re-enable smooth interactive transitions after first paint
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {

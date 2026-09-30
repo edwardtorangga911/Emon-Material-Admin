@@ -105,8 +105,6 @@
   }
 
   function renderSidebar(active) {
-    const isMini = (document.body && document.body.classList.contains('sidebar-mini')) || document.documentElement.classList.contains('sidebar-mini-init');
-
     const sections = NAV.map(sec => `
       <div>
         <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">${tr(sec.section)}</p>
@@ -114,8 +112,8 @@
           ${sec.items.map(item => {
             const isActive = item.key === active;
             return `
-            <a href="${item.href}" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive ? 'bg-primary text-on-primary font-semibold text-xs shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs'}" ${isMini ? `title="${tr(item.label)}"` : ''} aria-current="${isActive ? 'page' : 'false'}">
-              <span class="material-symbols-outlined text-[18px] shrink-0">${item.icon}</span>
+            <a href="${item.href}" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${isActive ? 'bg-primary text-on-primary font-semibold text-xs shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs'}" data-label="${tr(item.label)}" ${isActive ? 'aria-current="page"' : ''}>
+              <span class="material-symbols-outlined text-[18px] shrink-0" aria-hidden="true">${item.icon}</span>
               <span class="sidebar-label truncate">${tr(item.label)}</span>
             </a>`;
           }).join('')}
@@ -126,12 +124,12 @@
     return `
       <aside id="emon-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-[45] flex flex-col justify-between shadow-sm border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0" aria-label="Sidebar navigation">
         <div class="flex flex-col">
-          <div class="h-16 flex items-center justify-between px-space-lg bg-surface-container-low border-b border-outline-variant/20">
-            <a href="index.html" class="flex items-center gap-2 overflow-hidden" aria-label="Emon Material Admin Home">
+          <div class="h-16 flex items-center px-space-lg bg-surface-container-low border-b border-outline-variant/20 sidebar-brand-row">
+            <a href="index.html" class="flex items-center gap-2 overflow-hidden shrink-0" aria-label="Emon Material Admin Home">
               <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
             </a>
-            <button id="sidebar-collapse-btn" class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="window.EmonTheme && window.EmonTheme.toggleSidebar()" title="Toggle Sidebar Mini" aria-label="Collapse sidebar">
-              <span class="material-symbols-outlined text-[18px]">menu_open</span>
+            <button id="sidebar-collapse-btn" class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors sidebar-collapse-btn" onclick="window.EmonTheme && window.EmonTheme.toggleSidebar()" title="Toggle Sidebar Mini" aria-label="Collapse sidebar" aria-expanded="true" aria-controls="emon-sidebar">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">menu_open</span>
             </button>
           </div>
 
