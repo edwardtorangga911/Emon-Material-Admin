@@ -28,6 +28,21 @@ jobs:
       - name: Run audit suite
         run: npm test
 
+      # The pages now ship one compiled stylesheet, so the failure mode of a
+      # static pipeline is editing markup and forgetting to rebuild. This fails
+      # the push when a class in the HTML is missing from the compiled output.
+      - name: Verify every class is present in the compiled CSS
+        run: python3 tests/check-class-coverage.py
+
+      - name: Rebuild the stylesheet and confirm it is reproducible
+        run: |
+          npx --yes @tailwindcss/cli@^4.3.3 \
+            -i assets/css/input.css -o /tmp/rebuild.css --minify
+          if ! cmp -s /tmp/rebuild.css assets/css/emon-material.min.css; then
+            echo "::error::emon-material.min.css is stale — run npm run build:css"
+            exit 1
+          fi
+
       - name: Assert the service worker cache was bumped when sources changed
         run: |
           # A stale CACHE_NAME silently pins returning visitors to an old build,

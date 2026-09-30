@@ -72,6 +72,13 @@
    tokens the runtime config uses, so both paths now produce identical values.
    Harmless on runtime pages: identical declarations, later in cascade order. */
 .p-space-md { padding: var(--space-md); }
+.p-space-lg { padding: var(--space-lg); }
+/* The inline tailwind.config also exposed a `margin` spacing key, which the
+   pages use as p-margin / sm:p-margin. Neither stylesheet declared it. */
+.p-margin { padding: 1.5rem; }
+@media (min-width: 40rem) {
+  .sm\:p-margin { padding: 1.5rem; }
+}
 .px-space-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
 .px-space-md { padding-left: var(--space-md); padding-right: var(--space-md); }
 .px-space-lg { padding-left: var(--space-lg); padding-right: var(--space-lg); }
@@ -118,6 +125,14 @@
 .bg-error .text-error,
 .text-error.bg-error {
   color: var(--on-error) !important;
+}
+
+/* Ripple container. Six pages apply .emon-ripple to buttons expecting a
+   material-style press feedback, but no stylesheet ever defined it, so the
+   class did nothing. The effect itself lives in .ripple below. */
+.emon-ripple {
+  position: relative;
+  overflow: hidden;
 }
 
 /* Skip link — visually hidden until keyboard focus */

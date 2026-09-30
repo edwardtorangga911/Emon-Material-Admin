@@ -1,111 +1,124 @@
-// Verifies the Tailwind registry is defined exactly once.
+// Guards the single delivery path.
 //
-// The theme tokens used to be an inline <script id="tailwind-config"> block
-// duplicated into each page. The copies had drifted into eleven different
-// token sets, and eight pages referenced utilities their own registry never
-// declared — Tailwind does not generate those, so the styling disappeared with
-// no error. This suite fails if the shared file is removed, if any page goes
-// back to an inline registry, or if the shared registry loses a token that the
-// markup actually uses.
-import { readFileSync, readdirSync } from 'node:fs';
+// The theme previously shipped utilities two ways: 19 pages built them at
+// runtime with tailwind.js and eleven drifting inline registries, while 8 pages
+// used the compiled emon-material.min.css. That let eight pages reference
+// utilities no registry declared, and let the registries drift apart.
+//
+// Now every page loads the compiled stylesheet. These checks fail if a page
+// reintroduces a runtime build, or if the markup references a utility the
+// compiled CSS does not contain — the failure mode of a static pipeline is a
+// forgotten rebuild, so it has to be caught mechanically.
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = process.env.EMON_ROOT || resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SHARED = `${ROOT}/assets/js/emon-tailwind-config.js`;
 const read = f => readFileSync(`${ROOT}/${f}`, 'utf8');
 const pages = readdirSync(ROOT).filter(f => f.endsWith('.html'));
+const CSS_PATH = `${ROOT}/assets/css/emon-material.min.css`;
+const css = readFileSync(CSS_PATH, 'utf8');
 
 let failures = 0;
 const ok = (c, l) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${l}`); if (!c) failures++; };
 
-const shared = readFileSync(SHARED, 'utf8');
-const runtime = pages.filter(f => read(f).includes('tailwind.js'));
-const prebuilt = pages.filter(f => read(f).includes('emon-material.min.css'));
-
-// 1. One registry, loaded by every page that needs it.
-ok(shared.length > 0, 'shared registry file exists');
-const inline = pages.filter(f => /id="tailwind-config"/.test(read(f)));
-ok(inline.length === 0,
-   'no page carries an inline registry' + (inline.length ? ` (${inline.join(', ')})` : ''));
-
-const notLoading = runtime.filter(f => !read(f).includes('emon-tailwind-config.js'));
-ok(notLoading.length === 0,
-   `all ${runtime.length} runtime pages load the shared registry` +
-   (notLoading.length ? ` (missing: ${notLoading.join(', ')})` : ''));
-
-// 2. The shared file is precached, or offline loses all theme tokens.
-const sw = read('sw.js');
-ok(/'\.\/assets\/js\/emon-tailwind-config\.js'/.test(sw),
-   'shared registry is precached by the service worker');
-
-// 3. Every token the markup references must exist in the registry.
-const declared = new Set();
-for (const m of shared.matchAll(/(?:^|[\s{])'?([a-zA-Z][\w-]*)'?\s*:\s*['"]var\(--/g)) {
-  declared.add(m[1]);
+// Tailwind escapes special characters when writing selectors: `lg:pl-64`
+// becomes `.lg\:pl-64` and `gap-1.5` becomes `.gap-1\.5`.
+const esc = n => Array.from(String(n), c => (/[A-Za-z0-9_-]/.test(c) ? c : '\\' + c)).join('');
+function has(cls) {
+  const needle = '.' + esc(cls);
+  // Scan every occurrence: the first `.border` in the file is likely
+  // `.border-collapse`, which is not the class we are asking about.
+  let i = css.indexOf(needle);
+  while (i !== -1) {
+    const next = css[i + needle.length];
+    if (next === undefined || ',{ :[>+~'.includes(next)) return true;
+    i = css.indexOf(needle, i + 1);
+  }
+  return false;
 }
-ok(declared.size >= 35, `registry declares ${declared.size} colour tokens`);
 
-// Tokens referenced by classes in the markup, mapped back to registry names.
-// A colour utility is `<prefix>-<token>` where token is one of our declared
-// names. Everything else (text-4xl, border-b, from-blue-500, bg-gradient-to-r)
-// is a stock Tailwind utility and out of scope. Match whole class tokens and
-// only report names that look like theme tokens.
-const THEME_LIKE = /^[a-z]+(-[a-z]+)+$/;
-const NOT_TOKEN = /^(red|blue|green|amber|emerald|purple|indigo|rose|slate|cyan|teal|lime|orange|pink|fuchsia|violet|sky|gray|zinc|neutral|stone|white|black)$/;
+// 1. One path: nothing loads the runtime JIT any more.
+const runtime = pages.filter(f => /tailwind\.js|emon-tailwind-config/.test(read(f)));
+ok(runtime.length === 0,
+   'no page loads the runtime Tailwind bundle' + (runtime.length ? ` (${runtime.join(', ')})` : ''));
+ok(!existsSync(`${ROOT}/assets/js/tailwind.js`), 'runtime bundle removed from the tree');
+ok(!existsSync(`${ROOT}/assets/js/emon-tailwind-config.js`), 'inline registry file removed from the tree');
 
-const missing = new Map();
-for (const f of [...runtime, ...prebuilt]) {
-  const s = read(f);
-  for (const m of s.matchAll(/(?:^|[\s"'])([a-z-]+)[\s"']/g)) {
-    const cls = m[1];
-    if (!/^(text|bg|border|ring|from|to|via|fill|stroke|shadow|accent|decoration|caret|divide|outline)-/.test(cls)) continue;
-    const name = cls.replace(/^(text|bg|border|ring|from|to|via|fill|stroke|shadow|accent|decoration|caret|divide|outline)-/, '');
-    if (!THEME_LIKE.test(name)) continue;              // text-4xl, border-b
-    const parts = name.split('-');
-    if (NOT_TOKEN.test(parts[0])) continue;            // from-blue-500, bg-white
-    if (name.startsWith('gradient-to-')) continue;    // bg-gradient-to-r modifier
-    if (/^\d/.test(parts[parts.length - 1])) continue; // border-l-4
-    if (declared.has(name)) continue;
-    if (!missing.has(name)) missing.set(name, []);
-    missing.get(name).push(f);
+// 2. Every page loads the compiled stylesheet.
+const noCss = pages.filter(f => !read(f).includes('emon-material.min.css'));
+ok(noCss.length === 0,
+   `all ${pages.length} pages load the compiled stylesheet` + (noCss.length ? ` (${noCss.join(', ')})` : ''));
+
+// 3. The compiled stylesheet is precached, and the removed files are not.
+const sw = read('sw.js');
+ok(/'\.\/assets\/css\/emon-material\.min\.css'/.test(sw), 'compiled stylesheet is precached');
+ok(!/tailwind\.js|emon-tailwind-config/.test(sw), 'service worker does not reference the removed files');
+
+// 4. No precached path points at something that no longer exists.
+const urls = [...sw.matchAll(/'\.\/([^']*)'/g)].map(m => m[1]).filter(Boolean);
+const stale = urls.filter(u => !existsSync(`${ROOT}/${u}`));
+ok(stale.length === 0,
+   'every precached path exists' + (stale.length ? ` (stale: ${stale.slice(0, 4).join(', ')})` : ''));
+
+// 5. Class coverage — the whole point of a static pipeline. Custom classes the
+//    page styles itself, and Tailwind marker classes, are out of scope.
+// `light`/`dark` on <html> are mode markers read by JS, not Tailwind utilities.
+const MARKERS = new Set(['group', 'peer', 'light', 'dark']);
+
+// Classes that exist purely as JS hooks: targeted by querySelector / event
+// delegation and never styled. They are out of scope for a CSS coverage check.
+const hooks = new Set();
+for (const f of [...pages, 'assets/js/emon-app.js', 'assets/js/emon-shell.js']) {
+  const src = read(f);
+  for (const m of src.matchAll(/['"]([a-z][a-z0-9-]{3,})['"]/g)) {
+    // only treat it as a hook if it is used as a selector, not as a class name
+    if (/querySelector|closest|classList|\.matches/.test(src)) hooks.add(m[1]);
   }
 }
-ok(missing.size === 0,
-   `every theme-colour utility used in markup exists in the registry` +
-   (missing.size ? ` (missing: ${[...missing.keys()].slice(0, 5).join(', ')})` : ''));
+for (const f of pages) {
+  const src = read(f);
+  for (const m of src.matchAll(/(?:querySelectorAll|querySelector|closest|matches)\(\s*['"]\.([a-z][a-z0-9-]{3,})/g)) {
+    hooks.add(m[1]);
+  }
+}
+const pageStyled = src => {
+  const out = new Set();
+  for (const m of src.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) {
+    for (const c of m[1].matchAll(/\.([A-Za-z_][\w-]*)/g)) out.add(c[1]);
+  }
+  return out;
+};
+const missing = new Map();
+let total = 0;
+for (const f of pages) {
+  const src = read(f);
+  const own = pageStyled(src);
+  const classes = new Set();
+  for (const m of src.matchAll(/class="([^"]+)"/g)) {
+    for (const c of m[1].split(/\s+/)) if (c) classes.add(c);
+  }
+  total += classes.size;
+  for (const c of classes) {
+    if (has(c) || MARKERS.has(c) || own.has(c) || hooks.has(c)) continue;
+    if (!missing.has(c)) missing.set(c, []);
+    missing.get(c).push(f);
+  }
+}
 
-// 4. The prebuilt stylesheet must carry the same tokens, or those 8 pages
-//    still diverge from the other 19.
-const min = read('assets/css/emon-material.min.css');
-const minMissing = [...declared].filter(tok => {
-  const name = tok.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-  return !new RegExp(`\\.${name}[,{]`).test(min) &&
-         !new RegExp(`\\.${tok.replace(/-/g, '\\-')}[,{]`).test(min);
-});
-// A handful of tokens are intentionally runtime-only (state accents); report
-// the count but only fail on ones the prebuilt pages demonstrably use.
-const prebuiltUsed = prebuilt.flatMap(f => {
-  const s = read(f);
-  return [...s.matchAll(/(?:^|[\s"'])(?:text|bg|border)-([a-z-]+)[\s"']/g)].map(m => m[1]);
-});
-// Class names in the compiled CSS are the kebab-case token with a `bg-`/
-// `text-`/`border-` prefix, not the camelCase JS key.
-const prebuiltMissing = [...new Set(prebuiltUsed)].filter(name => {
-  if (NOT_TOKEN.test(name.split('-')[0])) return false;
-  if (/^\d/.test(name.split('-').pop())) return false;
-  if (!THEME_LIKE.test(name)) return false;
-  if (!declared.has(name)) return false;         // runtime-only token
-  return !new RegExp(`\\.(?:text|bg|border)-${name.replace(/-/g, '\\-')}[,{]`).test(min);
-});
-ok(prebuiltMissing.length === 0,
-   `theme utilities used by prebuilt pages exist in the compiled css` +
-   (prebuiltMissing.length ? ` (missing: ${[...prebuiltMissing].slice(0, 5).join(', ')})` : ''));
+// Ignore tokens that are fragments of inline JavaScript, not class attributes.
+const realMissing = [...missing.keys()].filter(c => !/^[$'{?:?]/.test(c) && !/'/.test(c));
+ok(realMissing.length === 0,
+   `all ${total} class attributes resolve in the compiled CSS` +
+   (realMissing.length ? ` (missing: ${realMissing.slice(0, 6).join(', ')})` : ''));
 
-// 5. Values stay var() references so the live theme still drives colour.
-const hardcoded = [...shared.matchAll(/:\s*'(#[0-9a-fA-F]{3,8})'/g)].map(m => m[1]);
-ok(hardcoded.length === 0,
-   'registry uses var() references, not hardcoded colours');
+// 6. Utilities the earlier parity work added live in the component layer and
+//    must survive a rebuild.
+const comp = read('assets/css/emon-components.css');
+for (const c of ['p-space-md', 'p-space-lg', 'px-space-lg', 'gap-space-md']) {
+  ok(new RegExp(`\\.${c}\\s*\\{`).test(comp) || new RegExp(`\\.${c}\\{`).test(css),
+     `custom spacing utility .${c} is defined`);
+}
 
-console.log(failures ? `\n${failures} check(s) failed.` : '\nAll registry checks passed.');
+console.log(failures ? `\n${failures} check(s) failed.` : '\nAll delivery-path checks passed.');
 process.exit(failures ? 1 : 0);

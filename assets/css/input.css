@@ -63,6 +63,22 @@
   --color-outline: var(--outline);
   --color-outline-variant: var(--outline-variant);
 
+  /* Tokens the markup uses that were declared only in the runtime registry, so
+     the compiled stylesheet never generated their utilities. */
+  --color-on-secondary-fixed-variant: var(--on-secondary-container);
+  --color-secondary-fixed: var(--secondary-fixed);
+  --color-on-primary-fixed: var(--on-primary-fixed);
+  --color-tertiary-fixed: var(--tertiary-fixed);
+  --color-on-tertiary-fixed: var(--on-tertiary-fixed);
+  --color-warning-on-surface: var(--warning-on-surface);
+  --color-primary-on-surface: var(--primary-on-surface);
+  --color-error-on-surface: var(--error-on-surface);
+  --color-on-warning: var(--on-warning);
+  --color-on-success: var(--on-success);
+  --color-success: var(--success);
+  --color-on-secondary-fixed: var(--on-secondary-fixed);
+  --color-surface-bright: var(--surface-bright);
+
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
