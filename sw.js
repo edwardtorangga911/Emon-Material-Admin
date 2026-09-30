@@ -3,7 +3,9 @@
  * Offline-first Cache-First Strategy
  */
 
-const CACHE_NAME = 'emon-material-admin-v3.5';
+// Bump this on every release. The fetch handler is cache-first, so a stale name
+// means returning visitors keep running the previous build indefinitely.
+const CACHE_NAME = 'emon-material-admin-v3.6';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -25,6 +27,7 @@ const ASSETS_TO_CACHE = [
   './data-import.html',
   './blank.html',
   './lockscreen.html',
+  './forgot-password.html',
   './widgets.html',
   './components.html',
   './settings.html',
@@ -35,11 +38,17 @@ const ASSETS_TO_CACHE = [
   './500.html',
   './manifest.json',
   './assets/css/emon-theme.css',
+  './assets/css/emon-components.css',
   './assets/css/emon-material.min.css',
   './assets/fonts/fonts.css',
   './assets/js/tailwind.js',
+  // Runs in <head> before paint — without it the page flashes the wrong theme.
+  './assets/js/emon-theme-init.js',
   './assets/js/emon-theme.js',
   './assets/js/emon-charts.js',
+  // Injects the sidebar, header, command palette and quick-action modal.
+  // Omitting this left the offline build with no application chrome at all.
+  './assets/js/emon-shell.js',
   './assets/js/emon-app.js',
   './assets/js/emon-anim.js',
   './assets/js/emon-api.js',
