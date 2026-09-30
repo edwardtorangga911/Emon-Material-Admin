@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "../fonts/fonts.css";
 @import "./emon-theme.css";
+@import "./emon-components.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

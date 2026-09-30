@@ -89,225 +89,11 @@
 </head>
 <body class="bg-background font-body text-on-surface antialiased selection:bg-primary selection:text-on-primary">
 
-  <!-- Sidebar Navigation -->
-  <aside id="emon-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-[45] flex flex-col justify-between shadow-sm border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0">
-    <div class="flex flex-col">
-      <!-- Brand Logo Header -->
-      <div class="h-16 flex items-center justify-between px-space-lg bg-surface-container-low border-b border-outline-variant/20">
-        <a href="index.html" class="flex items-center gap-2 overflow-hidden">
-          <img src="./assets/images/emon-logo.svg" alt="Emon Material Admin" class="h-8 w-auto"/>
-        </a>
-        <button id="sidebar-collapse-btn" class="hidden lg:flex p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="window.EmonTheme.toggleSidebar()" title="Toggle Sidebar Mini">
-          <span class="material-symbols-outlined text-[18px]">menu_open</span>
-        </button>
-      </div>
-
-      <!-- Main Navigation Links -->
-      <div class="px-space-md py-space-sm overflow-y-auto space-y-3">
-        <div>
-          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
-          <nav class="flex flex-col gap-1 mt-1">
-            <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary font-semibold text-xs shadow-sm transition-all">
-              <span class="material-symbols-outlined text-[18px]">grid_view</span>
-              <span class="sidebar-label">Executive Hub</span>
-            </a>
-            <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">storefront</span>
-              <span class="sidebar-label">E-Commerce</span>
-            </a>
-            <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">insights</span>
-              <span class="sidebar-label">Analytics &amp; Data</span>
-            </a>
-            <a href="reports.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-              <span class="material-symbols-outlined text-[18px]">summarize</span>
-              <span class="sidebar-label">Laporan</span>
-            </a>
-          </nav>
-        </div>
-
-        <div>
-          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
-          <nav class="flex flex-col gap-1 mt-1">
-            <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">chat</span>
-              <span class="sidebar-label">Chat &amp; Pesan</span>
-            </a>
-            <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-              <span class="sidebar-label">Kalender</span>
-            </a>
-            <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">view_kanban</span>
-              <span class="sidebar-label">Taskboard</span>
-            </a>
-<a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-  <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
-  <span class="sidebar-label">Kasir / POS</span>
-</a>
-          </nav>
-        </div>
-
-        <div>
-          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
-          <nav class="flex flex-col gap-1 mt-1">
-            <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">inventory_2</span>
-              <span class="sidebar-label">Katalog Produk</span>
-            </a>
-            <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
-              <span class="sidebar-label">Pesanan &amp; Sales</span>
-            </a>
-            <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">group</span>
-              <span class="sidebar-label">Pelanggan</span>
-            </a>
-            <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">sell</span>
-              <span class="sidebar-label">Paket Harga</span>
-            </a>
-          </nav>
-        </div>
-
-        <div>
-          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
-          <nav class="flex flex-col gap-1 mt-1">
-            <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">badge</span>
-              <span class="sidebar-label">Profil User</span>
-            </a>
-            <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">timeline</span>
-              <span class="sidebar-label">Timeline Aktivitas</span>
-            </a>
-<a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-  <span class="material-symbols-outlined text-[18px]">notifications</span>
-  <span class="sidebar-label">Notifikasi</span>
-</a>
-<a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-  <span class="material-symbols-outlined text-[18px]">upload_file</span>
-  <span class="sidebar-label">Import Data</span>
-</a>
-            <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">draft</span>
-              <span class="sidebar-label">Blank Page</span>
-            </a>
-            <a href="lockscreen.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">lock</span>
-              <span class="sidebar-label">Lockscreen</span>
-            </a>
-            <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">settings</span>
-              <span class="sidebar-label">Settings</span>
-            </a>
-          </nav>
-        </div>
-
-        <div>
-          <p class="sidebar-section-title px-space-sm py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
-          <nav class="flex flex-col gap-1 mt-1">
-            <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">widgets</span>
-              <span class="sidebar-label">Live Tiles &amp; Widgets</span>
-            </a>
-            <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium text-xs transition-colors">
-              <span class="material-symbols-outlined text-[18px]">category</span>
-              <span class="sidebar-label">Komponen UI</span>
-            </a>
-          </nav>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sidebar Bottom Status -->
-    <div class="p-space-md bg-surface-container-low border-t border-outline-variant/20">
-      <div class="flex items-center justify-between px-space-sm py-2 bg-surface-container rounded-lg">
-        <div class="flex items-center gap-2 overflow-hidden">
-          <span class="h-2.5 w-2.5 rounded-full bg-secondary shrink-0 animate-pulse"></span>
-          <span class="sidebar-label text-xs font-semibold text-on-surface truncate">Emon v3.2 Offline</span>
-        </div>
-        <button onclick="window.EmonTheme.toggleCustomizerDrawer(true)" class="text-outline hover:text-primary transition-colors" title="Kustomisasi Tema">
-          <span class="material-symbols-outlined text-[18px]">palette</span>
-        </button>
-      </div>
-    </div>
-  </aside>
+  <!-- Emon Unified App Shell -->
+  <div id="emon-shell-root" data-app="index"></div>
 
   <!-- Main Wrapper -->
   <div id="emon-main-content" class="lg:pl-64 flex flex-col min-h-screen">
-    
-    <!-- Fixed Top Header -->
-    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-50 flex items-center justify-between px-space-md lg:px-margin">
-      <div class="flex items-center gap-3 max-w-md w-full">
-        <!-- Mobile Hamburger Toggle -->
-        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors" aria-label="Toggle navigation">
-          <span class="material-symbols-outlined text-[22px]">menu</span>
-        </button>
-
-        <!-- Command Palette Trigger Search Box -->
-        <div class="search-trigger relative w-full flex items-center cursor-pointer">
-          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
-          <input class="w-full h-10 pl-10 pr-12 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all cursor-pointer" placeholder="Search modules, ledger, commands... (Ctrl+K)" type="text" readonly/>
-          <span class="absolute right-3 px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono font-semibold text-outline">⌘K</span>
-        </div>
-      </div>
-
-      <!-- Header Actions -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Quick Action Trigger Button -->
-        <button id="btn-quick-action" class="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-primary-fixed text-primary font-semibold text-xs hover:bg-primary hover:text-on-primary transition-all" type="button">
-          <span class="material-symbols-outlined text-[18px]">add_circle</span>
-          <span>Quick Action</span>
-        </button>
-
-        <!-- Dark Mode Toggle Button -->
-        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Toggle Dark/Light Mode">
-          <span class="material-symbols-outlined text-[20px]">contrast</span>
-        </button>
-
-        <!-- Notifications Dropdown Trigger -->
-        <div class="relative">
-          <button id="btn-notifications" class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button" aria-label="Notifications">
-            <span class="material-symbols-outlined text-[20px]">notifications</span>
-            <span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-error ring-2 ring-surface"></span>
-          </button>
-
-          <!-- Notifications Popup Menu -->
-          <div id="dropdown-notifications" class="hidden absolute right-0 mt-2 w-80 bg-surface-container-lowest rounded-xl shadow-xl border border-outline-variant/30 py-2 z-50">
-            <div class="px-4 py-2 border-b border-outline-variant/20 flex items-center justify-between">
-              <span class="font-bold text-sm text-on-surface">Notifikasi</span>
-              <span class="text-xs text-primary font-semibold cursor-pointer">Tandai Dibaca</span>
-            </div>
-            <div class="divide-y divide-outline-variant/10 max-h-64 overflow-y-auto">
-              <div class="p-3 hover:bg-surface-container-low transition-colors flex items-start gap-2.5 cursor-pointer">
-                <span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">check_circle</span>
-                <div>
-                  <p class="text-xs font-semibold text-on-surface">Sinkronisasi Database Sukses</p>
-                  <p class="text-[11px] text-outline">Database lokal offline berhasil disinkronkan.</p>
-                </div>
-              </div>
-              <div class="p-3 hover:bg-surface-container-low transition-colors flex items-start gap-2.5 cursor-pointer">
-                <span class="material-symbols-outlined text-warning text-[20px] shrink-0 mt-0.5">warning</span>
-                <div>
-                  <p class="text-xs font-semibold text-on-surface">Peringatan Utilisasi NVMe</p>
-                  <p class="text-[11px] text-outline">Kapasitas cluster penyimpanan mencapai 64%.</p>
-                </div>
-              </div>
-            </div>
-            <div class="px-4 py-2 border-t border-outline-variant/20 text-center">
-              <a href="notifications.html" class="text-xs font-semibold text-primary hover:underline">Lihat Semua Notifikasi →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- User Profile Avatar Pill -->
-        <a href="settings.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
-          <img src="./assets/images/avatars/user-admin.svg" alt="Admin Avatar" class="w-7 h-7 rounded-full object-cover"/>
-          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
-        </a>
-      </div>
-    </header>
 
     <!-- Main Content Body -->
     <main class="w-full pt-16 flex-1 flex flex-col">
@@ -358,72 +144,66 @@
         <!-- 2. Modular Metro Live Tiles -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
           <!-- Tile 1: Total Revenue -->
-          <div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
+          <div class="kpi-tile relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md emon-card-hover transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-primary"></div>
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-outline">Total Revenue</span>
-              <div class="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-110 emon-press transition-transform">
                 <span class="material-symbols-outlined text-[20px]">payments</span>
               </div>
             </div>
             <div class="mt-space-sm">
-              <div class="font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums">$184,920</div>
+              <div class="emon-count-up font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums" data-target="184920" data-prefix="$" data-format="currency">$0</div>
               <div class="flex items-center gap-1.5 mt-1">
-                <span class="flex items-center text-xs text-secondary font-bold">
+                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-bold">
                   <span class="material-symbols-outlined text-[14px]">trending_up</span>
                   +14.2%
                 </span>
-                <span class="text-xs text-outline">vs bulan lalu</span>
+                <span class="text-xs text-outline">vs 30 hari lalu</span>
               </div>
             </div>
-            <!-- Sparkline indicator -->
-            <div class="mt-space-md pt-1 flex items-end gap-1 h-7">
-              <div class="flex-1 bg-primary-fixed rounded-t-sm h-[35%]"></div>
-              <div class="flex-1 bg-primary-fixed rounded-t-sm h-[50%]"></div>
-              <div class="flex-1 bg-primary-fixed rounded-t-sm h-[40%]"></div>
-              <div class="flex-1 bg-primary-fixed rounded-t-sm h-[65%]"></div>
-              <div class="flex-1 bg-primary-fixed rounded-t-sm h-[55%]"></div>
-              <div class="flex-1 bg-primary-fixed rounded-t-sm h-[80%]"></div>
-              <div class="flex-1 bg-primary rounded-t-sm h-[100%]"></div>
+            <div class="mt-space-md pt-1">
+              <svg id="kpi-spark-revenue" class="w-full h-8 overflow-visible" aria-hidden="true"></svg>
             </div>
+            <div class="kpi-skeleton absolute inset-0 bg-surface-container-lowest rounded-xl z-10" aria-hidden="true"></div>
           </div>
 
           <!-- Tile 2: Subscriptions -->
-          <div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
+          <div class="kpi-tile relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md emon-card-hover transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-secondary"></div>
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-outline">Langganan Aktif</span>
-              <div class="w-9 h-9 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary group-hover:scale-110 emon-press transition-transform">
                 <span class="material-symbols-outlined text-[20px]">groups</span>
               </div>
             </div>
             <div class="mt-space-sm">
-              <div class="font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums">12,480</div>
+              <div class="emon-count-up font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums" data-target="12480" data-format="number">0</div>
               <div class="flex items-center gap-1.5 mt-1">
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-semibold">
                   <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
                   +8.5%
                 </span>
-                <span class="text-xs text-outline">retensi stabil</span>
+                <span class="text-xs text-outline">vs bulan lalu</span>
               </div>
             </div>
-            <div class="mt-space-md pt-1 flex items-center justify-between text-xs text-on-surface-variant">
-              <span>Churn Rate</span>
-              <span class="text-secondary font-bold">0.84% (Sangat Baik)</span>
+            <div class="mt-space-md pt-1">
+              <svg id="kpi-spark-subscribers" class="w-full h-8 overflow-visible" aria-hidden="true"></svg>
             </div>
+            <div class="kpi-skeleton absolute inset-0 bg-surface-container-lowest rounded-xl z-10" aria-hidden="true"></div>
           </div>
 
           <!-- Tile 3: Conversion Rate -->
-          <div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
+          <div class="kpi-tile relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md emon-card-hover transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-warning"></div>
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-outline">Konversi</span>
-              <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950 flex items-center justify-center text-warning group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950 flex items-center justify-center text-warning group-hover:scale-110 emon-press transition-transform">
                 <span class="material-symbols-outlined text-[20px]">ads_click</span>
               </div>
             </div>
             <div class="mt-space-sm">
-              <div class="font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums">4.86%</div>
+              <div class="emon-count-up font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums" data-target="4.86" data-suffix="%" data-decimals="2">0%</div>
               <div class="flex items-center justify-between mt-1 text-xs text-outline">
                 <span>Target: 5.0%</span>
                 <span class="text-on-surface font-semibold">97.2% tercapai</span>
@@ -431,22 +211,23 @@
             </div>
             <div class="mt-space-md pt-1">
               <div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-                <div class="bg-warning h-full rounded-full transition-all duration-500" style="width: 82%;"></div>
+                <div class="bg-warning h-full rounded-full transition-all duration-700 ease-out" style="width: 82%;"></div>
               </div>
             </div>
+            <div class="kpi-skeleton absolute inset-0 bg-surface-container-lowest rounded-xl z-10" aria-hidden="true"></div>
           </div>
 
           <!-- Tile 4: Fulfillment Queue -->
-          <div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
+          <div class="kpi-tile relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md emon-card-hover transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-error"></div>
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-outline">Antrean Pesanan</span>
-              <div class="w-9 h-9 rounded-xl bg-error-container flex items-center justify-center text-error group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-error-container flex items-center justify-center text-error group-hover:scale-110 emon-press transition-transform">
                 <span class="material-symbols-outlined text-[20px]">local_shipping</span>
               </div>
             </div>
             <div class="mt-space-sm">
-              <div class="font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums">42 Pesanan</div>
+              <div class="emon-count-up font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums" data-target="42" data-suffix=" Pesanan">0</div>
               <div class="flex items-center gap-1.5 mt-1">
                 <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-xs font-bold">
                   Prioritas Tinggi
@@ -454,25 +235,23 @@
                 <span class="text-xs text-outline">6 proses</span>
               </div>
             </div>
-            <div class="mt-space-md pt-1 flex items-center justify-between">
-              <a href="orders.html" class="text-xs text-primary font-semibold hover:underline flex items-center gap-1">
-                <span>Buka Ledger</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+            <div class="mt-space-md pt-1">
+              <svg id="kpi-spark-queue" class="w-full h-8 overflow-visible" aria-hidden="true"></svg>
             </div>
+            <div class="kpi-skeleton absolute inset-0 bg-surface-container-lowest rounded-xl z-10" aria-hidden="true"></div>
           </div>
 
           <!-- Tile 5: Customer Satisfaction CSAT -->
-          <div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
+          <div class="kpi-tile relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md emon-card-hover transition-all duration-200 flex flex-col justify-between group border border-outline-variant/20">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-tertiary"></div>
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-outline">Skor Kepuasan</span>
-              <div class="w-9 h-9 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 emon-press transition-transform">
                 <span class="material-symbols-outlined text-[20px]">sentiment_very_satisfied</span>
               </div>
             </div>
             <div class="mt-space-sm">
-              <div class="font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums">98.4%</div>
+              <div class="emon-count-up font-display text-2xl font-bold text-on-surface tracking-tight tabular-nums" data-target="98.4" data-suffix="%" data-decimals="1">0%</div>
               <div class="flex items-center gap-1 mt-1 text-amber-500">
                 <span class="material-symbols-outlined text-[16px]">star</span>
                 <span class="material-symbols-outlined text-[16px]">star</span>
@@ -482,9 +261,10 @@
                 <span class="text-xs text-on-surface font-semibold ml-1">4.92 / 5</span>
               </div>
             </div>
-            <div class="mt-space-md pt-1 flex items-center justify-between text-xs text-on-surface-variant">
-              <span>Dari 3,420 respons</span>
+            <div class="mt-space-md pt-1">
+              <svg id="kpi-spark-csat" class="w-full h-8 overflow-visible" aria-hidden="true"></svg>
             </div>
+            <div class="kpi-skeleton absolute inset-0 bg-surface-container-lowest rounded-xl z-10" aria-hidden="true"></div>
           </div>
         </div>
 
@@ -674,7 +454,7 @@
 
           <!-- Structured Data Grid -->
           <div class="overflow-x-auto w-full">
-            <table class="w-full text-left border-collapse">
+            <table data-grid class="w-full text-left border-collapse">
               <thead>
                 <tr class="bg-surface-container-low text-outline text-xs uppercase font-semibold tracking-wider border-b border-outline-variant/20">
                   <th class="py-3 px-space-lg">ID Pesanan</th>
@@ -841,98 +621,13 @@
       </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="mt-auto py-6 px-margin border-t border-outline-variant/20 bg-surface-container-lowest/50 text-xs text-outline flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="font-semibold text-on-surface">Emon Material Admin</span>
-        <span>&bull;</span>
-        <span>Offline-First Enterprise Dashboard Theme</span>
-      </div>
-      <div>
-        <span>Desain sintetis Microsoft Metro &amp; Google Material 3</span>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Command Palette Modal (Ctrl+K) -->
-  <div id="command-palette-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-start justify-center pt-20 px-4">
-    <div class="w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
-      <div class="p-4 border-b border-outline-variant/20 flex items-center gap-3">
-        <span class="material-symbols-outlined text-outline text-[22px]">search</span>
-        <input class="w-full bg-transparent text-on-surface text-base outline-none placeholder:text-outline" placeholder="Ketik perintah atau cari menu..." type="text"/>
-        <button class="palette-close p-1 rounded-lg text-outline hover:text-on-surface">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-      </div>
-      <div class="p-3 max-h-80 overflow-y-auto flex flex-col gap-1">
-        <a href="index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors text-sm text-on-surface">
-          <span class="material-symbols-outlined text-primary text-[20px]">grid_view</span>
-          <div class="flex flex-col">
-            <span class="font-semibold">Buka Dashboard Executive</span>
-            <span class="text-xs text-outline">Halaman ringkasan eksekutif</span>
-          </div>
-        </a>
-        <a href="analytics.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors text-sm text-on-surface">
-          <span class="material-symbols-outlined text-secondary text-[20px]">insights</span>
-          <div class="flex flex-col">
-            <span class="font-semibold">Telemetry &amp; Analytics</span>
-            <span class="text-xs text-outline">Laporan metrik dan analisis</span>
-          </div>
-        </a>
-        <a href="orders.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors text-sm text-on-surface">
-          <span class="material-symbols-outlined text-warning text-[20px]">receipt_long</span>
-          <div class="flex flex-col">
-            <span class="font-semibold">Manajemen Pesanan</span>
-            <span class="text-xs text-outline">Daftar transaksi dan settlement</span>
-          </div>
-        </a>
-        <a href="components.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors text-sm text-on-surface">
-          <span class="material-symbols-outlined text-tertiary text-[20px]">widgets</span>
-          <div class="flex flex-col">
-            <span class="font-semibold">Katalog Komponen UI</span>
-            <span class="text-xs text-outline">Tombol, form, modal, badge</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Quick Action Modal -->
-  <div id="modal-quick-action" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center p-4">
-    <div class="w-full max-w-md bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
-      <div class="p-5 border-b border-outline-variant/20 flex items-center justify-between bg-surface-container-low">
-        <h3 class="font-display font-bold text-base text-on-surface">Entri Cepat Baru</h3>
-        <button class="modal-close text-outline hover:text-on-surface p-1 rounded-lg">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-      </div>
-      <form class="p-5 flex flex-col gap-4" onsubmit="event.preventDefault(); window.EmonTheme.showToast('Entri baru berhasil disimpan secara lokal!'); document.getElementById('modal-quick-action').classList.add('hidden');">
-        <div>
-          <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Nama Klien / Proyek</label>
-          <input required class="w-full h-10 px-3 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="contoh: PT Global Indo"/>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Tipe Lisensi / Paket</label>
-          <select class="w-full h-10 px-3 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-            <option>Enterprise Dedicated (Z-12)</option>
-            <option>API Pipeline Scale Tier 3</option>
-            <option>Storage Cluster Pro</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-1.5">Nominal Nilai ($)</label>
-          <input required type="number" class="w-full h-10 px-3 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="15000"/>
-        </div>
-        <div class="flex items-center justify-end gap-2 pt-2">
-          <button type="button" class="modal-close px-4 py-2 rounded-xl text-xs font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Batal</button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold shadow-sm hover:bg-primary-hover transition-colors">Simpan Entri</button>
-        </div>
-      </form>
-    </div>
+    
   </div>
 
   <!-- Scripts -->
   <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-i18n.js"></script>
+  <script src="./assets/js/emon-shell.js"></script>
   <script src="./assets/js/emon-charts.js"></script>
   <script src="./assets/js/emon-app.js"></script>
 
@@ -969,6 +664,53 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       renderMainChart('revenue');
+
+      // KPI Sparklines
+      const spark = (sel, data, color) => {
+        const svg = document.querySelector(sel);
+        if (!svg) return;
+        window.EmonCharts.renderSparkline(svg, data, {
+          width: Math.max(svg.clientWidth || 120, 80),
+          height: 32,
+          color,
+          fill: true,
+          strokeWidth: 2
+        });
+      };
+      spark('#kpi-spark-revenue', [92, 110, 102, 124, 118, 140, 158], 'var(--primary)');
+      spark('#kpi-spark-subscribers', [84, 90, 96, 104, 110, 118, 124], 'var(--secondary)');
+      spark('#kpi-spark-queue', [60, 54, 56, 49, 51, 45, 42], 'var(--error)');
+      spark('#kpi-spark-csat', [96.8, 97.2, 96.9, 97.6, 97.4, 98.0, 98.4], 'var(--tertiary)');
+
+      // KPI Count-up
+      document.querySelectorAll('.emon-count-up').forEach(el => {
+        const target = parseFloat(el.dataset.target || '0');
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const fmt = el.dataset.format;
+        const duration = 1100;
+        const start = performance.now();
+        const tick = (t) => {
+          const p = Math.min((t - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = target * eased;
+          let text = fmt === 'currency'
+            ? '$' + val.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+            : val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+          el.textContent = prefix + text + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+
+      // Reveal KPI tiles (fade out skeleton overlays)
+      setTimeout(() => {
+        document.querySelectorAll('.kpi-skeleton').forEach(s => {
+          s.classList.add('live');
+          setTimeout(() => s.remove(), 350);
+        });
+      }, 420);
 
       // Chart Tab Switcher
       const chartTabs = document.querySelectorAll('.chart-tab-btn');

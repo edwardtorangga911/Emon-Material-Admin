@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="./assets/css/emon-material.min.css"/>
 
   <script src="./assets/js/emon-theme.js"></script>
+  <script src="./assets/js/emon-i18n.js"></script>
+  <script src="./assets/js/emon-shell.js"></script>
 
   <style>
     /* ===== Print Styles - 58mm receipt ===== */
@@ -81,186 +83,20 @@
 </head>
 <body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-sans">
 
+  <!-- Emon Unified App Shell -->
+  <div id="emon-shell-root" data-app="pos"></div>
+
   <!-- Mobile Backdrop -->
   <div id="emon-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
 
   <!-- Sidebar -->
-  <aside id="emon-sidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-surface-container-low border-r border-outline-variant/30 z-[45] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col">
-    <div class="h-16 flex items-center justify-between px-4 border-b border-outline-variant/30">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-sm">
-          <span class="material-symbols-outlined text-[20px]">grid_view</span>
-        </div>
-        <div>
-          <span class="font-bold text-sm text-on-surface tracking-tight block">Emon Material</span>
-          <span class="text-[10px] text-outline uppercase font-semibold tracking-wider">Enterprise v1.2</span>
-        </div>
-      </div>
-      <button id="emon-sidebar-close" class="lg:hidden p-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors">
-        <span class="material-symbols-outlined text-[20px]">close</span>
-      </button>
-    </div>
-
-    <div class="px-3 py-3 overflow-y-auto flex-1 space-y-4">
-      <div>
-        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Dashboards</p>
-        <nav class="flex flex-col gap-1 mt-1">
-          <a href="index.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">grid_view</span>
-            <span class="sidebar-label">Executive Hub</span>
-          </a>
-          <a href="ecommerce.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">storefront</span>
-            <span class="sidebar-label">E-Commerce</span>
-          </a>
-          <a href="analytics.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">insights</span>
-            <span class="sidebar-label">Analytics</span>
-          </a>
-          <a href="reports.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">summarize</span>
-            <span class="sidebar-label">Laporan</span>
-          </a>
-        </nav>
-      </div>
-
-      <div>
-        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Applications</p>
-        <nav class="flex flex-col gap-1 mt-1">
-          <a href="pos.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold shadow-sm">
-            <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
-            <span class="sidebar-label">Kasir / POS</span>
-          </a>
-          <a href="chat.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">chat</span>
-            <span class="sidebar-label">Chat &amp; Pesan</span>
-          </a>
-          <a href="calendar.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-            <span class="sidebar-label">Kalender</span>
-          </a>
-          <a href="taskboard.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">view_kanban</span>
-            <span class="sidebar-label">Taskboard</span>
-          </a>
-        </nav>
-      </div>
-
-      <div>
-        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">E-Commerce</p>
-        <nav class="flex flex-col gap-1 mt-1">
-          <a href="products.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">inventory_2</span>
-            <span class="sidebar-label">Katalog Produk</span>
-          </a>
-          <a href="orders.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
-            <span class="sidebar-label">Pesanan &amp; Sales</span>
-          </a>
-          <a href="customers.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">group</span>
-            <span class="sidebar-label">Pelanggan</span>
-          </a>
-          <a href="pricing.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">sell</span>
-            <span class="sidebar-label">Paket Harga</span>
-          </a>
-        </nav>
-      </div>
-
-      <div>
-        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">Halaman &amp; Akun</p>
-        <nav class="flex flex-col gap-1 mt-1">
-          <a href="profile.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">badge</span>
-            <span class="sidebar-label">Profil User</span>
-          </a>
-          <a href="timeline.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">timeline</span>
-            <span class="sidebar-label">Timeline Aktivitas</span>
-          </a>
-<a href="notifications.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-  <span class="material-symbols-outlined text-[18px]">notifications</span>
-  <span class="sidebar-label">Notifikasi</span>
-</a>
-<a href="data-import.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-  <span class="material-symbols-outlined text-[18px]">upload_file</span>
-  <span class="sidebar-label">Import Data</span>
-</a>
-          <a href="blank.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">draft</span>
-            <span class="sidebar-label">Blank Page</span>
-          </a>
-          <a href="settings.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">settings</span>
-            <span class="sidebar-label">Settings</span>
-          </a>
-        </nav>
-      </div>
-
-      <div>
-        <p class="sidebar-section-title px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-outline">UI &amp; Widgets</p>
-        <nav class="flex flex-col gap-1 mt-1">
-          <a href="widgets.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">widgets</span>
-            <span class="sidebar-label">Live Tiles &amp; Widgets</span>
-          </a>
-          <a href="components.html" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-xs font-medium transition-colors">
-            <span class="material-symbols-outlined text-[18px]">category</span>
-            <span class="sidebar-label">Komponen UI</span>
-          </a>
-        </nav>
-      </div>
-    </div>
-  </aside>
+  
 
   <!-- Main Content -->
   <div id="emon-main-content" class="lg:pl-64 flex flex-col flex-1 min-h-screen">
 
     <!-- Header -->
-    <header id="emon-header" class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-50 flex items-center justify-between px-4 lg:px-6 gap-3">
-      <div class="flex items-center gap-3 min-w-0">
-        <button id="emon-sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors shrink-0">
-          <span class="material-symbols-outlined text-[22px]">menu</span>
-        </button>
-        <!-- Page title in header -->
-        <div class="flex items-center gap-2 min-w-0">
-          <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[18px] text-primary">point_of_sale</span>
-          </div>
-          <div class="min-w-0">
-            <p class="text-sm font-bold text-on-surface truncate leading-tight">Kasir / Point of Sale</p>
-            <p class="text-[10px] text-outline truncate leading-tight hidden sm:block">Transaksi penjualan real-time</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- POS Header Controls -->
-      <div class="flex items-center gap-2 shrink-0">
-        <!-- Search produk -->
-        <div class="relative hidden sm:flex items-center">
-          <span class="material-symbols-outlined absolute left-3 text-outline text-[18px] pointer-events-none">search</span>
-          <input id="product-search" type="text" placeholder="Cari produk..." class="h-9 pl-9 pr-3 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 w-44"/>
-        </div>
-        <!-- Kasir selector -->
-        <select id="kasir-select" class="h-9 px-3 rounded-lg bg-surface-container-low border border-outline-variant/40 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30">
-          <option value="edward">Edward T. (Admin)</option>
-          <option value="rina">Rina S. (Kasir)</option>
-          <option value="budi">Budi H. (Kasir)</option>
-        </select>
-        <!-- Theme toggle -->
-        <button onclick="window.EmonTheme.setMode(document.documentElement.classList.contains('dark') ? 'light' : 'dark')" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Toggle Mode">
-          <span class="material-symbols-outlined text-[20px]">contrast</span>
-        </button>
-        <a href="profile.html" class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors">
-          <img src="./assets/images/avatars/user-admin.svg" alt="Avatar" class="w-7 h-7 rounded-full"/>
-          <span class="hidden md:inline font-semibold text-xs text-on-surface">Edward T.</span>
-        </a>
-        <button id="emon-theme-toggle" class="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Customizer">
-          <span class="material-symbols-outlined text-[20px]">palette</span>
-        </button>
-      </div>
-    </header>
+    
 
     <!-- POS Body: two-column layout -->
     <main class="flex-1 mt-16 flex overflow-hidden" style="height: calc(100vh - 64px);">
@@ -365,9 +201,7 @@
       </div>
     </main>
 
-    <footer class="hidden lg:block py-3 px-6 border-t border-outline-variant/30 text-center text-xs text-outline">
-      &copy; 2026 Emon Material Admin. Metro x Material 3 Offline Theme.
-    </footer>
+    
   </div>
 
   <!-- ===================== PAYMENT MODAL ===================== -->

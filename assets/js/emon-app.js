@@ -17,6 +17,8 @@
     initTableSorting();
     initDropdowns();
     initPagination();
+    initEnterpriseGrids();
+    initTooltips();
     initScrollToTop();
     initKeyboardShortcuts();
     initThemeURLSharing();
@@ -259,8 +261,17 @@
 
   // 8. Client-Side Data Export Engine (CSV / JSON via Blob)
   const EmonDataGrid = {
+    downloadBlob(blob, filename) {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+
     exportToCSV(tableSelector = 'table', filename = 'data-export.csv') {
-      const table = document.querySelector(tableSelector);
+      const table = typeof tableSelector === 'string' ? document.querySelector(tableSelector) : tableSelector;
       if (!table) return;
 
       const rows = Array.from(table.querySelectorAll('tr'));
@@ -274,12 +285,7 @@
       }).join('\r\n');
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.setAttribute('download', filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      this.downloadBlob(blob, filename);
 
       if (window.EmonTheme) {
         window.EmonTheme.showToast(`File ${filename} berhasil diekspor (CSV).`);
@@ -287,7 +293,7 @@
     },
 
     exportToJSON(tableSelector = 'table', filename = 'data-export.json') {
-      const table = document.querySelector(tableSelector);
+      const table = typeof tableSelector === 'string' ? document.querySelector(tableSelector) : tableSelector;
       if (!table) return;
 
       const headers = Array.from(table.querySelectorAll('thead th'))
@@ -306,12 +312,7 @@
       });
 
       const blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.setAttribute('download', filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      this.downloadBlob(blob, filename);
 
       if (window.EmonTheme) {
         window.EmonTheme.showToast(`File ${filename} berhasil diekspor (JSON).`);
@@ -463,7 +464,381 @@
 
   window.EmonToast = EmonToast;
 
-  // 12. Scroll-to-Top FAB
+  // 12. Enterprise Data Grid Engine (opt-in via data-grid attribute)
+  function initEnterpriseGrids() {
+    const grids = document.querySelectorAll('table[data-grid]');
+    if (!grids.length) return;
+
+    grids.forEach((table, gIdx) => {
+      const card = table.closest('.overflow-x-auto') || table.closest('.emon-datagrid') || table.parentElement;
+      const container = document.createElement('div');
+      container.className = 'emon-datagrid';
+      container.dataset.density = 'normal';
+      container.dataset.grid = '';
+      card.parentNode.insertBefore(container, card);
+      const scrollBox = card.parentElement;
+      card.remove();
+      container.appendChild(card);
+
+      injectGridCheckboxColumn(table, gIdx);
+      injectBulkBar(container, table);
+      injectGridUtils(container, table);
+      bindGridSearch(container, table);
+    });
+  }
+
+  function injectGridCheckboxColumn(table) {
+    const thead = table.querySelector('thead');
+    const tbody = table.querySelector('tbody');
+    if (!thead || !tbody) return;
+    if (thead.querySelector('th input[type="checkbox"]')) return;
+
+    const selectAll = document.createElement('input');
+    selectAll.type = 'checkbox';
+    selectAll.className = 'grid-check';
+    selectAll.setAttribute('aria-label', 'Pilih semua baris');
+
+    const th = document.createElement('th');
+    th.className = 'py-3 px-4 w-10';
+    th.appendChild(selectAll);
+
+    const firstTh = thead.querySelector('th');
+    if (firstTh) firstTh.parentNode.insertBefore(th, firstTh);
+
+    tbody.querySelectorAll('tr').forEach(() => {});
+    tbody.querySelectorAll('tr').forEach((row) => {
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'grid-check';
+      cb.setAttribute('aria-label', 'Pilih baris');
+
+      const td = document.createElement('td');
+      td.className = 'py-3.5 px-4';
+      td.appendChild(cb);
+      row.classList.add('emon-grid-row');
+      const firstTd = row.querySelector('td');
+      if (firstTd) firstTd.parentNode.insertBefore(td, firstTd);
+      else row.appendChild(td);
+
+      cb.addEventListener('change', () => {
+        row.classList.toggle('row-selected', cb.checked);
+        sync();
+        syncSelectAll();
+      });
+    });
+
+    function visibleRows() {
+      return Array.from(tbody.querySelectorAll('tr')).filter(r => r.style.display !== 'none');
+    }
+
+    function syncSelectAll() {
+      const cbs = Array.from(tbody.querySelectorAll('input.grid-check'));
+      const checked = cbs.filter(cb => cb.checked).length;
+      const visible = visibleRows().length;
+      selectAll.checked = checked > 0 && checked === visible;
+      selectAll.indeterminate = checked > 0 && checked < visible;
+    }
+
+    const grid = table.closest('.emon-datagrid');
+    function sync() {
+      if (grid && grid.__syncBulkBar) grid.__syncBulkBar();
+    }
+
+    selectAll.addEventListener('change', () => {
+      tbody.querySelectorAll('input.grid-check').forEach(cb => {
+        const row = cb.closest('tr');
+        const visible = row && row.style.display !== 'none';
+        cb.checked = selectAll.checked && visible;
+        if (row) row.classList.toggle('row-selected', cb.checked);
+      });
+      sync();
+    });
+  }
+
+  function injectBulkBar(container, table) {
+    const bar = document.createElement('div');
+    bar.className = 'bulk-bar flex items-center justify-between gap-2 px-space-md py-2 bg-primary-fixed border-b border-outline-variant/20 no-print';
+    bar.innerHTML = `
+      <span class="text-xs font-semibold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined text-[16px]">check_circle</span>
+        <span><b class="js-bulk-count">0</b>&nbsp;baris terpilih</span>
+      </span>
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <button type="button" class="js-bulk-csv emon-btn emon-btn-secondary emon-btn-sm">Export CSV</button>
+        <button type="button" class="js-bulk-json emon-btn emon-btn-secondary emon-btn-sm">Export JSON</button>
+        <button type="button" class="js-bulk-clear px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container text-xs font-medium transition-colors">Bersihkan</button>
+      </div>
+    `;
+    const scrollBox = container.querySelector('.overflow-x-auto') || container;
+    scrollBox.parentNode.insertBefore(bar, scrollBox);
+
+    const countEl = bar.querySelector('.js-bulk-count');
+
+    function selectedRows() {
+      return Array.from(table.querySelectorAll('tbody tr')).filter(r => {
+        const cb = r.querySelector('input.grid-check');
+        return cb && cb.checked;
+      });
+    }
+
+    function syncBulkBar() {
+      const n = selectedRows().length;
+      countEl.textContent = n;
+      bar.classList.toggle('active', n > 0);
+    }
+
+    bar.querySelector('.js-bulk-clear').addEventListener('click', () => {
+      table.querySelectorAll('tbody input.grid-check').forEach(cb => {
+        cb.checked = false;
+        cb.closest('tr').classList.remove('row-selected');
+      });
+      syncBulkBar();
+    });
+    bar.querySelector('.js-bulk-csv').addEventListener('click', () => {
+      const rows = selectedRows();
+      exportSelected(table, rows, 'csv');
+    });
+    bar.querySelector('.js-bulk-json').addEventListener('click', () => {
+      const rows = selectedRows();
+      exportSelected(table, rows, 'json');
+    });
+
+    container.__syncBulkBar = syncBulkBar;
+  }
+
+  function exportSelected(table, rows, type) {
+    if (!rows.length) return;
+    const headers = Array.from(table.querySelectorAll('thead th'))
+      .filter(c => !c.querySelector('input') && !c.classList.contains('text-center') && c.textContent.trim() !== 'Aksi')
+      .map(h => h.innerText.replace(/[^a-zA-Z0-9_]/g, '_').toLowerCase().trim());
+
+    const records = rows.map(row => {
+      const cells = Array.from(row.querySelectorAll('td'))
+        .filter(c => !c.querySelector('input') && !c.classList.contains('text-center'));
+      const obj = {};
+      headers.forEach((h, idx) => { if (cells[idx]) obj[h] = cells[idx].innerText.replace(/\n/g, ' ').trim(); });
+      return obj;
+    });
+
+    if (type === 'json') {
+      const blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json' });
+      EmonDataGrid.downloadBlob(blob, 'selected-rows.json');
+    } else {
+      const headerLine = headers.map(h => `"${h}"`).join(',');
+      const lines = records.map(r => headers.map(h => `"${(r[h] || '').replace(/"/g, '""')}"`).join(','));
+      const csv = [headerLine].concat(lines).join('\r\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      EmonDataGrid.downloadBlob(blob, 'selected-rows.csv');
+    }
+    if (window.EmonToast) EmonToast.success(`Berhasil mengekspor ${rows.length} baris terpilih (${type.toUpperCase()}).`);
+  }
+
+  function injectGridUtils(container, table) {
+    const scrollBox = container.querySelector('.overflow-x-auto') || container;
+
+    const utils = document.createElement('div');
+    utils.className = 'grid-utils flex items-center justify-end gap-1.5 px-space-md py-2 border-b border-outline-variant/15 bg-surface-container-low/40 no-print';
+    utils.innerHTML = `
+      <div class="relative">
+        <button type="button" class="js-cols-btn flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[16px]">view_column</span>
+          <span class="hidden sm:inline">Kolom</span>
+          <span class="material-symbols-outlined text-[14px]">expand_more</span>
+        </button>
+        <div class="js-col-menu emon-colmenu hidden absolute right-0 mt-1.5 bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/30 p-2 z-40"></div>
+      </div>
+      <div class="relative">
+        <button type="button" class="js-density-btn flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[16px]">density_small</span>
+          <span class="hidden sm:inline">Kepadatan</span>
+          <span class="material-symbols-outlined text-[14px]">expand_more</span>
+        </button>
+        <div class="js-density-menu hidden absolute right-0 mt-1.5 min-w-[9rem] bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/30 p-1.5 z-40 grid grid-cols-3 gap-1 text-center"></div>
+      </div>
+    `;
+
+    scrollBox.parentNode.insertBefore(utils, scrollBox);
+
+    // --- Column visibility ---
+    const colBtn = utils.querySelector('.js-cols-btn');
+    const colMenu = utils.querySelector('.js-col-menu');
+    const headers = Array.from(table.querySelectorAll('thead th'));
+
+    headers.forEach((th, idx) => {
+      const label = th.textContent.trim();
+      if (th.querySelector('input') || !label || label === 'Aksi') return;
+      const item = document.createElement('label');
+      item.innerHTML = `<input type="checkbox" checked data-col="${idx}"/> <span>${label}</span>`;
+      item.querySelector('input').addEventListener('change', (e) => toggleColumn(table, idx, !e.target.checked));
+      colMenu.appendChild(item);
+    });
+
+    colBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      colMenu.classList.toggle('hidden');
+    });
+
+    // --- Density toggle ---
+    const denBtn = utils.querySelector('.js-density-btn');
+    const denMenu = utils.querySelector('.js-density-menu');
+    const densityLabels = { compact: 'Padat', normal: 'Normal', spacious: 'Luas' };
+    ['compact', 'normal', 'spacious'].forEach(d => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-colors ' + (d === 'normal' ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container');
+      b.textContent = densityLabels[d];
+      b.addEventListener('click', () => {
+        container.dataset.density = d;
+        denMenu.querySelectorAll('button').forEach(x => x.className = 'px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-colors text-on-surface-variant hover:bg-surface-container');
+        b.className = 'px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-colors bg-primary text-on-primary';
+        denMenu.classList.add('hidden');
+        if (window.EmonToast) EmonToast.info(`Kepadatan tabel: ${densityLabels[d]}`);
+      });
+      denMenu.appendChild(b);
+    });
+    denBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      denMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!utils.contains(e.target)) {
+        colMenu.classList.add('hidden');
+        denMenu.classList.add('hidden');
+      }
+    });
+  }
+
+  function toggleColumn(table, colIdx, hidden) {
+    table.querySelectorAll('thead th, tbody td, tbody th').forEach(cell => {
+      if (cell.cellIndex === colIdx) cell.classList.toggle('emon-col-hidden', hidden);
+    });
+  }
+
+  function bindGridSearch(container, table) {
+    const search = document.getElementById('table-search-input') || container.querySelector('input[type="search"]') || null;
+    const scrollBox = container.querySelector('.overflow-x-auto') || container;
+
+    let emptyState = scrollBox.querySelector('.empty-state');
+    if (!emptyState) {
+      emptyState = document.createElement('div');
+      emptyState.className = 'empty-state hidden';
+      emptyState.innerHTML = `
+        <div class="empty-state-icon"><span class="material-symbols-outlined text-[32px]">inbox</span></div>
+        <div>
+          <p class="font-semibold text-on-surface text-sm">Tidak ada data ditemukan</p>
+          <p class="text-xs text-outline mt-0.5">Coba ubah kata kunci pencarian atau filter status.</p>
+        </div>
+      `;
+      scrollBox.appendChild(emptyState);
+    }
+
+    const refresh = () => {
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
+      const visible = rows.filter(r => r.style.display !== 'none').length;
+      const tableEl = scrollBox.querySelector('table');
+      emptyState.classList.toggle('hidden', visible > 0);
+      if (tableEl) tableEl.style.display = visible > 0 ? '' : 'none';
+      if (container.__syncBulkBar) container.__syncBulkBar();
+    };
+
+    if (search) search.addEventListener('input', () => setTimeout(refresh, 10));
+  }
+
+  // 13. Unified Tooltip System (data-tooltip)
+  function initTooltips() {
+    let tip = null;
+
+    document.addEventListener('mouseover', (e) => {
+      const t = e.target.closest('[data-tooltip]');
+      if (!t) { hideTip(); return; }
+      if (tip && tip._owner === t) return;
+      if (!tip) {
+        tip = document.createElement('div');
+        tip.className = 'emon-tooltip';
+        document.body.appendChild(tip);
+      }
+      tip._owner = t;
+      tip.textContent = t.dataset.tooltip;
+      positionTip(t, tip);
+      tip.classList.add('show');
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const t = e.target.closest('[data-tooltip]');
+      if (t && tip && tip._owner === t) hideTip();
+    });
+
+    document.addEventListener('scroll', () => { if (tip && tip._owner) positionTip(tip._owner, tip); }, true);
+    window.addEventListener('resize', () => { if (tip && tip._owner) positionTip(tip._owner, tip); });
+
+    function positionTip(owner, el) {
+      const r = owner.getBoundingClientRect();
+      const gap = 8;
+      el.classList.remove('show');
+      requestAnimationFrame(() => {
+        const tw = el.offsetWidth;
+        const th = el.offsetHeight;
+        let left = r.left + r.width / 2 - tw / 2;
+        left = Math.max(4, Math.min(window.innerWidth - tw - 4, left));
+        const top = r.top - th - gap;
+        el.style.left = left + 'px';
+        el.style.top = (top >= 4 ? top : r.bottom + gap) + 'px';
+        el.classList.add('show');
+      });
+    }
+
+    function hideTip() {
+      if (tip) { tip.classList.remove('show'); tip._owner = null; }
+    }
+  }
+
+  // 14. EmonUI — shared enterprise UI primitives
+  const EmonUI = {
+    confirm({ title = 'Konfirmasi', message = 'Yakin ingin melanjutkan?', confirmText = 'Ya, Lanjutkan', cancelText = 'Batal', danger = false, onConfirm = null, onCancel = null } = {}) {
+      const overlay = document.createElement('div');
+      overlay.className = 'confirm-overlay';
+      overlay.innerHTML = `
+        <div class="confirm-dialog p-5" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+          <div class="flex items-center justify-between mb-3">
+            <h3 id="confirm-title" class="font-display font-bold text-base text-on-surface">${title}</h3>
+            <button class="confirm-close p-1 rounded-lg text-outline hover:bg-surface-container transition-colors" aria-label="Tutup">
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+          </div>
+          <p class="text-sm text-on-surface-variant leading-relaxed mb-5">${message}</p>
+          <div class="flex items-center justify-end gap-2">
+            <button type="button" class="confirm-cancel emon-btn emon-btn-ghost">${cancelText}</button>
+            <button type="button" class="confirm-ok emon-btn ${danger ? 'emon-btn-danger' : 'emon-btn-primary'}">${confirmText}</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+
+      const close = (result) => {
+        overlay.remove();
+        if (result && typeof onConfirm === 'function') onConfirm();
+        if (!result && typeof onCancel === 'function') onCancel();
+      };
+
+      overlay.querySelector('.confirm-ok').addEventListener('click', () => close(true));
+      overlay.querySelector('.confirm-close').addEventListener('click', () => close(false));
+      overlay.querySelector('.confirm-cancel').addEventListener('click', () => close(false));
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) close(false); });
+      document.addEventListener('keydown', function esc(e) {
+        if (e.key === 'Escape') { close(false); document.removeEventListener('keydown', esc); }
+      });
+
+      const ok = overlay.querySelector('.confirm-ok');
+      if (ok) ok.focus();
+    },
+
+    toggleTooltip(owner, active) { /* handled by initTooltips */ }
+  };
+
+  window.EmonUI = EmonUI;
+
+  // 15. Scroll-to-Top FAB
   function initScrollToTop() {
     const btn = document.createElement('button');
     btn.id = 'emon-scroll-top';
