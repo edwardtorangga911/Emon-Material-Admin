@@ -47,6 +47,12 @@
   --warning: #d97706;
   --warning-container: #fef3c7;
   --on-warning: #ffffff;
+
+  /* Success pair. Two pages render text-on-success, but the token existed only
+     as a hardcoded literal inside the Tailwind build input, so the runtime
+     registry could not resolve it and the utility was never generated. */
+  --success: #16a34a;
+  --on-success: #ffffff;
   --on-warning-container: #78350f;
 
   /* Surfaces & Canvas (Light Mode) */

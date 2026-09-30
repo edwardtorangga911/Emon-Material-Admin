@@ -5,7 +5,7 @@
 
 // Bump this on every release. The fetch handler is cache-first, so a stale name
 // means returning visitors keep running the previous build indefinitely.
-const CACHE_NAME = 'emon-material-admin-v3.11';
+const CACHE_NAME = 'emon-material-admin-v3.12';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -84,6 +84,10 @@ const ASSETS_TO_CACHE = [
   './assets/fonts/plus-jakarta-sans-700-35.woff2',
   './assets/fonts/plus-jakarta-sans-700-36.woff2',
   './assets/js/tailwind.js',
+  // The shared Tailwind registry. Loaded by all 19 runtime-built pages; without
+  // it an offline visitor gets unstyled markup, since the theme tokens are
+  // declared here rather than in each page.
+  './assets/js/emon-tailwind-config.js',
   // Runs in <head> before paint — without it the page flashes the wrong theme.
   './assets/js/emon-theme-init.js',
   './assets/js/emon-theme.js',
