@@ -31,6 +31,25 @@ ok(/addEventListener\('emon-lang-changed',\s*rerender\)/.test(shell),
 ok(!/labels are static per load/.test(shell),
    'dead no-op language listener removed');
 
+// The i18n module was reduced to a state machine, so the surface the customizer
+// actually calls must survive the reduction.
+ok(/lang:\s*stored\(\)/.test(i18n), 'i18n exposes the active language');
+ok(/setLang\(lang\)\s*\{[\s\S]*?SUPPORTED\.includes\(lang\)/.test(i18n),
+   'setLang validates the requested language');
+ok(/getItem\(STORAGE_KEY\)/.test(i18n) && /setItem\(STORAGE_KEY, lang\)/.test(i18n),
+   'language choice persists to localStorage');
+
+// The customizer reads .lang to mark the active button and calls setLang.
+const theme = readFileSync(`${ROOT}/assets/js/emon-theme.js`, 'utf8');
+ok(/EmonI18n\.lang === 'id'/.test(theme) && /EmonI18n\.lang === 'en'/.test(theme),
+   'customizer still reads EmonI18n.lang to mark the active language');
+ok(/EmonI18n\.setLang\(btn\.dataset\.lang\)/.test(theme),
+   'customizer still calls EmonI18n.setLang');
+
+// One source of truth: the module must not ship a second label table.
+ok(!/label:\s*\{[^}]*id:/.test(i18n) && !/chat:\s*\{[\s\S]{0,40}Chat/.test(i18n),
+   'i18n does not carry a parallel label table (shell owns the strings)');
+
 // --- 2. The wire is connected, not just declared ---
 ok(/dispatchEvent\(new CustomEvent\('emon-shell-rerendered'\)\)/.test(shell),
    'rerender notifies consumers');
